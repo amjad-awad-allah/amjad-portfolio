@@ -1,14 +1,22 @@
 
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -65,7 +73,7 @@ const Contact = () => {
     }, 1500);
   };
 
-  // Placeholder contact info
+  // Updated placeholder contact info
   const contactInfo = [
     {
       icon: Phone,
@@ -87,6 +95,26 @@ const Contact = () => {
     },
   ];
 
+  // CV Download options
+  const downloadFiles = [
+    {
+      icon: FileText,
+      label: t("contact.downloadCV"),
+      files: [
+        { language: "English", url: "/src/assets/cv/CV_English.pdf" },
+        { language: "Deutsch", url: "/src/assets/cv/CV_German.pdf" }
+      ]
+    },
+    {
+      icon: FileText,
+      label: t("contact.downloadWorkExperience"),
+      files: [
+        { language: "English", url: "/src/assets/cv/WorkExperience_English.pdf" },
+        { language: "Deutsch", url: "/src/assets/cv/WorkExperience_German.pdf" }
+      ]
+    }
+  ];
+
   return (
     <section id="contact" className="py-24">
       <div className="section-container">
@@ -95,103 +123,142 @@ const Contact = () => {
           <p className="paragraph">{t("contact.subtitle")}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Contact Form */}
-          <div className="glass-card p-8 hover-scale transition-all duration-300">
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  {t("contact.name")}
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  {t("contact.email")}
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  className="w-full"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  {t("contact.message")}
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Your message..."
-                  className="w-full min-h-[150px]"
-                />
-              </div>
-              
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full transition-all duration-300 hover:shadow-lg"
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <div className="h-4 w-4 rounded-full border-2 border-current border-r-transparent animate-spin"></div>
-                    Sending...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2">
-                    <Send className="h-4 w-4" />
-                    {t("contact.send")}
-                  </span>
-                )}
-              </Button>
-            </form>
+          <div className="lg:col-span-3">
+            <Card className="overflow-hidden hover-scale transition-all duration-300">
+              <CardHeader>
+                <CardTitle>{t("contact.getInTouch")}</CardTitle>
+                <CardDescription>{t("contact.formInstructions")}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                      {t("contact.name")}
+                    </label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                      {t("contact.email")}
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="john@example.com"
+                      className="w-full"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                      {t("contact.message")}
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Your message..."
+                      className="w-full min-h-[150px]"
+                    />
+                  </div>
+                  
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full transition-all duration-300 hover:shadow-lg"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <div className="h-4 w-4 rounded-full border-2 border-current border-r-transparent animate-spin"></div>
+                        {t("contact.sending")}
+                      </span>
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <Send className="h-4 w-4" />
+                        {t("contact.send")}
+                      </span>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
 
           {/* Contact Information */}
-          <div className="flex flex-col space-y-8">
-            {contactInfo.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card p-8 flex items-start gap-5 hover-scale transition-all duration-300"
-              >
-                <div className="p-3 rounded-full bg-primary/10 text-primary">
-                  <item.icon className="h-6 w-6" />
-                </div>
-                
-                <div>
-                  <h3 className="text-lg font-semibold mb-1">{item.label}</h3>
-                  <p className="text-muted-foreground">{item.value}</p>
-                </div>
-              </a>
-            ))}
-            
-            <div className="glass-card p-8 flex-1 flex flex-col justify-center hover-scale transition-all duration-300">
-              <h3 className="heading-sm mb-4">Let's connect!</h3>
-              <p className="paragraph mb-6">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Feel free to reach out through any of the channels above or by filling out the contact form.
-              </p>
-            </div>
+          <div className="lg:col-span-2 flex flex-col space-y-6">
+            {/* Contact details */}
+            <Card className="overflow-hidden">
+              <CardHeader>
+                <CardTitle>{t("contact.contactInfo")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {contactInfo.map((item, index) => (
+                  <a
+                    key={index}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-start gap-4 p-3 rounded-md hover:bg-secondary/50 transition-colors"
+                  >
+                    <div className="p-2 rounded-full bg-primary/10 text-primary">
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-sm font-semibold">{item.label}</h3>
+                      <p className="text-muted-foreground text-sm">{item.value}</p>
+                    </div>
+                  </a>
+                ))}
+              </CardContent>
+            </Card>
+
+            {/* Download section */}
+            <Card className="overflow-hidden">
+              <CardHeader>
+                <CardTitle>{t("contact.downloadFiles")}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {downloadFiles.map((item, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex items-center gap-2 mb-2">
+                      <item.icon className="h-4 w-4 text-primary" />
+                      <h3 className="text-sm font-semibold">{item.label}</h3>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {item.files.map((file, idx) => (
+                        <Button
+                          key={idx}
+                          variant="outline"
+                          size="sm"
+                          asChild
+                          className="w-full justify-start"
+                        >
+                          <a href={file.url} download>
+                            <Download className="mr-2 h-3 w-3" />
+                            {file.language}
+                          </a>
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
