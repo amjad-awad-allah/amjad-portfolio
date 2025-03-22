@@ -35,6 +35,17 @@ const Contact = () => {
       return;
     }
     
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Error",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -54,24 +65,25 @@ const Contact = () => {
     }, 1500);
   };
 
+  // Placeholder contact info
   const contactInfo = [
     {
       icon: Phone,
       label: t("contact.phone"),
-      value: "+49 163 90 55 276",
-      href: "tel:+491639055276",
+      value: "+49 123 456 789",
+      href: "tel:+49123456789",
     },
     {
       icon: Mail,
       label: t("contact.email"),
-      value: "amjad.awadallah93@gmail.com",
-      href: "mailto:amjad.awadallah93@gmail.com",
+      value: "example@email.com",
+      href: "mailto:example@email.com",
     },
     {
       icon: MapPin,
       label: t("contact.location"),
-      value: "Essen, Germany",
-      href: "https://maps.google.com/?q=Essen,Germany",
+      value: "Berlin, Germany",
+      href: "https://maps.google.com/?q=Berlin,Germany",
     },
   ];
 
@@ -85,7 +97,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="glass-card p-8">
+          <div className="glass-card p-8 hover-scale transition-all duration-300">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -133,7 +145,7 @@ const Contact = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full"
+                className="w-full transition-all duration-300 hover:shadow-lg"
               >
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
@@ -158,7 +170,7 @@ const Contact = () => {
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-card p-8 flex items-start gap-5 hover-scale"
+                className="glass-card p-8 flex items-start gap-5 hover-scale transition-all duration-300"
               >
                 <div className="p-3 rounded-full bg-primary/10 text-primary">
                   <item.icon className="h-6 w-6" />
@@ -171,7 +183,7 @@ const Contact = () => {
               </a>
             ))}
             
-            <div className="glass-card p-8 flex-1 flex flex-col justify-center">
+            <div className="glass-card p-8 flex-1 flex flex-col justify-center hover-scale transition-all duration-300">
               <h3 className="heading-sm mb-4">Let's connect!</h3>
               <p className="paragraph mb-6">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.

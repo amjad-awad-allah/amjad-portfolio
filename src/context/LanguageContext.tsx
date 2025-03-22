@@ -134,6 +134,50 @@ export const translations: Translations = {
     en: "Download",
     de: "Herunterladen",
   },
+  "projects.filterBy": {
+    en: "Filter by",
+    de: "Filtern nach",
+  },
+  "projects.allProjects": {
+    en: "All Projects",
+    de: "Alle Projekte",
+  },
+  "projects.company": {
+    en: "Company",
+    de: "Unternehmen",
+  },
+  "projects.technology": {
+    en: "Technology",
+    de: "Technologie",
+  },
+  "projects.year": {
+    en: "Year",
+    de: "Jahr",
+  },
+  "projects.selectCompany": {
+    en: "Select company",
+    de: "Unternehmen auswählen",
+  },
+  "projects.selectTechnology": {
+    en: "Select technology",
+    de: "Technologie auswählen",
+  },
+  "projects.selectYear": {
+    en: "Select year",
+    de: "Jahr auswählen",
+  },
+  "projects.noResults": {
+    en: "No projects match your filter criteria.",
+    de: "Keine Projekte entsprechen Ihren Filterkriterien.",
+  },
+  "projects.resetFilters": {
+    en: "Reset Filters",
+    de: "Filter zurücksetzen",
+  },
+  "projects.viewDetails": {
+    en: "View Details",
+    de: "Details anzeigen",
+  },
   
   // Contact
   "contact.title": {
@@ -168,6 +212,32 @@ export const translations: Translations = {
     en: "Location",
     de: "Standort",
   },
+  "contact.connect": {
+    en: "Let's connect!",
+    de: "Lass uns verbinden!",
+  },
+  "contact.openTo": {
+    en: "I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.",
+    de: "Ich bin immer offen für die Diskussion neuer Projekte, kreativer Ideen oder Möglichkeiten, Teil Ihrer Vision zu sein.",
+  },
+  "contact.reachOut": {
+    en: "Feel free to reach out through any of the channels above or by filling out the contact form.",
+    de: "Zögere nicht, über einen der oben genannten Kanäle oder über das Kontaktformular mit mir in Verbindung zu treten.",
+  },
+  
+  // Theme
+  "theme.light": {
+    en: "Light",
+    de: "Hell",
+  },
+  "theme.dark": {
+    en: "Dark",
+    de: "Dunkel",
+  },
+  "theme.system": {
+    en: "System",
+    de: "System",
+  },
 };
 
 // Define context type
@@ -186,7 +256,27 @@ const LanguageContext = createContext<LanguageContextType>({
 
 // Create provider component
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(() => {
+    // Check if there's a stored language preference
+    const storedLanguage = localStorage.getItem("language") as Language | null;
+    
+    if (storedLanguage && (storedLanguage === "en" || storedLanguage === "de")) {
+      return storedLanguage;
+    }
+    
+    // Check browser language
+    const browserLanguage = navigator.language.split('-')[0];
+    return browserLanguage === "de" ? "de" : "en";
+  });
+  
+  // Save language preference to localStorage when it changes
+  React.useEffect(() => {
+    localStorage.setItem("language", language);
+    console.log("Language set to:", language);
+    
+    // Update HTML lang attribute
+    document.documentElement.lang = language;
+  }, [language]);
 
   // Translate function
   const t = (key: string): string => {

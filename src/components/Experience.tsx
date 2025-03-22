@@ -2,11 +2,12 @@
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import {
-  ChevronDown,
-  ChevronUp,
   Briefcase,
   Calendar,
-  Clock,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
+  Download,
 } from "lucide-react";
 import {
   Accordion,
@@ -14,6 +15,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 
 const Experience = () => {
   const { t } = useLanguage();
@@ -161,7 +163,7 @@ const Experience = () => {
                 </div>
 
                 <div className="md:col-span-3">
-                  <div className="glass-card overflow-hidden">
+                  <div className="glass-card overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                     <Accordion
                       type="single"
                       collapsible
@@ -182,7 +184,7 @@ const Experience = () => {
                             ))}
                           </ul>
                         </div>
-                        <AccordionTrigger className="px-6 py-3">
+                        <AccordionTrigger className="px-6 py-3 hover:no-underline">
                           <span className="flex items-center gap-2 text-sm font-medium">
                             <span>{t("experience.projects")}</span>
                           </span>
@@ -192,7 +194,7 @@ const Experience = () => {
                             {company.projects.map((project, i) => (
                               <div
                                 key={i}
-                                className="bg-secondary/50 dark:bg-secondary/30 rounded-lg p-4"
+                                className="bg-secondary/50 dark:bg-secondary/30 rounded-lg p-4 hover:bg-secondary/70 dark:hover:bg-secondary/40 transition-colors duration-300"
                               >
                                 <h5 className="font-semibold mb-2">{project.name}</h5>
                                 <p className="text-sm text-muted-foreground mb-3">
@@ -204,10 +206,17 @@ const Experience = () => {
                                   rel="noopener noreferrer"
                                   className="inline-flex items-center text-sm font-medium text-primary hover:underline"
                                 >
-                                  {project.link.includes("play.google.com")
-                                    ? "View on Play Store"
-                                    : "Download APK"}
-                                  <ChevronDown className="ml-1 h-3 w-3" />
+                                  {project.link.includes("play.google.com") ? (
+                                    <>
+                                      <ExternalLink className="mr-1 h-3 w-3" />
+                                      View on Play Store
+                                    </>
+                                  ) : (
+                                    <>
+                                      <Download className="mr-1 h-3 w-3" />
+                                      Download APK
+                                    </>
+                                  )}
                                 </a>
                               </div>
                             ))}
