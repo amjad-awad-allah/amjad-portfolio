@@ -14,6 +14,7 @@ const Hobbies = () => {
       color: "bg-blue-100 dark:bg-blue-900/30",
       hover: "hover:bg-blue-200 dark:hover:bg-blue-800/40",
       border: "border-blue-300 dark:border-blue-700",
+      codeSnippet: "function nextMove(board, depth) {\n  return minimax(board, depth, true);\n}"
     },
     {
       name: t("hobbies.reading"),
@@ -21,6 +22,7 @@ const Hobbies = () => {
       color: "bg-green-100 dark:bg-green-900/30",
       hover: "hover:bg-green-200 dark:hover:bg-green-800/40",
       border: "border-green-300 dark:border-green-700",
+      codeSnippet: "const books = favorites.filter(\n  book => book.rating > 4\n).sort(byAuthor);"
     },
     {
       name: t("hobbies.tabletennis"),
@@ -28,6 +30,7 @@ const Hobbies = () => {
       color: "bg-red-100 dark:bg-red-900/30",
       hover: "hover:bg-red-200 dark:hover:bg-red-800/40",
       border: "border-red-300 dark:border-red-700",
+      codeSnippet: "if(ball.hitEdge()) {\n  return calculateSpin(angle, force);\n}"
     },
   ];
 
@@ -47,8 +50,9 @@ const Hobbies = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ translateY: -8 }}
             >
-              <Card className={`h-full border ${hobby.border} hover-card overflow-hidden`}>
+              <Card className={`h-full border ${hobby.border} hover-card overflow-hidden relative group`}>
                 <CardContent className={`p-6 flex flex-col items-center text-center ${hobby.color} ${hobby.hover} transition-colors duration-300 h-full`}>
                   <motion.div
                     whileHover={{ scale: 1.1, rotate: 5 }}
@@ -57,6 +61,34 @@ const Hobbies = () => {
                     {hobby.icon}
                   </motion.div>
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
+                  
+                  {/* Code snippet that appears on hover */}
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-32 transition-all duration-500 w-full mt-2">
+                    <pre className="text-xs font-mono bg-black/10 dark:bg-white/10 p-2 rounded-md text-left overflow-hidden whitespace-pre-wrap">
+                      {hobby.codeSnippet}
+                    </pre>
+                  </div>
+                  
+                  {/* Matrix-inspired graphic element */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-5 pointer-events-none">
+                    <div className="absolute top-0 left-0 right-0 h-8 overflow-hidden">
+                      {Array.from({ length: 8 }).map((_, i) => (
+                        <div 
+                          key={i} 
+                          className="text-xs font-mono opacity-80"
+                          style={{ 
+                            position: 'absolute', 
+                            top: `${Math.random() * 100}%`, 
+                            left: `${Math.random() * 100}%`,
+                            animation: `fall ${Math.random() * 3 + 2}s linear infinite`,
+                            animationDelay: `${Math.random() * 2}s`
+                          }}
+                        >
+                          {Math.random() > 0.5 ? '1' : '0'}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
