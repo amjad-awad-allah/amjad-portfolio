@@ -60,7 +60,11 @@ const Hobbies = () => {
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
                   
                   {/* Code snippet that appears on hover */}
-              
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-32 transition-all duration-500 w-full mt-2">
+                    <pre className="text-xs font-mono bg-black/10 dark:bg-white/10 p-2 rounded-md text-left overflow-hidden whitespace-pre-wrap">
+                      {hobby.codeSnippet}
+                    </pre>
+                  </div>
                   
                   {/* Matrix-inspired graphic element */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-5 pointer-events-none">
