@@ -14,7 +14,6 @@ const Hobbies = () => {
       color: "bg-blue-100 dark:bg-blue-900/30",
       hover: "hover:bg-blue-200 dark:hover:bg-blue-800/40",
       border: "border-blue-300 dark:border-blue-700",
-      codeSnippet: "function nextMove(board, depth) {\n  return minimax(board, depth, true);\n}"
     },
     {
       name: t("hobbies.reading"),
@@ -22,7 +21,6 @@ const Hobbies = () => {
       color: "bg-green-100 dark:bg-green-900/30",
       hover: "hover:bg-green-200 dark:hover:bg-green-800/40",
       border: "border-green-300 dark:border-green-700",
-      codeSnippet: "const books = favorites.filter(\n  book => book.rating > 4\n).sort(byAuthor);"
     },
     {
       name: t("hobbies.tabletennis"),
@@ -30,7 +28,6 @@ const Hobbies = () => {
       color: "bg-red-100 dark:bg-red-900/30",
       hover: "hover:bg-red-200 dark:hover:bg-red-800/40",
       border: "border-red-300 dark:border-red-700",
-      codeSnippet: "if(ball.hitEdge()) {\n  return calculateSpin(angle, force);\n}"
     },
   ];
 
@@ -63,11 +60,7 @@ const Hobbies = () => {
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
                   
                   {/* Code snippet that appears on hover */}
-                  <div className="overflow-hidden max-h-0 group-hover:max-h-32 transition-all duration-500 w-full mt-2">
-                    <pre className="text-xs font-mono bg-black/10 dark:bg-white/10 p-2 rounded-md text-left overflow-hidden whitespace-pre-wrap">
-                      {hobby.codeSnippet}
-                    </pre>
-                  </div>
+              
                   
                   {/* Matrix-inspired graphic element */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-5 pointer-events-none">
