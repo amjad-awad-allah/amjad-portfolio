@@ -7,6 +7,7 @@ import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
 import LanguageSkills from "@/components/LanguageSkills";
+import Hobbies from "@/components/Hobbies";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
@@ -23,27 +24,27 @@ const Index = () => {
       const startTime = performance.now();
       
       // Add meta tags for SEO and improved sharing
-      document.title = "Amjad Awad-Allah | Software Developer & AI Engineer";
+      document.title = "Amjad Awad-Allah | Software Developer";
       const metaDescription = document.createElement('meta');
       metaDescription.name = 'description';
-      metaDescription.content = 'Professional portfolio of Amjad Awad-Allah, specializing in software development and AI engineering with expertise in Java, Kotlin, Python, and machine learning.';
+      metaDescription.content = 'Professional portfolio of Amjad Awad-Allah, specializing in software development and mobile app development with expertise in Java, Kotlin, and Python.';
       document.head.appendChild(metaDescription);
 
       // Open Graph data for better sharing
       const ogTitle = document.createElement('meta');
       ogTitle.setAttribute('property', 'og:title');
-      ogTitle.content = 'Amjad Awad-Allah | Software Developer & AI Engineer';
+      ogTitle.content = 'Amjad Awad-Allah | Software Developer';
       document.head.appendChild(ogTitle);
 
       const ogDesc = document.createElement('meta');
       ogDesc.setAttribute('property', 'og:description');
-      ogDesc.content = 'Professional portfolio showcasing software development and AI engineering projects.';
+      ogDesc.content = 'Professional portfolio showcasing software development projects.';
       document.head.appendChild(ogDesc);
       
       // Keywords for better SEO
       const metaKeywords = document.createElement('meta');
       metaKeywords.name = 'keywords';
-      metaKeywords.content = 'software developer, AI engineer, machine learning, Android development, Java, Kotlin, Python, React, artificial intelligence';
+      metaKeywords.content = 'software developer, mobile app developer, Android development, Java, Kotlin, Python, React';
       document.head.appendChild(metaKeywords);
       
       return () => {
@@ -71,6 +72,7 @@ const Index = () => {
           <Experience />
           <Projects />
           <LanguageSkills />
+          <Hobbies />
           <Contact />
         </main>
         <Footer />

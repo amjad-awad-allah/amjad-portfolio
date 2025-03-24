@@ -21,8 +21,6 @@ const LanguageToggle = () => {
   const languages = [
     { code: "en", label: "English", flag: "🇬🇧" },
     { code: "de", label: "Deutsch", flag: "🇩🇪" },
-    { code: "ar", label: "العربية", flag: "🇸🇦" },
-    { code: "fr", label: "Français", flag: "🇫🇷" },
   ];
 
   // Find current language details
@@ -49,7 +47,7 @@ const LanguageToggle = () => {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code as "en" | "de" | "ar" | "fr")}
+            onClick={() => setLanguage(lang.code as "en" | "de")}
             className={`flex items-center gap-3 cursor-pointer transition-colors hover:bg-secondary/50 ${
               language === lang.code ? "bg-secondary" : ""
             }`}
