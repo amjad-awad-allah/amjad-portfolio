@@ -1,7 +1,7 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Chess, Book, TableTennis } from "lucide-react";
+import { BookOpen, Gamepad2, Trophy } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Hobbies = () => {
@@ -10,21 +10,21 @@ const Hobbies = () => {
   const hobbies = [
     {
       name: t("hobbies.chess"),
-      icon: <Chess className="h-8 w-8" />,
+      icon: <Gamepad2 className="h-8 w-8" />,
       color: "bg-blue-100 dark:bg-blue-900/30",
       hover: "hover:bg-blue-200 dark:hover:bg-blue-800/40",
       border: "border-blue-300 dark:border-blue-700",
     },
     {
       name: t("hobbies.reading"),
-      icon: <Book className="h-8 w-8" />,
+      icon: <BookOpen className="h-8 w-8" />,
       color: "bg-green-100 dark:bg-green-900/30",
       hover: "hover:bg-green-200 dark:hover:bg-green-800/40",
       border: "border-green-300 dark:border-green-700",
     },
     {
       name: t("hobbies.tabletennis"),
-      icon: <TableTennis className="h-8 w-8" />,
+      icon: <Trophy className="h-8 w-8" />,
       color: "bg-red-100 dark:bg-red-900/30",
       hover: "hover:bg-red-200 dark:hover:bg-red-800/40",
       border: "border-red-300 dark:border-red-700",
