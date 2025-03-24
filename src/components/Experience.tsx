@@ -35,7 +35,7 @@ const Experience = () => {
       name: t("experience.company.nvssoft"),
       position: t("experience.position"),
       period: "2018-2021",
-      logo: "https://via.placeholder.com/150",
+      logo: "https://placehold.co/150",
       responsibilities: [
         "Led the development of enterprise mobile applications",
         "Implemented secure data storage and transmission protocols",
@@ -65,7 +65,7 @@ const Experience = () => {
       name: t("experience.company.protech"),
       position: t("experience.position"),
       period: "2017-2018",
-      logo: "https://via.placeholder.com/150",
+      logo: "https://placehold.co/150",
       responsibilities: [
         "Designed and developed Android applications for router management and security",
         "Created custom network monitoring tools",
@@ -90,7 +90,7 @@ const Experience = () => {
       name: t("experience.company.smartangel"),
       position: t("experience.position"),
       period: "2016-2017",
-      logo: "https://via.placeholder.com/150",
+      logo: "https://placehold.co/150",
       responsibilities: [
         "Developed e-commerce application with real-time tracking",
         "Implemented payment gateway integrations",
@@ -110,7 +110,7 @@ const Experience = () => {
       name: t("experience.company.supertech"),
       position: t("experience.position"),
       period: "2015-2016",
-      logo: "https://via.placeholder.com/150",
+      logo: "https://placehold.co/150",
       responsibilities: [
         "Built multimedia streaming applications",
         "Developed background playback functionality for media apps",

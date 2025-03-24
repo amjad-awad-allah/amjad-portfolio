@@ -12,9 +12,9 @@
           "details": "Optimized database, reducing data retrieval time by 40%. Developed a secure PDF reader with digital signature integration. Integrated modern hardware (ID scanners & fingerprint recognition).",
           "technologies": ["Java", "Android SDK", "SQLite", "Fingerprint API", "PDF Rendering"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": "https://play.google.com/store",
           "githubLink": "https://github.com/example/tarasol",
@@ -27,8 +27,8 @@
           "details": "Implemented fingerprint authentication, reducing data entry errors by 60%.",
           "technologies": ["Java", "Android SDK", "Biometric API", "SQLite", "Encryption"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": "https://play.google.com/store",
           "githubLink": "https://github.com/example/retention",
@@ -41,8 +41,8 @@
           "details": "Built a document management app using C# & Xamarin.",
           "technologies": ["C#", "Xamarin", "Azure Storage", "PDF Processing"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": "https://play.google.com/store",
           "githubLink": "https://github.com/example/arcmate",
@@ -61,8 +61,8 @@
           "details": "Developed web & Android apps for router management.",
           "technologies": ["Java", "REST API", "WebSockets", "Network Protocols"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": null,
           "githubLink": "https://github.com/example/pronet",
@@ -75,8 +75,8 @@
           "details": "Security and monitoring application for guard shifts.",
           "technologies": ["Java", "Firebase", "Real-time Database", "Maps API"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": null,
           "githubLink": "https://github.com/example/proguard",
@@ -95,9 +95,9 @@
           "details": "Built a scalable E-commerce app with real-time order tracking.",
           "technologies": ["Java", "Firebase", "Payment Gateways", "Real-time Database"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": null,
           "githubLink": "https://github.com/example/bobazzar",
@@ -116,8 +116,8 @@
           "details": "YouTube background playback & MP3 conversion.",
           "technologies": ["Java", "ExoPlayer", "Media Codecs", "Background Services"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": null,
           "githubLink": "https://github.com/example/publitools",
@@ -130,8 +130,8 @@
           "details": "Live streaming app for Al Madina FM radio.",
           "technologies": ["Java", "Media Streaming", "Notifications API", "ExoPlayer"],
           "screenshots": [
-            "https://via.placeholder.com/400x800",
-            "https://via.placeholder.com/400x800"
+            "https://placehold.co/400x800",
+            "https://placehold.co/400x800"
           ],
           "liveLink": "https://play.google.com/store",
           "githubLink": "https://github.com/example/almadina",
