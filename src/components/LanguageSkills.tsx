@@ -76,26 +76,40 @@ const LanguageSkills = () => {
   };
 
   return (
-    <section id="languages" className="py-16 bg-background">
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <h2 className="heading-lg mb-4">{t("languages.title")}</h2>
+    <section id="languages" className="py-16 bg-background relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full filter blur-3xl"></div>
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-secondary/10 rounded-full filter blur-3xl"></div>
+      
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="heading-lg mb-4 relative inline-block">
+            {t("languages.title")}
+            <span className="absolute -bottom-2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-primary/40 to-primary/10 transform -translate-x-1/2 rounded-full"></span>
+          </h2>
           <p className="paragraph max-w-2xl mx-auto">
             {t("languages.subtitle")}
           </p>
-        </div>
+        </motion.div>
 
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          {languages.map((lang, index) => (
+          {languages.map((lang) => (
             <motion.div
               key={lang.name}
               variants={itemVariants}
-              className="glass-card p-6 hover:shadow-lg transition-all duration-300"
+              className="glass-card p-6 hover:shadow-lg transition-all duration-300 border border-secondary/50"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
@@ -117,14 +131,8 @@ const LanguageSkills = () => {
                 </div>
                 <Progress 
                   value={animationComplete ? lang.proficiency : 0} 
-                  className="h-3 rounded-xl overflow-hidden transition-all duration-1000 ease-out"
+                  className={`h-3 rounded-xl overflow-hidden transition-all duration-1000 ease-out ${lang.color}`}
                 />
-                <style jsx>{`
-                  .Progress::-webkit-progress-value {
-                    background-color: ${lang.color};
-                    transition: width 1s ease-out;
-                  }
-                `}</style>
               </div>
             </motion.div>
           ))}

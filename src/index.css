@@ -1,5 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -80,6 +81,11 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Code-inspired font for tech sections */
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
 }
 
 @layer components {
@@ -121,6 +127,23 @@
   
   .hover-scale {
     @apply transition-transform duration-300 hover:scale-[1.03];
+  }
+  
+  /* Tech inspired components */
+  .tech-border {
+    @apply border border-dashed border-primary/20 rounded-lg p-4;
+  }
+  
+  .code-block {
+    @apply font-mono bg-secondary/70 dark:bg-secondary/30 p-4 rounded-lg text-sm overflow-x-auto;
+  }
+  
+  /* Grid pattern background */
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 }
 
@@ -205,4 +228,49 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Tech-inspired typing animation */
+.typing-effect {
+  overflow: hidden;
+  border-right: 2px solid;
+  white-space: nowrap;
+  margin: 0 auto;
+  letter-spacing: 0.15em;
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: currentColor }
+}
+
+/* Futuristic glow effects */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 255, 0.2);
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: -1;
+}
+
+.glow-effect:hover::after {
+  opacity: 1;
 }
