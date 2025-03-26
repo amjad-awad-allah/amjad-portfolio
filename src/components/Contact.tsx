@@ -14,10 +14,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Contact = () => {
   const { t, language } = useLanguage();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -116,23 +118,23 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24">
+    <section id="contact" className="py-16 md:py-24">
       <div className="section-container">
-        <div className="max-w-3xl mx-auto mb-16 text-center">
+        <div className="max-w-3xl mx-auto mb-10 md:mb-16 text-center">
           <h2 className="heading-lg mb-4">{t("contact.title")}</h2>
           <p className="paragraph">{t("contact.subtitle")}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-3">
             <Card className="overflow-hidden hover-scale transition-all duration-300 border-primary/10">
-              <CardHeader className="bg-primary/5 dark:bg-primary/10">
-                <CardTitle>{t("contact.getInTouch")}</CardTitle>
+              <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
+                <CardTitle className="text-xl">{t("contact.getInTouch")}</CardTitle>
                 <CardDescription>{t("contact.formInstructions")}</CardDescription>
               </CardHeader>
-              <CardContent className="p-6">
-                <form onSubmit={handleSubmit} className="space-y-6">
+              <CardContent className="p-4 sm:p-6">
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       {t("contact.name")}
@@ -172,14 +174,14 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Your message..."
-                      className="w-full min-h-[150px]"
+                      className="w-full min-h-[120px] sm:min-h-[150px]"
                     />
                   </div>
                   
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    size="lg"
+                    size={isMobile ? "default" : "lg"}
                     className="w-full transition-all duration-300 hover:shadow-lg font-medium"
                   >
                     {isSubmitting ? (
@@ -190,7 +192,7 @@ const Contact = () => {
                     ) : (
                       <span className="flex items-center gap-2">
                         <Send className="h-5 w-5" />
-                        Contact Me
+                        {t("contact.submit")}
                       </span>
                     )}
                   </Button>
@@ -203,20 +205,20 @@ const Contact = () => {
           <div className="lg:col-span-2 flex flex-col space-y-6">
             {/* Contact details */}
             <Card className="overflow-hidden border-primary/10">
-              <CardHeader className="bg-primary/5 dark:bg-primary/10">
-                <CardTitle>{t("contact.contactInfo")}</CardTitle>
+              <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
+                <CardTitle className="text-xl">{t("contact.contactInfo")}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 p-6">
+              <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6">
                 {contactInfo.map((item, index) => (
                   <a
                     key={index}
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-start gap-4 p-3 rounded-md hover:bg-secondary/50 transition-colors"
+                    className="flex items-start gap-3 sm:gap-4 p-2 sm:p-3 rounded-md hover:bg-secondary/50 transition-colors mobile-touch-target"
                   >
-                    <div className="p-2 rounded-full bg-primary/10 text-primary">
-                      <item.icon className="h-5 w-5" />
+                    <div className="p-2 rounded-full bg-primary/10 text-primary shrink-0">
+                      <item.icon className="h-4 w-4 sm:h-5 sm:w-5" />
                     </div>
                     
                     <div>
@@ -230,10 +232,10 @@ const Contact = () => {
 
             {/* Download section */}
             <Card className="overflow-hidden border-primary/10 transition-all duration-300 download-files-section">
-              <CardHeader className="bg-primary/5 dark:bg-primary/10">
-                <CardTitle>{t("contact.downloadFiles")}</CardTitle>
+              <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
+                <CardTitle className="text-xl">{t("contact.downloadFiles")}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4 p-6">
+              <CardContent className="space-y-4 p-4 sm:p-6">
                 {downloadFiles.map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex items-center gap-2 mb-2">
@@ -247,7 +249,7 @@ const Contact = () => {
                           variant="outline"
                           size="sm"
                           asChild
-                          className="w-full justify-start"
+                          className="w-full justify-start mobile-touch-target"
                         >
                           <a href={file.url} download>
                             <Download className="mr-2 h-3 w-3" />

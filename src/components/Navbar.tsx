@@ -7,6 +7,7 @@ import { Menu, X, ChevronUp, Code, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
   const { t } = useLanguage();
@@ -15,6 +16,7 @@ const Navbar = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const prevScrollY = useRef(0);
+  const isMobile = useIsMobile();
 
   const navItems = [
     { name: t("nav.home"), href: "#home" },
@@ -127,7 +129,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation Toggle */}
+          {/* Mobile Navigation Toggle - Improved for better mobile usability */}
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <LanguageToggle />
@@ -136,45 +138,73 @@ const Navbar = () => {
               size="sm"
               onClick={toggleMenu}
               aria-label="Toggle menu"
-              className="ml-1"
+              className="ml-1 p-1 h-9 w-9 rounded-md"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? 
+                <X className="h-5 w-5 text-primary" /> : 
+                <Menu className="h-5 w-5 text-primary" />
+              }
             </Button>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
+        {/* Mobile Navigation Menu - Improved design and transitions */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
               className="fixed inset-0 z-40 bg-background/95 dark:bg-gray-900/95 backdrop-blur-sm md:hidden"
               style={{ top: "61px" }}
             >
-              <div className="flex flex-col items-center justify-center h-full">
-                {navItems.map((item) => (
+              <motion.div 
+                className="flex flex-col items-center py-4 h-[calc(100vh-61px)] overflow-auto"
+                initial="closed"
+                animate="open"
+                variants={{
+                  open: {
+                    transition: {
+                      staggerChildren: 0.05,
+                    },
+                  },
+                  closed: {},
+                }}
+              >
+                {navItems.map((item, index) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "text-lg font-medium py-4 transition-colors flex items-center gap-2",
+                      "w-full text-center text-lg font-medium py-4 px-6 transition-colors",
                       activeSection === item.href.substring(1)
-                        ? "text-primary"
-                        : "hover:text-primary"
+                        ? "text-primary bg-primary/5"
+                        : "hover:text-primary hover:bg-primary/5"
                     )}
                     onClick={closeMenu}
-                    whileHover={{ scale: 1.05, x: 5 }}
+                    variants={{
+                      open: { 
+                        opacity: 1, 
+                        y: 0, 
+                        transition: { duration: 0.2 } 
+                      },
+                      closed: { 
+                        opacity: 0, 
+                        y: 10, 
+                        transition: { duration: 0.1 } 
+                      },
+                    }}
                   >
-                    {activeSection === item.href.substring(1) && (
-                      <Terminal className="h-4 w-4" />
-                    )}
-                    {item.name}
+                    <div className="flex items-center justify-center gap-2">
+                      {activeSection === item.href.substring(1) && (
+                        <Terminal className="h-4 w-4" />
+                      )}
+                      {item.name}
+                    </div>
                   </motion.a>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

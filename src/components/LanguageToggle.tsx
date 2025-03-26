@@ -9,9 +9,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const LanguageToggle = () => {
   const { language, setLanguage } = useLanguage();
+  const isMobile = useIsMobile();
 
   // Debug logging
   useEffect(() => {
@@ -32,18 +34,24 @@ const LanguageToggle = () => {
         <Button
           variant="ghost"
           size="sm"
-          className="flex items-center gap-2 text-sm font-medium transition-colors hover:bg-secondary/30"
+          className={`flex items-center gap-1 sm:gap-2 text-sm font-medium transition-colors hover:bg-secondary/30 ${isMobile ? 'px-1.5 h-9 w-9 rounded-md' : ''}`}
         >
-          <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline-block">
-            {currentLang.label}
-          </span>
-          <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-xs">
-            {currentLang.flag}
-          </span>
+          {isMobile ? (
+            <Globe className="h-5 w-5 text-primary" />
+          ) : (
+            <>
+              <Globe className="h-4 w-4" />
+              <span className="hidden sm:inline-block">
+                {currentLang.label}
+              </span>
+              <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-xs">
+                {currentLang.flag}
+              </span>
+            </>
+          )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48 animate-scale-in">
+      <DropdownMenuContent align={isMobile ? "center" : "end"} className="w-36 sm:w-48 animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}

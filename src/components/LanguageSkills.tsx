@@ -4,10 +4,12 @@ import { Progress } from "@/components/ui/progress";
 import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const LanguageSkills = () => {
   const { t, language } = useLanguage();
   const [animationComplete, setAnimationComplete] = useState(false);
+  const isMobile = useIsMobile();
 
   // Reset animation state when language changes
   useEffect(() => {
@@ -99,7 +101,7 @@ const LanguageSkills = () => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -109,14 +111,14 @@ const LanguageSkills = () => {
             <motion.div
               key={lang.name}
               variants={itemVariants}
-              className="glass-card p-6 hover:shadow-lg transition-all duration-300 border border-secondary/50"
+              className="glass-card p-4 sm:p-6 hover:shadow-lg transition-all duration-300 border border-secondary/50"
             >
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{lang.flag}</span>
-                  <h3 className="text-xl font-semibold">{lang.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-semibold">{lang.name}</h3>
                 </div>
-                <Badge variant="secondary" className="text-sm font-medium">
+                <Badge variant="secondary" className="text-xs sm:text-sm font-medium">
                   {lang.level}
                 </Badge>
               </div>
@@ -131,7 +133,7 @@ const LanguageSkills = () => {
                 </div>
                 <Progress 
                   value={animationComplete ? lang.proficiency : 0} 
-                  className={`h-3 rounded-xl overflow-hidden transition-all duration-1000 ease-out ${lang.color}`}
+                  className={`h-2 sm:h-3 rounded-xl overflow-hidden transition-all duration-1000 ease-out ${lang.color}`}
                 />
               </div>
             </motion.div>

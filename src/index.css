@@ -105,27 +105,27 @@
   }
   
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 py-24;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24;
   }
   
   .heading-xl {
-    @apply text-4xl sm:text-5xl font-display font-bold tracking-tight;
+    @apply text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight;
   }
   
   .heading-lg {
-    @apply text-3xl sm:text-4xl font-display font-bold tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl font-display font-bold tracking-tight;
   }
   
   .heading-md {
-    @apply text-2xl sm:text-3xl font-display font-semibold;
+    @apply text-xl sm:text-2xl md:text-3xl font-display font-semibold;
   }
   
   .heading-sm {
-    @apply text-xl sm:text-2xl font-semibold;
+    @apply text-lg sm:text-xl md:text-2xl font-semibold;
   }
   
   .paragraph {
-    @apply text-base sm:text-lg text-muted-foreground leading-relaxed;
+    @apply text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed;
   }
   
   .tag {
@@ -182,38 +182,6 @@
   .ide-line-numbers {
     @apply text-gray-500 pr-4 text-right select-none;
   }
-  
-  /* Code animation for the matrix effect */
-  @keyframes fall {
-    0% {
-      transform: translateY(-20px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(100px);
-      opacity: 0;
-    }
-  }
-  
-  /* Typing animation */
-  @keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
-  }
-  
-  @keyframes blink {
-    50% { border-color: transparent }
-  }
-  
-  .typing-animation {
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 2px solid;
-    width: 0;
-    animation: 
-      typing 2s steps(40, end) forwards,
-      blink 1s step-end infinite;
-  }
 }
 
 /* Timeline styles */
@@ -223,7 +191,7 @@
 
 .timeline-container::after {
   content: '';
-  @apply absolute top-0 bottom-0 left-7 md:left-1/2 w-0.5 bg-primary/20 dark:bg-gray-800;
+  @apply absolute top-0 bottom-0 left-4 sm:left-7 md:left-1/2 w-0.5 bg-primary/20 dark:bg-gray-800;
 }
 
 .timeline-item {
@@ -231,7 +199,7 @@
 }
 
 .timeline-dot {
-  @apply absolute z-10 left-7 md:left-1/2 w-3.5 h-3.5 rounded-full bg-primary transform -translate-x-1/2;
+  @apply absolute z-10 left-4 sm:left-7 md:left-1/2 w-3 sm:w-3.5 h-3 sm:h-3.5 rounded-full bg-primary transform -translate-x-1/2;
 }
 
 /* Profile image animation */
@@ -435,6 +403,36 @@
 
 .highlight-section {
   animation: highlight-pulse 2s ease-in-out;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .section-container {
+    @apply py-12;
+  }
+  
+  .glass-card {
+    @apply p-4;
+  }
+  
+  /* Adjust contact cards for mobile */
+  .contact-card {
+    @apply p-3;
+  }
+  
+  /* Improve spacing on mobile */
+  .mobile-py-2 {
+    @apply py-2;
+  }
+  
+  .mobile-px-3 {
+    @apply px-3;
+  }
+  
+  /* Better mobile touch targets */
+  .mobile-touch-target {
+    @apply min-h-10 min-w-10;
+  }
 }
 
 /* Removed contact animations */
