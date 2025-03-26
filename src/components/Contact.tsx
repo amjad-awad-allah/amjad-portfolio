@@ -126,12 +126,12 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-3">
-            <Card className="overflow-hidden hover-scale transition-all duration-300">
-              <CardHeader>
+            <Card className="overflow-hidden hover-scale transition-all duration-300 border-primary/10">
+              <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.getInTouch")}</CardTitle>
                 <CardDescription>{t("contact.formInstructions")}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -179,7 +179,8 @@ const Contact = () => {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full transition-all duration-300 hover:shadow-lg"
+                    size="lg"
+                    className="w-full transition-all duration-300 hover:shadow-lg font-medium"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
@@ -188,8 +189,8 @@ const Contact = () => {
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
-                        <Send className="h-4 w-4" />
-                        {t("contact.send")}
+                        <Send className="h-5 w-5" />
+                        Contact Me
                       </span>
                     )}
                   </Button>
@@ -201,11 +202,11 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="lg:col-span-2 flex flex-col space-y-6">
             {/* Contact details */}
-            <Card className="overflow-hidden">
-              <CardHeader>
+            <Card className="overflow-hidden border-primary/10">
+              <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.contactInfo")}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-6">
                 {contactInfo.map((item, index) => (
                   <a
                     key={index}
@@ -228,11 +229,11 @@ const Contact = () => {
             </Card>
 
             {/* Download section */}
-            <Card className="overflow-hidden">
-              <CardHeader>
+            <Card className="overflow-hidden border-primary/10">
+              <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.downloadFiles")}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-6">
                 {downloadFiles.map((item, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex items-center gap-2 mb-2">

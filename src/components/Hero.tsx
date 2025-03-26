@@ -1,6 +1,6 @@
 
 import { useLanguage } from "@/context/LanguageContext";
-import { ChevronDown, Code, Terminal, Cpu } from "lucide-react";
+import { ChevronDown, Code, Terminal, Cpu, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
@@ -52,6 +52,26 @@ const Hero = () => {
         </div>
         <div className="absolute top-3/4 left-1/4 text-primary/5 text-4xl">
           <Cpu className="h-16 w-16 animate-pulse" />
+        </div>
+        
+        {/* Code elements animation */}
+        <div className="absolute inset-0 overflow-hidden opacity-5 pointer-events-none">
+          <div className="code-matrix h-full w-full">
+            {Array.from({ length: 20 }).map((_, i) => (
+              <div 
+                key={i}
+                className="absolute text-primary font-mono text-sm"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animation: `matrix-fall ${Math.random() * 10 + 15}s linear infinite`,
+                  animationDelay: `${Math.random() * 5}s`
+                }}
+              >
+                {Math.random() > 0.5 ? '1' : '0'}
+              </div>
+            ))}
+          </div>
         </div>
         
         {/* Floating technical terms */}
@@ -115,8 +135,16 @@ const Hero = () => {
                   <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                 </a>
               </Button>
+              
               <Button asChild variant="outline" size="lg" className="rounded-full hover:bg-primary/5">
                 <a href="#projects">{t("nav.projects")}</a>
+              </Button>
+              
+              <Button asChild variant="secondary" size="lg" className="rounded-full group hover:bg-secondary/80 transition-all">
+                <a href="/src/assets/cv/CV_English.pdf" download className="flex items-center">
+                  <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                  Download CV
+                </a>
               </Button>
             </motion.div>
           </div>
@@ -150,6 +178,13 @@ const Hero = () => {
                 <span className="flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-purple-500"></span> Full Stack Developer
                 </span>
+              </div>
+              
+              {/* Code animation overlay */}
+              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-primary/30 to-secondary/30"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-primary/10 to-transparent"></div>
+                <div className="absolute inset-0 blueprint-grid opacity-20"></div>
               </div>
             </div>
           </motion.div>

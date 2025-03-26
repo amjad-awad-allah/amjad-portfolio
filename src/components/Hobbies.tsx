@@ -14,6 +14,7 @@ const Hobbies = () => {
       color: "bg-blue-100 dark:bg-blue-900/30",
       hover: "hover:bg-blue-200 dark:hover:bg-blue-800/40",
       border: "border-blue-300 dark:border-blue-700",
+      codeSnippet: `function makeMove(from, to) {\n  // Chess algorithm\n  if (isValidMove(from, to)) {\n    movePiece(from, to);\n    return true;\n  }\n  return false;\n}`,
     },
     {
       name: t("hobbies.reading"),
@@ -21,6 +22,7 @@ const Hobbies = () => {
       color: "bg-green-100 dark:bg-green-900/30",
       hover: "hover:bg-green-200 dark:hover:bg-green-800/40",
       border: "border-green-300 dark:border-green-700",
+      codeSnippet: `class Book {\n  constructor(title, author) {\n    this.title = title;\n    this.author = author;\n    this.currentPage = 0;\n  }\n  readPage() {\n    this.currentPage++;\n  }\n}`,
     },
     {
       name: t("hobbies.tabletennis"),
@@ -28,6 +30,7 @@ const Hobbies = () => {
       color: "bg-red-100 dark:bg-red-900/30",
       hover: "hover:bg-red-200 dark:hover:bg-red-800/40",
       border: "border-red-300 dark:border-red-700",
+      codeSnippet: `const calculateScore = (player1, player2) => {\n  if (player1 >= 11 && player1 - player2 >= 2) {\n    return "Player 1 wins!";\n  } else if (player2 >= 11 && player2 - player1 >= 2) {\n    return "Player 2 wins!";\n  }\n  return "Game continues...";\n};`,
     },
   ];
 
@@ -37,6 +40,9 @@ const Hobbies = () => {
         <div className="text-center mb-12">
           <h2 className="heading-lg mb-4">{t("hobbies.title")}</h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+          <p className="paragraph max-w-2xl mx-auto">
+            When I'm not coding, I enjoy these activities that help me maintain a healthy work-life balance.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -60,16 +66,22 @@ const Hobbies = () => {
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
                   
                   {/* Code snippet that appears on hover */}
-                  <div className="overflow-hidden max-h-0 group-hover:max-h-32 transition-all duration-500 w-full mt-2">
+                  <div className="overflow-hidden max-h-0 group-hover:max-h-64 transition-all duration-500 w-full mt-2">
                     <pre className="text-xs font-mono bg-black/10 dark:bg-white/10 p-2 rounded-md text-left overflow-hidden whitespace-pre-wrap">
-                      {hobby.codeSnippet}
+                      <code className="syntax-highlight">
+                        {hobby.codeSnippet.split('\n').map((line, i) => (
+                          <div key={i} className="line">
+                            {line}
+                          </div>
+                        ))}
+                      </code>
                     </pre>
                   </div>
                   
                   {/* Matrix-inspired graphic element */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-5 pointer-events-none">
-                    <div className="absolute top-0 left-0 right-0 h-8 overflow-hidden">
-                      {Array.from({ length: 8 }).map((_, i) => (
+                    <div className="absolute top-0 left-0 right-0 h-full overflow-hidden">
+                      {Array.from({ length: 20 }).map((_, i) => (
                         <div 
                           key={i} 
                           className="text-xs font-mono opacity-80"
@@ -77,7 +89,7 @@ const Hobbies = () => {
                             position: 'absolute', 
                             top: `${Math.random() * 100}%`, 
                             left: `${Math.random() * 100}%`,
-                            animation: `fall ${Math.random() * 3 + 2}s linear infinite`,
+                            animation: `matrix-fall ${Math.random() * 3 + 2}s linear infinite`,
                             animationDelay: `${Math.random() * 2}s`
                           }}
                         >

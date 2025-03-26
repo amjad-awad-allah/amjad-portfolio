@@ -142,27 +142,36 @@ const Experience = () => {
           </p>
         </div>
 
-        <div className="timeline-container">
+        <div className="relative">
+          {/* Fixed mobile timeline issue - Use a relative container and adjust the line positioning */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 transform -translate-x-1/2 z-0"></div>
+          
           <div className="space-y-12">
             {companies.map((company, index) => (
               <div
                 key={company.id}
-                className="timeline-item mb-12 md:grid md:grid-cols-5 md:gap-8"
+                className="relative mb-12 md:grid md:grid-cols-5 md:gap-8"
               >
-                <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4">
-                  <div className="timeline-dot" />
-                  <h3 className="heading-sm">{company.name}</h3>
-                  <div className="flex items-center gap-2 text-muted-foreground my-2 justify-start md:justify-end">
+                <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4 relative">
+                  {/* For mobile, we'll use a different timeline approach */}
+                  <div className="hidden md:block absolute right-[-9px] top-3 w-4 h-4 rounded-full bg-primary z-10"></div>
+                  
+                  {/* Visible on mobile only */}
+                  <div className="md:hidden absolute left-0 top-3 w-3 h-3 rounded-full bg-primary z-10"></div>
+                  <div className="md:hidden absolute left-1.5 top-6 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 z-0"></div>
+                  
+                  <h3 className="heading-sm pl-8 md:pl-0">{company.name}</h3>
+                  <div className="flex items-center gap-2 text-muted-foreground my-2 pl-8 md:pl-0 justify-start md:justify-end">
                     <Briefcase className="h-4 w-4" />
                     <span>{company.position}</span>
                   </div>
-                  <div className="flex items-center gap-2 text-muted-foreground justify-start md:justify-end">
+                  <div className="flex items-center gap-2 text-muted-foreground pl-8 md:pl-0 justify-start md:justify-end">
                     <Calendar className="h-4 w-4" />
                     <span>{company.period}</span>
                   </div>
                 </div>
 
-                <div className="md:col-span-3">
+                <div className="md:col-span-3 pl-8 md:pl-4">
                   <div className="glass-card overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                     <Accordion
                       type="single"

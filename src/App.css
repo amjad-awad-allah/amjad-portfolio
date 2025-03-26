@@ -186,6 +186,42 @@
   }
 }
 
+.code-matrix {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Enhanced code snippets */
+.syntax-highlight .line {
+  position: relative;
+  margin-bottom: 4px;
+}
+
+.syntax-highlight .keyword {
+  color: #8B5CF6;
+}
+
+.syntax-highlight .function {
+  color: #3B82F6;
+}
+
+.syntax-highlight .string {
+  color: #10B981;
+}
+
+.syntax-highlight .number {
+  color: #F59E0B;
+}
+
+.syntax-highlight .comment {
+  color: #94A3B8;
+  font-style: italic;
+}
+
 .read-the-docs {
   color: #888;
   margin-top: 2rem;
@@ -218,4 +254,17 @@
 
 .dark .highlight {
   background: rgba(255, 255, 255, 0.1);
+}
+
+/* Typing cursor effect */
+.typing-effect {
+  display: inline-block;
+  position: relative;
+}
+
+.typing-effect::after {
+  content: '|';
+  position: absolute;
+  right: -4px;
+  animation: cursor-blink 1s step-end infinite;
 }
