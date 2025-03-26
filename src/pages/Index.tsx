@@ -47,21 +47,6 @@ const Index = () => {
       metaKeywords.content = 'software developer, mobile app developer, Android development, Java, Kotlin, Python, React';
       document.head.appendChild(metaKeywords);
       
-      // Initialize the intersection observer for contact animations
-      setTimeout(() => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('contact-animation-active');
-            }
-          });
-        }, { threshold: 0.1 });
-        
-        // Observe all contact section cards
-        const elements = document.querySelectorAll('.contact-animation-trigger');
-        elements.forEach(el => observer.observe(el));
-      }, 1000);
-      
       return () => {
         const endTime = performance.now();
         console.log(`%c📊 Portfolio rendered in ${(endTime - startTime).toFixed(2)}ms`, "font-weight: bold; color: #10B981;");
