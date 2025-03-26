@@ -1,4 +1,3 @@
-
 import { useLanguage } from "@/context/LanguageContext";
 import { ChevronDown, Code, Terminal, Cpu, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -41,18 +40,20 @@ const Hero = () => {
     if (contactElement) {
       contactElement.scrollIntoView({ behavior: 'smooth' });
       
-      // Find the download files section and highlight it
+      // Find the download files section and highlight it with animation
       setTimeout(() => {
-        const downloadSection = document.querySelector('.download-files-section');
-        if (downloadSection) {
-          downloadSection.classList.add('highlight-section');
-          
-          // Remove the highlight class after animation completes
-          setTimeout(() => {
-            downloadSection.classList.remove('highlight-section');
-          }, 2000);
+        const contactCards = document.querySelectorAll('.contact-animation-trigger');
+        if (contactCards.length) {
+          contactCards.forEach(card => {
+            card.classList.add('contact-animation-active');
+            
+            // Remove the animation classes after animation completes
+            setTimeout(() => {
+              card.classList.remove('contact-animation-active');
+            }, 3500);
+          });
         }
-      }, 1000); // Give time for the scroll to complete
+      }, 800); // Give time for the scroll to complete
     }
   };
 
@@ -137,7 +138,7 @@ const Hero = () => {
             
             <motion.h1 
               variants={itemVariants}
-              className="heading-xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-gray-100 dark:to-gray-400"
+              className="heading-xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70 dark:from-gray-100 dark:to-gray-400"
             >
               {t("hero.title")}
             </motion.h1>
@@ -167,7 +168,7 @@ const Hero = () => {
               <Button 
                 variant="secondary" 
                 size="lg" 
-                className="rounded-full group hover:bg-secondary/80 transition-all"
+                className="rounded-full group hover:bg-secondary/90 transition-all"
                 onClick={handleCVButtonClick}
               >
                 <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
@@ -191,17 +192,17 @@ const Hero = () => {
               </div>
               
               {/* Tech info tags */}
-              <div className="absolute -right-4 top-5 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-secondary shadow-sm">
+              <div className="absolute -right-4 top-5 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-primary/30 shadow-sm">
                 <span className="flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-green-500"></span> AI Engineer
                 </span>
               </div>
-              <div className="absolute -left-4 bottom-16 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-secondary shadow-sm">
+              <div className="absolute -left-4 bottom-16 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-primary/30 shadow-sm">
                 <span className="flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span> Machine Learning
                 </span>
               </div>
-              <div className="absolute right-5 -bottom-2 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-secondary shadow-sm">
+              <div className="absolute right-5 -bottom-2 bg-background/80 backdrop-blur-sm py-1 px-3 rounded-full text-xs font-medium border border-primary/30 shadow-sm">
                 <span className="flex items-center gap-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-purple-500"></span> Full Stack Developer
                 </span>

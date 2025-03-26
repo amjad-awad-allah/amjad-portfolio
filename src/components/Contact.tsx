@@ -73,6 +73,27 @@ const Contact = () => {
     }, 1500);
   };
 
+  // Initialize intersection observer for animations
+  useState(() => {
+    if (typeof window !== 'undefined') {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('contact-animation-active');
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      // Observe all contact section cards
+      const elements = document.querySelectorAll('.contact-animation-trigger');
+      elements.forEach(el => observer.observe(el));
+      
+      return () => {
+        elements.forEach(el => observer.unobserve(el));
+      };
+    }
+  }, []);
+
   // Updated placeholder contact info
   const contactInfo = [
     {
@@ -126,7 +147,7 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-3">
-            <Card className="overflow-hidden hover-scale transition-all duration-300 border-primary/10">
+            <Card className="contact-animation-trigger overflow-hidden hover-scale transition-all duration-300 border-primary/10">
               <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.getInTouch")}</CardTitle>
                 <CardDescription>{t("contact.formInstructions")}</CardDescription>
@@ -202,7 +223,7 @@ const Contact = () => {
           {/* Contact Information */}
           <div className="lg:col-span-2 flex flex-col space-y-6">
             {/* Contact details */}
-            <Card className="overflow-hidden border-primary/10">
+            <Card className="contact-animation-trigger overflow-hidden border-primary/10">
               <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.contactInfo")}</CardTitle>
               </CardHeader>
@@ -229,7 +250,7 @@ const Contact = () => {
             </Card>
 
             {/* Download section */}
-            <Card className="overflow-hidden border-primary/10 transition-all duration-300 download-files-section">
+            <Card className="contact-animation-trigger overflow-hidden border-primary/10 transition-all duration-300 download-files-section">
               <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.downloadFiles")}</CardTitle>
               </CardHeader>

@@ -70,11 +70,11 @@ export default {
         code: {
           DEFAULT: "#1E293B",
           light: "#F8FAFC",
-          comment: "#464646",
-          keyword: "#9B2226",
-          function: "#005F73",
-          string: "#52796F",
-          number: "#9B2226",
+          comment: "#34495E",
+          keyword: "#005F73",
+          function: "#004B6A",
+          string: "#2C6E49",
+          number: "#004B6A",
         },
       },
       borderRadius: {
@@ -160,3 +160,4 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
+
