@@ -32,6 +32,30 @@ const Hero = () => {
     }
   };
 
+  // Function to handle CV download button click
+  const handleCVButtonClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    
+    // Scroll to contact section
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+      
+      // Find the download files section and highlight it
+      setTimeout(() => {
+        const downloadSection = document.querySelector('.download-files-section');
+        if (downloadSection) {
+          downloadSection.classList.add('highlight-section');
+          
+          // Remove the highlight class after animation completes
+          setTimeout(() => {
+            downloadSection.classList.remove('highlight-section');
+          }, 2000);
+        }
+      }, 1000); // Give time for the scroll to complete
+    }
+  };
+
   const technicalTerms = ["AI", "Neural Networks", "Machine Learning", "TensorFlow", "Data Science", "Python", "Java", "Kotlin", "React"];
 
   return (
@@ -140,11 +164,14 @@ const Hero = () => {
                 <a href="#projects">{t("nav.projects")}</a>
               </Button>
               
-              <Button asChild variant="secondary" size="lg" className="rounded-full group hover:bg-secondary/80 transition-all">
-                <a href="/src/assets/cv/CV_English.pdf" download className="flex items-center">
-                  <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-                  Download CV
-                </a>
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                className="rounded-full group hover:bg-secondary/80 transition-all"
+                onClick={handleCVButtonClick}
+              >
+                <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                Download CV
               </Button>
             </motion.div>
           </div>

@@ -1,4 +1,3 @@
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -13,10 +12,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #005F73aa);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #9B2226aa);
 }
 
 @keyframes logo-spin {
@@ -202,28 +201,27 @@
 }
 
 .syntax-highlight .keyword {
-  color: #8B5CF6;
+  @apply text-secondary;
 }
 
 .syntax-highlight .function {
-  color: #3B82F6;
+  @apply text-primary;
 }
 
 .syntax-highlight .string {
-  color: #10B981;
+  @apply text-accent;
 }
 
 .syntax-highlight .number {
-  color: #F59E0B;
+  @apply text-secondary;
 }
 
 .syntax-highlight .comment {
-  color: #94A3B8;
-  font-style: italic;
+  @apply text-muted-foreground italic;
 }
 
 .read-the-docs {
-  color: #888;
+  color: #464646;
   margin-top: 2rem;
   font-size: 0.875rem;
   opacity: 0.8;
@@ -267,4 +265,10 @@
   position: absolute;
   right: -4px;
   animation: cursor-blink 1s step-end infinite;
+}
+
+/* Button hover effect with new colors */
+.button-hover:hover {
+  box-shadow: 0 5px 15px rgba(0, 95, 115, 0.3);
+  transform: translateY(-2px);
 }

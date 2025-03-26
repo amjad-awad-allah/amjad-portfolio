@@ -229,7 +229,7 @@ const Contact = () => {
             </Card>
 
             {/* Download section */}
-            <Card className="overflow-hidden border-primary/10">
+            <Card className="overflow-hidden border-primary/10 transition-all duration-300 download-files-section">
               <CardHeader className="bg-primary/5 dark:bg-primary/10">
                 <CardTitle>{t("contact.downloadFiles")}</CardTitle>
               </CardHeader>
