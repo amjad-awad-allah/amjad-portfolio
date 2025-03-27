@@ -106,7 +106,7 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectCompany")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">
+                    <SelectItem value="all">
                       {t("projects.allProjects")}
                     </SelectItem>
                     {experiences && experiences.map((experience) => (
@@ -127,7 +127,7 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectTechnology")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">
+                    <SelectItem value="all">
                       {t("projects.allProjects")}
                     </SelectItem>
                     {allTechnologies.map((tech) => (
@@ -242,3 +242,4 @@ const Projects = () => {
 };
 
 export default Projects;
+
