@@ -1,7 +1,7 @@
 
-import React, { createContext, useState, useContext, ReactNode, useEffect } from "react";
+import React, { createContext, useState, useContext, ReactNode } from "react";
 
-// Define available languages
+// Define available languages (reduced to just English and German)
 export type Language = "en" | "de";
 
 // Define translations structure
@@ -66,9 +66,17 @@ export const translations: Translations = {
     en: "Education",
     de: "Ausbildung",
   },
+  "about.education.degree": {
+    en: "Bachelor's degree in Artificial Intelligence and Informatics Engineering",
+    de: "Bachelor in Künstlicher Intelligenz und Informatik",
+  },
   "about.education.university": {
     en: "AIU, Damascus",
     de: "AIU, Damaskus",
+  },
+  "about.education.years": {
+    en: "2012-2017",
+    de: "2012-2017",
   },
   "about.experience.title": {
     en: "Work Experience",
@@ -83,6 +91,30 @@ export const translations: Translations = {
   "experience.title": {
     en: "Work Experience",
     de: "Berufserfahrung",
+  },
+  "experience.company.nvssoft": {
+    en: "NVS-SOFT (Dubai, Solutions - Syrian Branch)",
+    de: "NVS-SOFT (Dubai, Solutions - Syrische Niederlassung)",
+  },
+  "experience.company.protech": {
+    en: "PROTECH Group (Damascus, Syria)",
+    de: "PROTECH Group (Damaskus, Syrien)",
+  },
+  "experience.company.smartangel": {
+    en: "Smart Angel (Erbil, Iraq)",
+    de: "Smart Angel (Erbil, Irak)",
+  },
+  "experience.company.supertech": {
+    en: "Supertech (Syria)",
+    de: "Supertech (Syrien)",
+  },
+  "experience.position": {
+    en: "Software Developer",
+    de: "Software-Entwickler",
+  },
+  "experience.position.mobile": {
+    en: "Mobile App Developer",
+    de: "Mobile App-Entwickler",
   },
   "experience.responsibilities": {
     en: "Key Responsibilities",
@@ -200,38 +232,6 @@ export const translations: Translations = {
     en: "Feel free to reach out through any of the channels above or by filling out the contact form.",
     de: "Zögere nicht, über einen der oben genannten Kanäle oder über das Kontaktformular mit mir in Verbindung zu treten.",
   },
-  "contact.getInTouch": {
-    en: "Get In Touch",
-    de: "Kontaktieren Sie Mich",
-  },
-  "contact.formInstructions": {
-    en: "Fill out the form below and I'll get back to you as soon as possible.",
-    de: "Füllen Sie das untenstehende Formular aus und ich werde mich so schnell wie möglich bei Ihnen melden.",
-  },
-  "contact.submit": {
-    en: "Send Message",
-    de: "Nachricht senden",
-  },
-  "contact.sending": {
-    en: "Sending...",
-    de: "Senden...",
-  },
-  "contact.contactInfo": {
-    en: "Contact Information",
-    de: "Kontaktinformationen",
-  },
-  "contact.downloadFiles": {
-    en: "Download Files",
-    de: "Dateien herunterladen",
-  },
-  "contact.downloadCV": {
-    en: "Download CV",
-    de: "Lebenslauf herunterladen",
-  },
-  "contact.downloadWorkExperience": {
-    en: "Work Experience",
-    de: "Berufserfahrung",
-  },
   
   // Theme
   "theme.light": {
@@ -255,6 +255,14 @@ export const translations: Translations = {
   "languages.subtitle": {
     en: "My language proficiency",
     de: "Meine Sprachkenntnisse",
+  },
+  "languages.english": {
+    en: "English",
+    de: "Englisch",
+  },
+  "languages.german": {
+    en: "German",
+    de: "Deutsch",
   },
   "languages.native": {
     en: "Native",
@@ -323,7 +331,7 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   });
   
   // Save language preference to localStorage when it changes
-  useEffect(() => {
+  React.useEffect(() => {
     localStorage.setItem("language", language);
     console.log("Language set to:", language);
     
