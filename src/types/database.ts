@@ -1,4 +1,3 @@
-
 // Type definitions for database tables
 
 export interface PersonalInfo {
@@ -16,6 +15,8 @@ export interface PersonalInfo {
   work_experience_de: string;
   email: string;
   phone_number: string;
+  linkedin_url: string;
+  github_url: string;
 }
 
 export interface ProfessionalExperience {

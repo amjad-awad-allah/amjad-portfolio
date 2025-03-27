@@ -8,13 +8,16 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { motion, AnimatePresence } from "framer-motion";
 
 type Theme = "light" | "dark" | "system";
 
 const ThemeToggle = () => {
   const [theme, setTheme] = useState<Theme>("system");
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     // Check for stored theme preference
     const storedTheme = localStorage.getItem("theme") as Theme | null;
     
@@ -28,6 +31,8 @@ const ThemeToggle = () => {
   }, []);
 
   useEffect(() => {
+    if (!isMounted) return;
+    
     const root = document.documentElement;
     
     if (theme === "system") {
@@ -51,10 +56,12 @@ const ThemeToggle = () => {
     }
     
     console.log("Theme set to:", theme);
-  }, [theme]);
+  }, [theme, isMounted]);
 
   // Add listener for system preference changes
   useEffect(() => {
+    if (!isMounted) return;
+    
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = () => {
@@ -75,7 +82,20 @@ const ThemeToggle = () => {
     return () => {
       mediaQuery.removeEventListener("change", handleChange);
     };
-  }, [theme]);
+  }, [theme, isMounted]);
+
+  if (!isMounted) {
+    return (
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        aria-label="Toggle theme"
+        className="w-9 h-9 p-0"
+      >
+        <Sun className="h-4 w-4" />
+      </Button>
+    );
+  }
 
   const themes = [
     { value: "light", label: "Light", icon: Sun },
@@ -90,19 +110,29 @@ const ThemeToggle = () => {
           variant="ghost" 
           size="sm" 
           aria-label="Toggle theme"
-          className="w-9 h-9 p-0"
+          className="w-9 h-9 p-0 transition-all duration-300"
         >
-          {theme === "light" && <Sun className="h-4 w-4" />}
-          {theme === "dark" && <Moon className="h-4 w-4" />}
-          {theme === "system" && <Laptop className="h-4 w-4" />}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={theme}
+              initial={{ y: -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 10, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+            >
+              {theme === "light" && <Sun className="h-4 w-4" />}
+              {theme === "dark" && <Moon className="h-4 w-4" />}
+              {theme === "system" && <Laptop className="h-4 w-4" />}
+            </motion.div>
+          </AnimatePresence>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent align="end" className="animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
         {themes.map((t) => (
           <DropdownMenuItem
             key={t.value}
             onClick={() => setTheme(t.value as Theme)}
-            className={`flex items-center gap-2 cursor-pointer ${
+            className={`flex items-center gap-2 cursor-pointer transition-colors hover:bg-secondary/50 ${
               theme === t.value ? "bg-secondary" : ""
             }`}
           >

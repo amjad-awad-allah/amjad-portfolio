@@ -9,6 +9,7 @@ import Projects from "@/components/Projects";
 import LanguageSkills from "@/components/LanguageSkills";
 import Hobbies from "@/components/Hobbies";
 import Contact from "@/components/Contact";
+import Downloads from "@/components/Downloads";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -40,10 +41,10 @@ const Index = () => {
       const startTime = performance.now();
       
       // Add meta tags for SEO and improved sharing
-      document.title = "Amjad Awad-Allah | Software Developer";
+      document.title = "Amjad Awad-Allah | Software Developer & AI Specialist";
       const metaDescription = document.createElement('meta');
       metaDescription.name = 'description';
-      metaDescription.content = 'Professional portfolio of Amjad Awad-Allah, specializing in software development and mobile app development with expertise in Java, Kotlin, and Python.';
+      metaDescription.content = 'Professional portfolio of Amjad Awad-Allah, specializing in software development, AI, and mobile app development with expertise in Java, Kotlin, and Python.';
       document.head.appendChild(metaDescription);
 
       // Add viewport meta tag for responsive design
@@ -58,18 +59,18 @@ const Index = () => {
       // Open Graph data for better sharing
       const ogTitle = document.createElement('meta');
       ogTitle.setAttribute('property', 'og:title');
-      ogTitle.content = 'Amjad Awad-Allah | Software Developer';
+      ogTitle.content = 'Amjad Awad-Allah | Software Developer & AI Specialist';
       document.head.appendChild(ogTitle);
 
       const ogDesc = document.createElement('meta');
       ogDesc.setAttribute('property', 'og:description');
-      ogDesc.content = 'Professional portfolio showcasing software development projects.';
+      ogDesc.content = 'Professional portfolio showcasing software development and AI projects.';
       document.head.appendChild(ogDesc);
       
       // Keywords for better SEO
       const metaKeywords = document.createElement('meta');
       metaKeywords.name = 'keywords';
-      metaKeywords.content = 'software developer, mobile app developer, Android development, Java, Kotlin, Python, React';
+      metaKeywords.content = 'software developer, AI specialist, mobile app developer, Android development, Java, Kotlin, Python, React, machine learning';
       document.head.appendChild(metaKeywords);
       
       // Log Supabase connection
@@ -92,7 +93,7 @@ const Index = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5 code-background">
           <div className="fixed inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
           <Navbar />
           <main className="mt-16 sm:mt-20">
@@ -102,6 +103,7 @@ const Index = () => {
             <Projects />
             <LanguageSkills />
             <Hobbies />
+            <Downloads />
             <Contact />
           </main>
           <Footer />

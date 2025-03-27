@@ -4,10 +4,11 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, User } from "lucide-react";
+import { Mail, Phone, User, Github, Linkedin, MapPin } from "lucide-react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
+import { motion } from "framer-motion";
 
 type Inputs = {
   name: string;
@@ -16,7 +17,7 @@ type Inputs = {
 };
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { data: personalInfo } = usePersonalInfo();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
@@ -70,19 +71,35 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 bg-secondary/10 dark:bg-secondary/20 relative">
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02]"></div>
+      <div className="absolute inset-0 -z-10 ai-pattern opacity-20"></div>
 
       <div className="section-container">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <h2 className="heading-lg mb-3">{t("contact.title")}</h2>
           <p className="paragraph max-w-2xl mx-auto">
-            {t("contact.description")}
+            {t("contact.subtitle")}
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Contact Form */}
-          <div className="glass-card p-6 rounded-xl shadow-sm">
-            <h3 className="heading-sm mb-4">{t("contact.formTitle")}</h3>
+          <motion.div 
+            className="glass-card p-6 rounded-xl shadow-sm tech-border"
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h3 className="heading-sm mb-4">{t("contact.connect")}</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              {t("contact.openTo")}
+            </p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <div className="relative">
@@ -136,43 +153,123 @@ const Contact = () => {
                 <p className="text-sm text-red-500 mt-2">{submissionError}</p>
               )}
             </form>
-          </div>
+          </motion.div>
 
           {/* Contact Information */}
-          <div className="glass-card p-6 rounded-xl shadow-sm flex flex-col justify-between">
+          <motion.div 
+            className="glass-card p-6 rounded-xl shadow-sm tech-border flex flex-col justify-between"
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <div>
-              <h3 className="heading-sm mb-4">{t("contact.infoTitle")}</h3>
-              <div className="space-y-3">
+              <h3 className="heading-sm mb-6">{t("contact.reachOut")}</h3>
+              <div className="space-y-5">
                 {personalInfo?.email ? (
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-muted-foreground" />
-                    <a href={`mailto:${personalInfo.email}`} className="hover:underline">
-                      {personalInfo.email}
-                    </a>
+                  <div className="flex items-center gap-3 group">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
+                        {t("contact.email")}
+                      </div>
+                      <a href={`mailto:${personalInfo.email}`} className="hover:text-primary transition-colors">
+                        {personalInfo.email}
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-muted-foreground">{t("contact.emailNotProvided")}</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary">
+                      <Mail className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
+                        {t("contact.email")}
+                      </div>
+                      <span className="text-muted-foreground">{t("contact.emailNotProvided")}</span>
+                    </div>
                   </div>
                 )}
                 
                 {personalInfo?.phone_number ? (
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-muted-foreground" />
-                    <a href={`tel:${personalInfo.phone_number}`} className="hover:underline">
-                      {personalInfo.phone_number}
-                    </a>
+                  <div className="flex items-center gap-3 group">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      <Phone className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
+                        {t("contact.phone")}
+                      </div>
+                      <a href={`tel:${personalInfo.phone_number}`} className="hover:text-primary transition-colors">
+                        {personalInfo.phone_number}
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-muted-foreground" />
-                    <span className="text-muted-foreground">{t("contact.phoneNotProvided")}</span>
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary">
+                      <Phone className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
+                        {t("contact.phone")}
+                      </div>
+                      <span className="text-muted-foreground">{t("contact.phoneNotProvided")}</span>
+                    </div>
+                  </div>
+                )}
+                
+                {personalInfo?.current_location && (
+                  <div className="flex items-center gap-3 group">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+                      <MapPin className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
+                        {t("contact.location")}
+                      </div>
+                      <span>{personalInfo.current_location}</span>
+                    </div>
                   </div>
                 )}
               </div>
+
+              {/* Social Media Links */}
+              <div className="mt-8">
+                <div className="text-xs text-muted-foreground uppercase font-medium mb-3">
+                  {language === 'en' ? 'Connect on social media' : 'In sozialen Medien verbinden'}
+                </div>
+                <div className="flex gap-3">
+                  {personalInfo?.linkedin_url && (
+                    <a 
+                      href={personalInfo.linkedin_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      aria-label="LinkedIn Profile"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  )}
+                  
+                  {personalInfo?.github_url && (
+                    <a 
+                      href={personalInfo.github_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      aria-label="GitHub Profile"
+                    >
+                      <Github className="h-5 w-5" />
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

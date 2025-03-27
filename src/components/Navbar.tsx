@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const Navbar = () => {
-  const { t } = useLanguage();
+  const { t, isReady } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -24,6 +24,7 @@ const Navbar = () => {
     { name: t("nav.experience"), href: "#experience" },
     { name: t("nav.projects"), href: "#projects" },
     { name: t("nav.languages"), href: "#languages" },
+    { name: t("nav.downloads"), href: "#downloads" },
     { name: t("hobbies.title"), href: "#hobbies" },
     { name: t("nav.contact"), href: "#contact" },
   ];
@@ -74,6 +75,11 @@ const Navbar = () => {
       behavior: "smooth",
     });
   };
+
+  // Don't render navigation until language is ready
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <>

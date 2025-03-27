@@ -10,15 +10,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion, AnimatePresence } from "framer-motion";
 
 const LanguageToggle = () => {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, isReady } = useLanguage();
   const isMobile = useIsMobile();
 
   // Debug logging
   useEffect(() => {
-    console.log("Current language:", language);
-  }, [language]);
+    if (isReady) {
+      console.log("Current language:", language);
+    }
+  }, [language, isReady]);
 
   const languages = [
     { code: "en", label: "English", flag: "🇬🇧" },
@@ -27,6 +30,19 @@ const LanguageToggle = () => {
 
   // Find current language details
   const currentLang = languages.find(lang => lang.code === language) || languages[0];
+
+  const handleLanguageChange = (newLanguage: "en" | "de") => {
+    if (newLanguage !== language) {
+      // Animate page during language change
+      document.documentElement.classList.add('language-transition');
+      
+      // Set the language after a slight delay to allow animation
+      setTimeout(() => {
+        setLanguage(newLanguage);
+        document.documentElement.classList.remove('language-transition');
+      }, 150);
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -41,9 +57,18 @@ const LanguageToggle = () => {
           ) : (
             <>
               <Globe className="h-4 w-4" />
-              <span className="hidden sm:inline-block">
-                {currentLang.label}
-              </span>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span 
+                  key={language}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -5 }}
+                  transition={{ duration: 0.2 }}
+                  className="hidden sm:inline-block"
+                >
+                  {currentLang.label}
+                </motion.span>
+              </AnimatePresence>
               <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-xs">
                 {currentLang.flag}
               </span>
@@ -55,7 +80,7 @@ const LanguageToggle = () => {
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
-            onClick={() => setLanguage(lang.code as "en" | "de")}
+            onClick={() => handleLanguageChange(lang.code as "en" | "de")}
             className={`flex items-center gap-3 cursor-pointer transition-colors hover:bg-secondary/50 ${
               language === lang.code ? "bg-secondary" : ""
             }`}

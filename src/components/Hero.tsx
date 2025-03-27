@@ -2,7 +2,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Download, MapPin } from "lucide-react";
+import { Download, MapPin, Linkedin, Github } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -75,10 +75,42 @@ const Hero = () => {
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.5, delay: 0.3 }}
-                  className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-8"
+                  className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-4"
                 >
                   <MapPin className="h-4 w-4" />
                   <span>{personalInfo?.current_location || "Location"}</span>
+                </motion.div>
+
+                {/* Social Media Links */}
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.35 }}
+                  className="flex items-center justify-center lg:justify-start gap-4 mb-8"
+                >
+                  {personalInfo?.linkedin_url && (
+                    <a 
+                      href={personalInfo.linkedin_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="LinkedIn Profile"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </a>
+                  )}
+                  
+                  {personalInfo?.github_url && (
+                    <a 
+                      href={personalInfo.github_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                      aria-label="GitHub Profile"
+                    >
+                      <Github className="h-5 w-5" />
+                    </a>
+                  )}
                 </motion.div>
                 
                 <motion.div
@@ -94,9 +126,9 @@ const Hero = () => {
                   </Button>
                   
                   <Button asChild variant="outline" size="lg" className="group">
-                    <a href={language === 'en' ? personalInfo?.cv_en : personalInfo?.cv_de} download>
+                    <a href="#downloads">
                       <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                      {language === 'en' ? 'Download CV' : 'Lebenslauf herunterladen'}
+                      {language === 'en' ? 'View Downloads' : 'Downloads anzeigen'}
                     </a>
                   </Button>
                 </motion.div>

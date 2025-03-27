@@ -1,5 +1,4 @@
-
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, useContext, ReactNode, useCallback } from "react";
 
 // Define available languages (reduced to just English and German)
 export type Language = "en" | "de";
@@ -38,6 +37,10 @@ export const translations: Translations = {
     en: "Languages",
     de: "Sprachen",
   },
+  "nav.downloads": {
+    en: "Downloads",
+    de: "Downloads",
+  },
   
   // Hero
   "hero.title": {
@@ -45,12 +48,16 @@ export const translations: Translations = {
     de: "Amjad Awad-Allah",
   },
   "hero.subtitle": {
-    en: "Software Developer",
-    de: "Software-Entwickler",
+    en: "Software Developer & AI Specialist",
+    de: "Software-Entwickler & KI-Spezialist",
   },
   "hero.cta": {
     en: "Get in touch",
     de: "Kontakt aufnehmen",
+  },
+  "hero.downloads": {
+    en: "View Downloads",
+    de: "Downloads anzeigen",
   },
   
   // About
@@ -297,7 +304,41 @@ export const translations: Translations = {
   "hobbies.tabletennis": {
     en: "Playing Table Tennis",
     de: "Tischtennis",
-  }
+  },
+  
+  // Downloads section
+  "downloads.title": {
+    en: "Downloads",
+    de: "Downloads",
+  },
+  "downloads.subtitle": {
+    en: "Download my CV and work experience documents",
+    de: "Laden Sie meinen Lebenslauf und Berufserfahrungsdokumente herunter",
+  },
+  "downloads.cv": {
+    en: "Curriculum Vitae (CV)",
+    de: "Lebenslauf",
+  },
+  "downloads.cv.description": {
+    en: "Download my CV containing my education, skills, and professional background.",
+    de: "Laden Sie meinen Lebenslauf mit meiner Ausbildung, meinen Fähigkeiten und meinem beruflichen Hintergrund herunter.",
+  },
+  "downloads.work": {
+    en: "Work Experience",
+    de: "Berufserfahrung",
+  },
+  "downloads.work.description": {
+    en: "Download my detailed work experience document with project descriptions.",
+    de: "Laden Sie mein detailliertes Berufserfahrungsdokument mit Projektbeschreibungen herunter.",
+  },
+  "downloads.english": {
+    en: "English",
+    de: "Englisch",
+  },
+  "downloads.german": {
+    en: "German",
+    de: "Deutsch",
+  },
 };
 
 // Define context type
@@ -305,6 +346,7 @@ type LanguageContextType = {
   language: Language;
   setLanguage: (language: Language) => void;
   t: (key: string) => string;
+  isReady: boolean;
 };
 
 // Create context with default values
@@ -312,6 +354,7 @@ const LanguageContext = createContext<LanguageContextType>({
   language: "en",
   setLanguage: () => {},
   t: () => "",
+  isReady: false,
 });
 
 // Create provider component
@@ -330,6 +373,8 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     return "en";
   });
   
+  const [isReady, setIsReady] = useState(false);
+  
   // Save language preference to localStorage when it changes
   React.useEffect(() => {
     localStorage.setItem("language", language);
@@ -340,19 +385,22 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     
     // Update document direction
     document.documentElement.dir = "ltr";
+    
+    // Set isReady to true after the language has been set
+    setIsReady(true);
   }, [language]);
 
-  // Translate function
-  const t = (key: string): string => {
+  // Translate function with memoization for better performance
+  const t = useCallback((key: string): string => {
     if (translations[key] && translations[key][language]) {
       return translations[key][language];
     }
     console.warn(`Translation '${key}' for language '${language}' not found.`);
     return key;
-  };
+  }, [language]);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isReady }}>
       {children}
     </LanguageContext.Provider>
   );
