@@ -1,3 +1,4 @@
+
 import { useLanguage } from "@/context/LanguageContext";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -142,20 +143,31 @@ const Contact = () => {
             <div>
               <h3 className="heading-sm mb-4">{t("contact.infoTitle")}</h3>
               <div className="space-y-3">
-                {personalInfo?.email && (
+                {personalInfo?.email ? (
                   <div className="flex items-center gap-3">
                     <Mail className="h-5 w-5 text-muted-foreground" />
-                    <a href={`mailto:${personalInfo?.email}`} className="hover:underline">
-                      {personalInfo?.email}
+                    <a href={`mailto:${personalInfo.email}`} className="hover:underline">
+                      {personalInfo.email}
                     </a>
                   </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Mail className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-muted-foreground">{t("contact.emailNotProvided")}</span>
+                  </div>
                 )}
-                {personalInfo?.phone_number && (
+                
+                {personalInfo?.phone_number ? (
                   <div className="flex items-center gap-3">
                     <Phone className="h-5 w-5 text-muted-foreground" />
-                    <a href={`tel:${personalInfo?.phone_number}`} className="hover:underline">
-                      {personalInfo?.phone_number}
+                    <a href={`tel:${personalInfo.phone_number}`} className="hover:underline">
+                      {personalInfo.phone_number}
                     </a>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <Phone className="h-5 w-5 text-muted-foreground" />
+                    <span className="text-muted-foreground">{t("contact.phoneNotProvided")}</span>
                   </div>
                 )}
               </div>

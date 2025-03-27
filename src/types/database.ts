@@ -14,6 +14,8 @@ export interface PersonalInfo {
   cv_de: string;
   work_experience_en: string;
   work_experience_de: string;
+  email: string;
+  phone_number: string;
 }
 
 export interface ProfessionalExperience {
