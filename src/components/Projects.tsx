@@ -64,6 +64,7 @@ const Projects = () => {
 
   // Find company name by experience id
   const getCompanyName = (experienceId: number) => {
+    if (!experiences) return '';
     const experience = experiences.find(exp => exp.id === experienceId);
     return experience ? experience.company_name : '';
   };
@@ -105,11 +106,14 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectCompany")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">
+                    <SelectItem value="all">
                       {t("projects.allProjects")}
                     </SelectItem>
-                    {experiences.map((experience) => (
-                      <SelectItem key={experience.id} value={experience.id.toString()}>
+                    {experiences && experiences.map((experience) => (
+                      <SelectItem 
+                        key={experience.id} 
+                        value={experience.id.toString()}
+                      >
                         {experience.company_name}
                       </SelectItem>
                     ))}
@@ -123,7 +127,7 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectTechnology")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">
+                    <SelectItem value="all">
                       {t("projects.allProjects")}
                     </SelectItem>
                     {allTechnologies.map((tech) => (
