@@ -1,10 +1,14 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Code, Database, Terminal, Layers } from "lucide-react";
+import { Code, Database, Terminal, Layers, GraduationCap, Award } from "lucide-react";
+import { useEducation } from "@/hooks/useEducation";
+import { Skeleton } from "@/components/ui/skeleton";
+import { formatDate } from "@/lib/utils";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { education, certifications, isLoading } = useEducation();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -77,14 +81,52 @@ const About = () => {
               <span className="mr-2 text-primary/80">🎓</span> 
               {t("about.education.title")}
             </h3>
-            <div className="space-y-4">
-              <div className="transition-all duration-300 group-hover:translate-x-1">
-                <h4 className="font-semibold text-lg">{t("about.education.degree")}</h4>
-                <p className="text-muted-foreground">
-                  {t("about.education.university")} | {t("about.education.years")}
-                </p>
+            
+            {isLoading ? (
+              <div className="space-y-4">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-4 w-2/3" />
               </div>
-            </div>
+            ) : (
+              <div className="space-y-6">
+                {education?.map((edu) => (
+                  <div key={edu.id} className="transition-all duration-300 group-hover:translate-x-1">
+                    <h4 className="font-semibold text-lg">
+                      {language === 'en' ? edu.degree_en : edu.degree_de}
+                    </h4>
+                    <p className="text-muted-foreground mb-1">
+                      {language === 'en' ? edu.field_of_study_en : edu.field_of_study_de}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {edu.institution_name} | {formatDate(edu.start_date, language)} - {formatDate(edu.end_date, language)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Certifications */}
+            {!isLoading && certifications && certifications.length > 0 && (
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-4 flex items-center">
+                  <Award className="mr-2 h-5 w-5 text-primary/80" />
+                  Certifications
+                </h3>
+                <div className="space-y-4">
+                  {certifications.map((cert) => (
+                    <div key={cert.id} className="transition-all duration-300 group-hover:translate-x-1">
+                      <h4 className="font-medium">
+                        {language === 'en' ? cert.certification_name_en : cert.certification_name_de}
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        {cert.issuing_organization} | {formatDate(cert.date_obtained, language)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </motion.div>
 
           {/* Work Experience Overview */}
