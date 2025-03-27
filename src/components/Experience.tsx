@@ -16,9 +16,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { useProfessionalExperience, useProjects } from "@/hooks/use-supabase-data";
+import { Skeleton } from "@/components/ui/skeleton";
+import { format, parseISO } from "date-fns";
+import { de } from "date-fns/locale";
 
 const Experience = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { data: experiences, isLoading: isExperienceLoading } = useProfessionalExperience();
+  const { data: allProjects, isLoading: isProjectsLoading } = useProjects();
   const [expandedCompany, setExpandedCompany] = useState<string | null>(null);
 
   const toggleCompany = (company: string) => {
@@ -29,108 +35,22 @@ const Experience = () => {
     }
   };
 
-  const companies = [
-    {
-      id: "nvssoft",
-      name: t("experience.company.nvssoft"),
-      position: t("experience.position"),
-      period: "2018-2021",
-      logo: "https://placehold.co/150",
-      responsibilities: [
-        "Led the development of enterprise mobile applications",
-        "Implemented secure data storage and transmission protocols",
-        "Optimized database operations, improving performance by 40%",
-        "Integrated hardware peripherals including ID scanners and fingerprint readers"
-      ],
-      projects: [
-        {
-          name: "Tarasol Suite",
-          description: "Optimized database, reducing data retrieval time by 40%. Developed a secure PDF reader with digital signature integration. Integrated modern hardware (ID scanners & fingerprint recognition).",
-          link: "https://play.google.com/store"
-        },
-        {
-          name: "Retention Department RD",
-          description: "Implemented fingerprint authentication, reducing data entry errors by 60%.",
-          link: "https://play.google.com/store"
-        },
-        {
-          name: "ArcMate 9 Enterprise Mobile",
-          description: "Built a document management app using C# & Xamarin.",
-          link: "https://play.google.com/store"
-        }
-      ]
-    },
-    {
-      id: "protech",
-      name: t("experience.company.protech"),
-      position: t("experience.position"),
-      period: "2017-2018",
-      logo: "https://placehold.co/150",
-      responsibilities: [
-        "Designed and developed Android applications for router management and security",
-        "Created custom network monitoring tools",
-        "Implemented real-time data synchronization",
-        "Automated testing procedures improving quality assurance"
-      ],
-      projects: [
-        {
-          name: "ProNet (APK Mirroring)",
-          description: "Developed web & Android apps for router management.",
-          link: "#download"
-        },
-        {
-          name: "Proguard (APK Mirroring)",
-          description: "Security and monitoring application for guard shifts.",
-          link: "#download"
-        }
-      ]
-    },
-    {
-      id: "smartangel",
-      name: t("experience.company.smartangel"),
-      position: t("experience.position"),
-      period: "2016-2017",
-      logo: "https://placehold.co/150",
-      responsibilities: [
-        "Developed e-commerce application with real-time tracking",
-        "Implemented payment gateway integrations",
-        "Created offline-first architecture for reliable functionality",
-        "Optimized UI/UX for improved customer engagement"
-      ],
-      projects: [
-        {
-          name: "Bobazzar (APK Mirroring)",
-          description: "Built a scalable E-commerce app with real-time order tracking.",
-          link: "#download"
-        }
-      ]
-    },
-    {
-      id: "supertech",
-      name: t("experience.company.supertech"),
-      position: t("experience.position"),
-      period: "2015-2016",
-      logo: "https://placehold.co/150",
-      responsibilities: [
-        "Built multimedia streaming applications",
-        "Developed background playback functionality for media apps",
-        "Created custom media conversion tools",
-        "Implemented efficient caching mechanisms for improved performance"
-      ],
-      projects: [
-        {
-          name: "Publitools (APK Mirroring)",
-          description: "YouTube background playback & MP3 conversion.",
-          link: "#download"
-        },
-        {
-          name: "Al Madina FM (Radio Streaming)",
-          description: "Live streaming app for Al Madina FM radio.",
-          link: "https://play.google.com/store"
-        }
-      ]
+  // Format date helper function
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return language === 'en' ? 'Present' : 'Aktuell';
+    
+    try {
+      const date = parseISO(dateString);
+      return format(date, 'MMM yyyy', { locale: language === 'de' ? de : undefined });
+    } catch (error) {
+      return dateString;
     }
-  ];
+  };
+
+  // Get projects for a specific experience
+  const getProjectsForExperience = (experienceId: number) => {
+    return allProjects.filter(project => project.experience_id === experienceId);
+  };
 
   return (
     <section id="experience" className="py-24">
@@ -138,107 +58,142 @@ const Experience = () => {
         <div className="max-w-3xl mx-auto mb-16 text-center">
           <h2 className="heading-lg mb-4">{t("experience.title")}</h2>
           <p className="paragraph">
-            My professional journey in developing innovative Android applications.
+            {language === 'en' 
+              ? 'My professional journey in software development.' 
+              : 'Mein beruflicher Werdegang in der Softwareentwicklung.'}
           </p>
         </div>
 
-        <div className="relative">
-          {/* Fixed mobile timeline issue - Use a relative container and adjust the line positioning */}
-          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 transform -translate-x-1/2 z-0"></div>
-          
+        {isExperienceLoading || isProjectsLoading ? (
           <div className="space-y-12">
-            {companies.map((company, index) => (
-              <div
-                key={company.id}
-                className="relative mb-12 md:grid md:grid-cols-5 md:gap-8"
-              >
-                <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4 relative">
-                  {/* For mobile, we'll use a different timeline approach */}
-                  <div className="hidden md:block absolute right-[-9px] top-3 w-4 h-4 rounded-full bg-primary z-10"></div>
-                  
-                  {/* Visible on mobile only */}
-                  <div className="md:hidden absolute left-0 top-3 w-3 h-3 rounded-full bg-primary z-10"></div>
-                  <div className="md:hidden absolute left-1.5 top-6 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 z-0"></div>
-                  
-                  <h3 className="heading-sm pl-8 md:pl-0">{company.name}</h3>
-                  <div className="flex items-center gap-2 text-muted-foreground my-2 pl-8 md:pl-0 justify-start md:justify-end">
-                    <Briefcase className="h-4 w-4" />
-                    <span>{company.position}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-muted-foreground pl-8 md:pl-0 justify-start md:justify-end">
-                    <Calendar className="h-4 w-4" />
-                    <span>{company.period}</span>
-                  </div>
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="relative mb-12 md:grid md:grid-cols-5 md:gap-8">
+                <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4">
+                  <Skeleton className="h-7 w-3/4 ml-auto mb-2" />
+                  <Skeleton className="h-5 w-1/2 ml-auto mb-2" />
+                  <Skeleton className="h-5 w-1/3 ml-auto" />
                 </div>
-
                 <div className="md:col-span-3 pl-8 md:pl-4">
-                  <div className="glass-card overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-                    <Accordion
-                      type="single"
-                      collapsible
-                      defaultValue="overview"
-                      className="w-full"
-                    >
-                      <AccordionItem value="overview" className="border-0">
-                        <div className="px-6 pt-6 pb-3">
-                          <h4 className="font-semibold mb-4">
-                            {t("experience.responsibilities")}
-                          </h4>
-                          <ul className="space-y-2 text-muted-foreground">
-                            {company.responsibilities.map((responsibility, i) => (
-                              <li key={i} className="flex items-start gap-3">
-                                <span className="h-1.5 w-1.5 rounded-full bg-primary mt-2"></span>
-                                <span>{responsibility}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <AccordionTrigger className="px-6 py-3 hover:no-underline">
-                          <span className="flex items-center gap-2 text-sm font-medium">
-                            <span>{t("experience.projects")}</span>
-                          </span>
-                        </AccordionTrigger>
-                        <AccordionContent className="px-6 pb-6">
-                          <div className="space-y-4">
-                            {company.projects.map((project, i) => (
-                              <div
-                                key={i}
-                                className="bg-secondary/50 dark:bg-secondary/30 rounded-lg p-4 hover:bg-secondary/70 dark:hover:bg-secondary/40 transition-colors duration-300"
-                              >
-                                <h5 className="font-semibold mb-2">{project.name}</h5>
-                                <p className="text-sm text-muted-foreground mb-3">
-                                  {project.description}
-                                </p>
-                                <a
-                                  href={project.link}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="inline-flex items-center text-sm font-medium text-primary hover:underline"
-                                >
-                                  {project.link.includes("play.google.com") ? (
-                                    <>
-                                      <ExternalLink className="mr-1 h-3 w-3" />
-                                      View on Play Store
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Download className="mr-1 h-3 w-3" />
-                                      Download APK
-                                    </>
-                                  )}
-                                </a>
-                              </div>
-                            ))}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
-                  </div>
+                  <Skeleton className="h-48 w-full rounded-md" />
                 </div>
               </div>
             ))}
           </div>
-        </div>
+        ) : (
+          <div className="relative">
+            {/* Fixed mobile timeline issue - Use a relative container and adjust the line positioning */}
+            <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 transform -translate-x-1/2 z-0"></div>
+            
+            <div className="space-y-12">
+              {experiences.map((experience) => {
+                const projects = getProjectsForExperience(experience.id);
+                
+                return (
+                  <div
+                    key={experience.id}
+                    className="relative mb-12 md:grid md:grid-cols-5 md:gap-8"
+                  >
+                    <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4 relative">
+                      {/* For mobile, we'll use a different timeline approach */}
+                      <div className="hidden md:block absolute right-[-9px] top-3 w-4 h-4 rounded-full bg-primary z-10"></div>
+                      
+                      {/* Visible on mobile only */}
+                      <div className="md:hidden absolute left-0 top-3 w-3 h-3 rounded-full bg-primary z-10"></div>
+                      <div className="md:hidden absolute left-1.5 top-6 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 z-0"></div>
+                      
+                      <h3 className="heading-sm pl-8 md:pl-0">{experience.company_name}</h3>
+                      <div className="flex items-center gap-2 text-muted-foreground my-2 pl-8 md:pl-0 justify-start md:justify-end">
+                        <Briefcase className="h-4 w-4" />
+                        <span>{experience.position}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-muted-foreground pl-8 md:pl-0 justify-start md:justify-end">
+                        <Calendar className="h-4 w-4" />
+                        <span>{formatDate(experience.start_date)} - {formatDate(experience.end_date)}</span>
+                      </div>
+                    </div>
+
+                    <div className="md:col-span-3 pl-8 md:pl-4">
+                      <div className="glass-card overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+                        <Accordion
+                          type="single"
+                          collapsible
+                          defaultValue="overview"
+                          className="w-full"
+                        >
+                          <AccordionItem value="overview" className="border-0">
+                            <div className="px-6 pt-6 pb-3">
+                              <h4 className="font-semibold mb-4">
+                                {language === 'en' ? 'Description' : 'Beschreibung'}
+                              </h4>
+                              <div className="text-muted-foreground">
+                                <p>{language === 'en' ? experience.description_en : experience.description_de}</p>
+                              </div>
+                            </div>
+                            
+                            {projects.length > 0 && (
+                              <>
+                                <AccordionTrigger className="px-6 py-3 hover:no-underline">
+                                  <span className="flex items-center gap-2 text-sm font-medium">
+                                    <span>{t("experience.projects")}</span>
+                                  </span>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-6">
+                                  <div className="space-y-4">
+                                    {projects.map((project) => (
+                                      <div
+                                        key={project.id}
+                                        className="bg-secondary/50 dark:bg-secondary/30 rounded-lg p-4 hover:bg-secondary/70 dark:hover:bg-secondary/40 transition-colors duration-300"
+                                      >
+                                        <h5 className="font-semibold mb-2">{project.project_name}</h5>
+                                        <p className="text-sm text-muted-foreground mb-3">
+                                          {language === 'en' ? project.description_en : project.description_de}
+                                        </p>
+                                        
+                                        {project.technologies_used && project.technologies_used.length > 0 && (
+                                          <div className="mb-3">
+                                            <h6 className="text-xs font-semibold uppercase text-muted-foreground mb-1">
+                                              {language === 'en' ? 'Technologies' : 'Technologien'}
+                                            </h6>
+                                            <div className="flex flex-wrap gap-1">
+                                              {project.technologies_used.map((tech, index) => (
+                                                <span 
+                                                  key={index} 
+                                                  className="text-xs bg-primary/10 text-primary px-2 py-1 rounded"
+                                                >
+                                                  {tech}
+                                                </span>
+                                              ))}
+                                            </div>
+                                          </div>
+                                        )}
+                                        
+                                        {project.image_url && (
+                                          <a
+                                            href={project.image_url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center text-sm font-medium text-primary hover:underline mr-4"
+                                          >
+                                            <ExternalLink className="mr-1 h-3 w-3" />
+                                            {language === 'en' ? 'View Project' : 'Projekt ansehen'}
+                                          </a>
+                                        )}
+                                      </div>
+                                    ))}
+                                  </div>
+                                </AccordionContent>
+                              </>
+                            )}
+                          </AccordionItem>
+                        </Accordion>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

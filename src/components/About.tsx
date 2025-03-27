@@ -1,10 +1,15 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Code, Database, Terminal, Layers } from "lucide-react";
+import { Code, Database, Terminal, Layers, Award, GraduationCap } from "lucide-react";
+import { useEducation, useCertifications } from "@/hooks/use-supabase-data";
+import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const About = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const { data: educationData, isLoading: isEducationLoading } = useEducation();
+  const { data: certificationsData, isLoading: isCertificationsLoading } = useCertifications();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -36,6 +41,16 @@ const About = () => {
     { name: "Database Management", icon: Database },
     { name: "Full Stack Engineering", icon: Layers },
   ];
+
+  // Format date function
+  const formatDate = (dateString: string | null) => {
+    if (!dateString) return 'Present';
+    try {
+      return format(new Date(dateString), 'MMM yyyy');
+    } catch (error) {
+      return dateString;
+    }
+  };
 
   return (
     <section id="about" className="py-24 bg-secondary/50 dark:bg-secondary/10 relative overflow-hidden">
@@ -77,35 +92,75 @@ const About = () => {
               <span className="mr-2 text-primary/80">🎓</span> 
               {t("about.education.title")}
             </h3>
-            <div className="space-y-4">
-              <div className="transition-all duration-300 group-hover:translate-x-1">
-                <h4 className="font-semibold text-lg">{t("about.education.degree")}</h4>
-                <p className="text-muted-foreground">
-                  {t("about.education.university")} | {t("about.education.years")}
-                </p>
+            
+            {isEducationLoading ? (
+              <div className="space-y-4">
+                {[1, 2].map((i) => (
+                  <div key={i} className="space-y-2">
+                    <Skeleton className="h-6 w-3/4" />
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                ))}
               </div>
-            </div>
+            ) : (
+              <div className="space-y-6">
+                {educationData.map((education) => (
+                  <div key={education.id} className="transition-all duration-300 group-hover:translate-x-1">
+                    <h4 className="font-semibold text-lg">
+                      {language === 'en' ? education.degree_en : education.degree_de}
+                    </h4>
+                    <p className="text-muted-foreground">
+                      {education.institution_name}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {language === 'en' ? education.field_of_study_en : education.field_of_study_de}
+                    </p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      {formatDate(education.start_date)} - {formatDate(education.end_date)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </motion.div>
 
-          {/* Work Experience Overview */}
+          {/* Certifications */}
           <motion.div 
             variants={itemVariants}
             className="glass-card p-8 hover-scale relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full"></div>
             <h3 className="heading-sm mb-6 flex items-center">
-              <span className="mr-2 text-primary/80">💼</span>
-              {t("about.experience.title")}
+              <span className="mr-2 text-primary/80"><Award className="h-5 w-5" /></span>
+              Certifications
             </h3>
-            <p className="paragraph mb-6">{t("about.experience.overview")}</p>
-            <ul className="space-y-3">
-              {["NVS-SOFT (Dubai, Solutions)", "PROTECH Group (Damascus, Syria)", "Smart Angel (Erbil, Iraq)", "Supertech (Syria)"].map((company, index) => (
-                <li key={index} className="flex items-center gap-2 transition-all duration-300 group-hover:translate-x-1">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-                  <span className="transition-all hover:text-primary">{company}</span>
-                </li>
-              ))}
-            </ul>
+            
+            {isCertificationsLoading ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="space-y-2">
+                    <Skeleton className="h-5 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                ))}
+              </div>
+            ) : certificationsData.length > 0 ? (
+              <div className="space-y-4">
+                {certificationsData.map((cert) => (
+                  <div key={cert.id} className="transition-all duration-300 group-hover:translate-x-1">
+                    <h4 className="font-medium">
+                      {language === 'en' ? cert.certification_name_en : cert.certification_name_de}
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      {cert.issuing_organization} · {formatDate(cert.date_obtained)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted-foreground">No certifications available yet.</p>
+            )}
           </motion.div>
         </motion.div>
 

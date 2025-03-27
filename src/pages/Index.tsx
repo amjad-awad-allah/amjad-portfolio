@@ -12,6 +12,18 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+// Create a client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 // Debug mode with improved logging
 const DEBUG_MODE = true;
@@ -60,6 +72,9 @@ const Index = () => {
       metaKeywords.content = 'software developer, mobile app developer, Android development, Java, Kotlin, Python, React';
       document.head.appendChild(metaKeywords);
       
+      // Log Supabase connection
+      console.log("%c📊 Connecting to Supabase database...", "font-weight: bold; color: #10B981;");
+      
       return () => {
         const endTime = performance.now();
         console.log(`%c📊 Portfolio rendered in ${(endTime - startTime).toFixed(2)}ms`, "font-weight: bold; color: #10B981;");
@@ -75,23 +90,26 @@ const Index = () => {
   }, [isMobile]);
 
   return (
-    <LanguageProvider>
-      <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
-        <div className="fixed inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
-        <Navbar />
-        <main className="mt-16 sm:mt-20">
-          <Hero />
-          <About />
-          <Experience />
-          <Projects />
-          <LanguageSkills />
-          <Hobbies />
-          <Contact />
-        </main>
-        <Footer />
-        <Toaster />
-      </div>
-    </LanguageProvider>
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5">
+          <div className="fixed inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+          <Navbar />
+          <main className="mt-16 sm:mt-20">
+            <Hero />
+            <About />
+            <Experience />
+            <Projects />
+            <LanguageSkills />
+            <Hobbies />
+            <Contact />
+          </main>
+          <Footer />
+          <Toaster />
+        </div>
+      </LanguageProvider>
+      {DEBUG_MODE && <ReactQueryDevtools initialIsOpen={false} />}
+    </QueryClientProvider>
   );
 };
 

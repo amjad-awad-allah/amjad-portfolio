@@ -15,11 +15,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { usePersonalInfo } from "@/hooks/use-supabase-data";
 
 const Contact = () => {
   const { t, language } = useLanguage();
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  const { data: personalInfo, isLoading } = usePersonalInfo();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,8 +41,8 @@ const Contact = () => {
     // Simple validation
     if (!formData.name || !formData.email || !formData.message) {
       toast({
-        title: "Error",
-        description: "Please fill in all fields",
+        title: language === 'en' ? "Error" : "Fehler",
+        description: language === 'en' ? "Please fill in all fields" : "Bitte füllen Sie alle Felder aus",
         variant: "destructive",
       });
       return;
@@ -49,8 +52,8 @@ const Contact = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       toast({
-        title: "Error",
-        description: "Please enter a valid email address",
+        title: language === 'en' ? "Error" : "Fehler",
+        description: language === 'en' ? "Please enter a valid email address" : "Bitte geben Sie eine gültige E-Mail-Adresse ein",
         variant: "destructive",
       });
       return;
@@ -61,8 +64,10 @@ const Contact = () => {
     // Simulate form submission
     setTimeout(() => {
       toast({
-        title: "Success",
-        description: "Your message has been sent! I'll get back to you soon.",
+        title: language === 'en' ? "Success" : "Erfolg",
+        description: language === 'en' 
+          ? "Your message has been sent! I'll get back to you soon." 
+          : "Ihre Nachricht wurde gesendet! Ich werde mich in Kürze bei Ihnen melden.",
       });
       
       setFormData({
@@ -75,25 +80,25 @@ const Contact = () => {
     }, 1500);
   };
 
-  // Updated placeholder contact info
+  // Contact info
   const contactInfo = [
     {
       icon: Phone,
       label: t("contact.phone"),
-      value: "+49 123 456 789",
-      href: "tel:+49123456789",
+      value: personalInfo?.phone || "+49 123 456 789",
+      href: `tel:${personalInfo?.phone || "+49123456789"}`,
     },
     {
       icon: Mail,
       label: t("contact.email"),
-      value: "example@email.com",
-      href: "mailto:example@email.com",
+      value: personalInfo?.email || "contact@example.com",
+      href: `mailto:${personalInfo?.email || "contact@example.com"}`,
     },
     {
       icon: MapPin,
       label: t("contact.location"),
-      value: "Berlin, Germany",
-      href: "https://maps.google.com/?q=Berlin,Germany",
+      value: personalInfo?.current_location || "Berlin, Germany",
+      href: `https://maps.google.com/?q=${personalInfo?.current_location || "Berlin,Germany"}`,
     },
   ];
 
@@ -101,18 +106,18 @@ const Contact = () => {
   const downloadFiles = [
     {
       icon: FileText,
-      label: t("contact.downloadCV"),
+      label: language === 'en' ? "Download CV" : "Lebenslauf herunterladen",
       files: [
-        { language: "English", url: "/src/assets/cv/CV_English.pdf" },
-        { language: "Deutsch", url: "/src/assets/cv/CV_German.pdf" }
+        { language: "English", url: personalInfo?.cv_en || "/src/assets/cv/CV_English.pdf" },
+        { language: "Deutsch", url: personalInfo?.cv_de || "/src/assets/cv/CV_German.pdf" }
       ]
     },
     {
       icon: FileText,
-      label: t("contact.downloadWorkExperience"),
+      label: language === 'en' ? "Download Work Experience" : "Arbeitserfahrung herunterladen",
       files: [
-        { language: "English", url: "/src/assets/cv/WorkExperience_English.pdf" },
-        { language: "Deutsch", url: "/src/assets/cv/WorkExperience_German.pdf" }
+        { language: "English", url: personalInfo?.work_experience_en || "/src/assets/cv/WorkExperience_English.pdf" },
+        { language: "Deutsch", url: personalInfo?.work_experience_de || "/src/assets/cv/WorkExperience_German.pdf" }
       ]
     }
   ];
@@ -130,8 +135,14 @@ const Contact = () => {
           <div className="lg:col-span-3">
             <Card className="overflow-hidden hover-scale transition-all duration-300 border-primary/10">
               <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
-                <CardTitle className="text-xl">{t("contact.getInTouch")}</CardTitle>
-                <CardDescription>{t("contact.formInstructions")}</CardDescription>
+                <CardTitle className="text-xl">
+                  {language === 'en' ? "Get In Touch" : "Kontakt aufnehmen"}
+                </CardTitle>
+                <CardDescription>
+                  {language === 'en' 
+                    ? "Fill out the form below and I'll get back to you as soon as possible." 
+                    : "Füllen Sie das untenstehende Formular aus und ich werde mich so schnell wie möglich bei Ihnen melden."}
+                </CardDescription>
               </CardHeader>
               <CardContent className="p-4 sm:p-6">
                 <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -144,7 +155,7 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="John Doe"
+                      placeholder={language === 'en' ? "John Doe" : "Max Mustermann"}
                       className="w-full"
                     />
                   </div>
@@ -159,7 +170,7 @@ const Contact = () => {
                       type="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="john@example.com"
+                      placeholder={language === 'en' ? "john@example.com" : "max@beispiel.de"}
                       className="w-full"
                     />
                   </div>
@@ -173,7 +184,7 @@ const Contact = () => {
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Your message..."
+                      placeholder={language === 'en' ? "Your message..." : "Ihre Nachricht..."}
                       className="w-full min-h-[120px] sm:min-h-[150px]"
                     />
                   </div>
@@ -187,12 +198,12 @@ const Contact = () => {
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <div className="h-4 w-4 rounded-full border-2 border-current border-r-transparent animate-spin"></div>
-                        {t("contact.sending")}
+                        {language === 'en' ? "Sending..." : "Wird gesendet..."}
                       </span>
                     ) : (
                       <span className="flex items-center gap-2">
                         <Send className="h-5 w-5" />
-                        {t("contact.submit")}
+                        {language === 'en' ? "Send Message" : "Nachricht senden"}
                       </span>
                     )}
                   </Button>
@@ -206,7 +217,9 @@ const Contact = () => {
             {/* Contact details */}
             <Card className="overflow-hidden border-primary/10">
               <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
-                <CardTitle className="text-xl">{t("contact.contactInfo")}</CardTitle>
+                <CardTitle className="text-xl">
+                  {language === 'en' ? "Contact Information" : "Kontaktinformationen"}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 sm:space-y-4 p-4 sm:p-6">
                 {contactInfo.map((item, index) => (
@@ -233,7 +246,9 @@ const Contact = () => {
             {/* Download section */}
             <Card className="overflow-hidden border-primary/10 transition-all duration-300 download-files-section">
               <CardHeader className="bg-primary/5 dark:bg-primary/10 py-4 px-4 sm:px-6">
-                <CardTitle className="text-xl">{t("contact.downloadFiles")}</CardTitle>
+                <CardTitle className="text-xl">
+                  {language === 'en' ? "Download Files" : "Dateien herunterladen"}
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 p-4 sm:p-6">
                 {downloadFiles.map((item, index) => (
