@@ -10,6 +10,9 @@ import {
   Certification 
 } from '@/types/database';
 
+/**
+ * Hook to fetch personal information from Supabase
+ */
 export function usePersonalInfo() {
   const [data, setData] = useState<PersonalInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,6 +43,9 @@ export function usePersonalInfo() {
   return { data, isLoading, error };
 }
 
+/**
+ * Hook to fetch professional experience from Supabase
+ */
 export function useProfessionalExperience() {
   const [data, setData] = useState<ProfessionalExperience[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -70,6 +76,9 @@ export function useProfessionalExperience() {
   return { data, isLoading, error };
 }
 
+/**
+ * Hook to fetch projects from Supabase
+ */
 export function useProjects() {
   const [data, setData] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -99,6 +108,9 @@ export function useProjects() {
   return { data, isLoading, error };
 }
 
+/**
+ * Hook to fetch technical skills from Supabase
+ */
 export function useTechnicalSkills() {
   const [data, setData] = useState<TechnicalSkill[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -129,6 +141,9 @@ export function useTechnicalSkills() {
   return { data, isLoading, error };
 }
 
+/**
+ * Hook to fetch education data from Supabase
+ */
 export function useEducation() {
   const [data, setData] = useState<Education[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -159,6 +174,9 @@ export function useEducation() {
   return { data, isLoading, error };
 }
 
+/**
+ * Hook to fetch certifications from Supabase
+ */
 export function useCertifications() {
   const [data, setData] = useState<Certification[]>([]);
   const [isLoading, setIsLoading] = useState(true);

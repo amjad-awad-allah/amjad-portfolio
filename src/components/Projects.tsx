@@ -2,7 +2,7 @@
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { ExternalLink, FilterX, Github, Layers } from "lucide-react";
+import { ExternalLink, FilterX, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -106,7 +106,7 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectCompany")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">
+                    <SelectItem value="">
                       {t("projects.allProjects")}
                     </SelectItem>
                     {experiences && experiences.map((experience) => (
@@ -127,7 +127,7 @@ const Projects = () => {
                     <SelectValue placeholder={t("projects.selectTechnology")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">
+                    <SelectItem value="">
                       {t("projects.allProjects")}
                     </SelectItem>
                     {allTechnologies.map((tech) => (
