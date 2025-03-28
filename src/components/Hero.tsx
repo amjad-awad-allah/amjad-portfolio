@@ -33,24 +33,25 @@ const Hero = () => {
     { symbol: "const", delay: 5.5, size: 17, top: "25%", left: "55%" },
   ];
 
+  // Tech icons with pulse animation
+  const techIcons = [
+    { icon: "cpu", top: "15%", right: "10%", size: 16, animationDelay: "0s" },
+    { icon: "cpu", top: "75%", left: "8%", size: 14, animationDelay: "1.5s" },
+    { icon: "cpu", bottom: "20%", right: "15%", size: 12, animationDelay: "3s" },
+  ];
+
   return (
     <section id="home" className="py-24 md:py-32 relative overflow-hidden">
+      {/* Smooth gradient background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:to-[#223A47]"></div>
+      
       {/* Enhanced animated background elements with code/AI patterns */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-[40%] -right-[60%] w-[140%] h-[140%] rounded-full bg-gradient-to-br from-primary/5 via-primary/2 to-transparent blur-3xl"></div>
-        <div className="absolute top-[60%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent blur-3xl"></div>
-        
-        {/* Added code pattern overlay with improved opacity */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
-        
-        {/* Animated digital circuit lines */}
-        <div className="absolute inset-0 circuit-pattern opacity-5"></div>
-
         {/* Animated code symbols with improved animation */}
         {codeElements.map((item, index) => (
           <motion.div 
             key={index}
-            className="absolute font-mono text-primary/10 pointer-events-none"
+            className="absolute font-mono text-primary/10 dark:text-primary/15 pointer-events-none"
             style={{ 
               top: item.top, 
               left: item.left, 
@@ -72,19 +73,59 @@ const Hero = () => {
           </motion.div>
         ))}
 
+        {/* Tech icons with pulse animation */}
+        {techIcons.map((icon, index) => (
+          <div
+            key={`tech-icon-${index}`}
+            className="absolute pointer-events-none"
+            style={{
+              top: icon.top || "auto",
+              right: icon.right || "auto",
+              bottom: icon.bottom || "auto",
+              left: icon.left || "auto",
+              animationDelay: icon.animationDelay,
+            }}
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width={icon.size * 2} 
+              height={icon.size * 2} 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              className={`text-primary/20 dark:text-primary/30 animate-pulse-slow`}
+              style={{ animationDelay: icon.animationDelay }}
+            >
+              <rect width="16" height="16" x="4" y="4" rx="2"></rect>
+              <rect width="6" height="6" x="9" y="9" rx="1"></rect>
+              <path d="M15 2v2"></path>
+              <path d="M15 20v2"></path>
+              <path d="M2 15h2"></path>
+              <path d="M2 9h2"></path>
+              <path d="M20 15h2"></path>
+              <path d="M20 9h2"></path>
+              <path d="M9 2v2"></path>
+              <path d="M9 20v2"></path>
+            </svg>
+          </div>
+        ))}
+
         {/* Additional binary patterns */}
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           {[...Array(8)].map((_, i) => (
             <motion.div
               key={`binary-${i}`}
-              className="absolute font-mono opacity-[0.03] text-xs"
+              className="absolute font-mono text-primary/10 dark:text-primary/15 text-xs"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
               }}
               initial={{ opacity: 0 }}
               animate={{ 
-                opacity: [0.01, 0.03, 0.01], 
+                opacity: [0.01, 0.08, 0.01], 
               }}
               transition={{
                 duration: 3 + Math.random() * 5,

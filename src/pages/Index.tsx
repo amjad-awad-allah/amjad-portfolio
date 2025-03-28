@@ -93,8 +93,7 @@ const Index = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-primary/5 code-background">
-          <div className="fixed inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none"></div>
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]">
           <Navbar />
           <main className="mt-16 sm:mt-20">
             <Hero />

@@ -63,8 +63,6 @@ const Hobbies = () => {
                     {hobby.icon}
                   </motion.div>
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
-                  
-                  {/* Removed Matrix-inspired graphic element that was causing code to appear on hover */}
                 </CardContent>
               </Card>
             </motion.div>
