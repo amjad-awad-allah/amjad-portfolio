@@ -2,7 +2,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe } from "lucide-react";
+import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -18,7 +18,7 @@ const Hero = () => {
     { icon: <Globe className="h-3.5 w-3.5 mr-1" />, text: "Software Architect", rotate: 90, delay: 0.4 },
   ];
 
-  // Background code elements for animation
+  // Background code elements for animation - Enhanced with more programming elements
   const codeElements = [
     { symbol: "{}", delay: 0.5, size: 24, top: "10%", left: "5%" },
     { symbol: "</>", delay: 1.0, size: 20, top: "70%", left: "15%" },
@@ -26,22 +26,27 @@ const Hero = () => {
     { symbol: "[]", delay: 2.0, size: 22, top: "80%", left: "80%" },
     { symbol: "=>", delay: 2.5, size: 26, top: "15%", left: "70%" },
     { symbol: "if()", delay: 3.0, size: 16, top: "60%", left: "10%" },
+    { symbol: "for(i)", delay: 3.5, size: 18, top: "40%", left: "75%" },
+    { symbol: "async", delay: 4.0, size: 20, top: "85%", left: "35%" },
+    { symbol: "import", delay: 4.5, size: 19, top: "20%", left: "30%" },
+    { symbol: "class", delay: 5.0, size: 21, top: "65%", left: "65%" },
+    { symbol: "const", delay: 5.5, size: 17, top: "25%", left: "55%" },
   ];
 
   return (
     <section id="home" className="py-24 md:py-32 relative overflow-hidden">
-      {/* Enhanced background elements with AI/code patterns */}
+      {/* Enhanced animated background elements with code/AI patterns */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-[40%] -right-[60%] w-[140%] h-[140%] rounded-full bg-gradient-to-br from-primary/5 via-primary/2 to-transparent blur-3xl"></div>
         <div className="absolute top-[60%] -left-[10%] w-[70%] h-[70%] rounded-full bg-gradient-to-br from-secondary/10 via-secondary/5 to-transparent blur-3xl"></div>
         
-        {/* Added code pattern overlay */}
+        {/* Added code pattern overlay with improved opacity */}
         <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]"></div>
         
         {/* Animated digital circuit lines */}
         <div className="absolute inset-0 circuit-pattern opacity-5"></div>
 
-        {/* Animated code symbols */}
+        {/* Animated code symbols with improved animation */}
         {codeElements.map((item, index) => (
           <motion.div 
             key={index}
@@ -66,6 +71,34 @@ const Hero = () => {
             {item.symbol}
           </motion.div>
         ))}
+
+        {/* Additional binary patterns */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={`binary-${i}`}
+              className="absolute font-mono opacity-[0.03] text-xs"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: [0.01, 0.03, 0.01], 
+              }}
+              transition={{
+                duration: 3 + Math.random() * 5,
+                repeat: Infinity,
+                repeatType: "reverse",
+                delay: Math.random() * 2,
+              }}
+            >
+              {[...Array(10)].map((_, j) => (
+                <div key={j}>{Math.random() > 0.5 ? '1' : '0'}</div>
+              ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
 
       <div className="section-container">
@@ -90,14 +123,14 @@ const Hero = () => {
                 {/* Pulsing border effect */}
                 <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-pulse-slow"></div>
                 
-                {/* AI/Coding skill labels around the profile image */}
+                {/* AI/Coding skill labels around the profile image with improved visibility */}
                 {skillLabels.map((label, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: label.delay, duration: 0.5 }}
-                    className="absolute bg-white/80 dark:bg-secondary/80 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/20"
+                    className="absolute bg-white/90 dark:bg-secondary/90 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/30"
                     style={{
                       transform: `rotate(${label.rotate}deg) translateX(${label.rotate === 0 ? '-50%' : '0'})`,
                       // Position based on rotation
@@ -161,7 +194,7 @@ const Hero = () => {
                   <span>{personalInfo?.current_location || "Location"}</span>
                 </motion.div>
 
-                {/* Social Media Links - Enhanced with animations */}
+                {/* Enhanced Social Media Links with animations */}
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -173,7 +206,7 @@ const Hero = () => {
                       href={personalInfo.linkedin_url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
+                      className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                       aria-label="LinkedIn Profile"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
@@ -187,7 +220,7 @@ const Hero = () => {
                       href={personalInfo.github_url} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
+                      className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                       aria-label="GitHub Profile"
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
@@ -205,7 +238,10 @@ const Hero = () => {
                 >
                   <Button asChild size="lg" className="group relative overflow-hidden">
                     <a href="#contact">
-                      <span className="relative z-10">{t("hero.cta")}</span>
+                      <span className="relative z-10 flex items-center">
+                        {t("hero.cta")}
+                        <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </span>
                       <span className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                     </a>
                   </Button>

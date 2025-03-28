@@ -5,7 +5,7 @@ import { BookOpen, Gamepad2, Trophy } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const Hobbies = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const hobbies = [
     {
@@ -38,7 +38,9 @@ const Hobbies = () => {
           <h2 className="heading-lg mb-4">{t("hobbies.title")}</h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
           <p className="paragraph max-w-2xl mx-auto">
-            {t("hobbies.description") || "When I'm not coding, I enjoy these activities that help me maintain a healthy work-life balance."}
+            {language === 'de' ? 
+              "Wenn ich nicht programmiere, genieße ich diese Aktivitäten, die mir helfen, eine gesunde Work-Life-Balance zu halten." : 
+              "When I'm not coding, I enjoy these activities that help me maintain a healthy work-life balance."}
           </p>
         </div>
 
@@ -62,26 +64,7 @@ const Hobbies = () => {
                   </motion.div>
                   <h3 className="text-xl font-semibold mb-2">{hobby.name}</h3>
                   
-                  {/* Matrix-inspired graphic element */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-5 pointer-events-none">
-                    <div className="absolute top-0 left-0 right-0 h-full overflow-hidden">
-                      {Array.from({ length: 10 }).map((_, i) => (
-                        <div 
-                          key={i} 
-                          className="text-xs font-mono opacity-80"
-                          style={{ 
-                            position: 'absolute', 
-                            top: `${Math.random() * 100}%`, 
-                            left: `${Math.random() * 100}%`,
-                            animation: `matrix-fall ${Math.random() * 3 + 2}s linear infinite`,
-                            animationDelay: `${Math.random() * 2}s`
-                          }}
-                        >
-                          {Math.random() > 0.5 ? '1' : '0'}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  {/* Removed Matrix-inspired graphic element that was causing code to appear on hover */}
                 </CardContent>
               </Card>
             </motion.div>
