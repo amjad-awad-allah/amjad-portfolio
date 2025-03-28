@@ -24,8 +24,8 @@ const LanguageToggle = () => {
   }, [language, isReady]);
 
   const languages = [
-    { code: "en", label: "English", flag: "🇬🇧" },
-    { code: "de", label: "Deutsch", flag: "🇩🇪" },
+    { code: "en", label: "English", flag: "🇬🇧", color: "bg-blue-500" },
+    { code: "de", label: "Deutsch", flag: "🇩🇪", color: "bg-amber-500" },
   ];
 
   // Find current language details
@@ -69,24 +69,55 @@ const LanguageToggle = () => {
                   {currentLang.label}
                 </motion.span>
               </AnimatePresence>
-              <span className="w-6 h-6 flex items-center justify-center rounded-full bg-secondary text-xs">
+              <motion.span 
+                className={`w-6 h-6 flex items-center justify-center rounded-full text-xs shadow-sm border border-white/20`}
+                style={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                initial={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
+                animate={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
+                transition={{ duration: 0.2 }}
+              >
                 {currentLang.flag}
-              </span>
+              </motion.span>
             </>
           )}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={isMobile ? "center" : "end"} className="w-36 sm:w-48 animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
+      <DropdownMenuContent align={isMobile ? "center" : "end"} className="w-36 sm:w-48 animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg border border-white/20 dark:border-gray-800/50">
         {languages.map((lang) => (
           <DropdownMenuItem
             key={lang.code}
             onClick={() => handleLanguageChange(lang.code as "en" | "de")}
-            className={`flex items-center gap-3 cursor-pointer transition-colors hover:bg-secondary/50 ${
-              language === lang.code ? "bg-secondary" : ""
-            }`}
+            className={`flex items-center gap-3 cursor-pointer transition-colors hover:bg-secondary/20 group relative overflow-hidden
+              ${language === lang.code ? "bg-secondary/30" : ""}`}
           >
-            <span className="text-base">{lang.flag}</span>
+            <span className={`text-base flex items-center justify-center w-6 h-6 rounded-full ${lang.code === 'en' ? 'bg-blue-500' : 'bg-amber-500'} shadow-sm`}>
+              {lang.flag}
+            </span>
             <span>{lang.label}</span>
+            
+            {/* Selected indicator */}
+            {language === lang.code && (
+              <motion.div 
+                className="absolute inset-y-0 right-0 w-1 bg-primary"
+                layoutId="activeLanguageIndicator"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+            
+            {/* Hover effect */}
+            <motion.div 
+              className="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100"
+              style={{ 
+                background: lang.code === 'en' 
+                  ? 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05))' 
+                  : 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05))' 
+              }}
+              transition={{ duration: 0.3 }}
+            />
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

@@ -1,3 +1,4 @@
+
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -59,7 +60,32 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-24 bg-secondary/20 dark:bg-secondary/5 relative">
+      {/* Enhanced background with code/AI patterns */}
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02]"></div>
+      <div className="absolute inset-0 -z-10 circuit-pattern opacity-[0.03]"></div>
+      
+      {/* Animated node connections in background */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {[...Array(3)].map((_, i) => (
+          <motion.div 
+            key={i}
+            className="absolute bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 h-0.5 w-[60%]"
+            style={{
+              top: `${25 + i * 25}%`,
+              left: i % 2 === 0 ? "-10%" : "50%",
+            }}
+            animate={{
+              x: i % 2 === 0 ? ["0%", "100%", "0%"] : ["0%", "-100%", "0%"],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{
+              duration: 20 + i * 5,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+          />
+        ))}
+      </div>
       
       <div className="section-container">
         <div className="text-center mb-16">
@@ -115,12 +141,22 @@ const Projects = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects.length > 0 ? (
-                filteredProjects.map((project) => (
-                  <ProjectCard 
-                    key={project.id} 
-                    project={project} 
-                    companyName={getCompanyName(project.experience_id)}
-                  />
+                filteredProjects.map((project, index) => (
+                  <motion.div
+                    key={project.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ 
+                      duration: 0.5, 
+                      delay: 0.1 * (index % 3) // Stagger effect by column
+                    }}
+                  >
+                    <ProjectCard 
+                      project={project} 
+                      companyName={getCompanyName(project.experience_id)}
+                    />
+                  </motion.div>
                 ))
               ) : (
                 <NoProjectsFound resetFilters={resetFilters} />

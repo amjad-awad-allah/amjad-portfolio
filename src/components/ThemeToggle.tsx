@@ -98,9 +98,9 @@ const ThemeToggle = () => {
   }
 
   const themes = [
-    { value: "light", label: "Light", icon: Sun },
-    { value: "dark", label: "Dark", icon: Moon },
-    { value: "system", label: "System", icon: Laptop },
+    { value: "light", label: "Light", icon: Sun, color: "bg-amber-200" },
+    { value: "dark", label: "Dark", icon: Moon, color: "bg-indigo-900" },
+    { value: "system", label: "System", icon: Laptop, color: "bg-gray-400" },
   ];
 
   return (
@@ -110,7 +110,7 @@ const ThemeToggle = () => {
           variant="ghost" 
           size="sm" 
           aria-label="Toggle theme"
-          className="w-9 h-9 p-0 transition-all duration-300"
+          className="w-9 h-9 p-0 transition-all duration-300 relative overflow-hidden group"
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
@@ -119,25 +119,79 @@ const ThemeToggle = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 10, opacity: 0 }}
               transition={{ duration: 0.15 }}
+              className="relative z-10"
             >
-              {theme === "light" && <Sun className="h-4 w-4" />}
-              {theme === "dark" && <Moon className="h-4 w-4" />}
-              {theme === "system" && <Laptop className="h-4 w-4" />}
+              {theme === "light" && (
+                <Sun className="h-4 w-4 text-amber-500" />
+              )}
+              {theme === "dark" && (
+                <Moon className="h-4 w-4 text-indigo-400" />
+              )}
+              {theme === "system" && (
+                <Laptop className="h-4 w-4 text-gray-500" />
+              )}
             </motion.div>
           </AnimatePresence>
+          
+          {/* Button background glow effect */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {theme === "light" && (
+              <div className="absolute inset-0 bg-amber-500/10 rounded-full" />
+            )}
+            {theme === "dark" && (
+              <div className="absolute inset-0 bg-indigo-500/10 rounded-full" />
+            )}
+            {theme === "system" && (
+              <div className="absolute inset-0 bg-gray-500/10 rounded-full" />
+            )}
+          </div>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm">
+      <DropdownMenuContent align="end" className="animate-scale-in bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg border border-white/20 dark:border-gray-800/50">
         {themes.map((t) => (
           <DropdownMenuItem
             key={t.value}
             onClick={() => setTheme(t.value as Theme)}
-            className={`flex items-center gap-2 cursor-pointer transition-colors hover:bg-secondary/50 ${
-              theme === t.value ? "bg-secondary" : ""
-            }`}
+            className={`flex items-center gap-2 cursor-pointer transition-colors hover:bg-secondary/20 group relative overflow-hidden
+              ${theme === t.value ? "bg-secondary/30" : ""}`}
           >
-            <t.icon className="h-4 w-4" />
+            <div className={`p-1 rounded-full ${
+              t.value === 'light' ? 'bg-amber-100 text-amber-500' : 
+              t.value === 'dark' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-300' : 
+              'bg-gray-100 dark:bg-gray-800 text-gray-500'
+            }`}>
+              <t.icon className="h-3.5 w-3.5" />
+            </div>
             <span>{t.label}</span>
+            
+            {/* Selected indicator */}
+            {theme === t.value && (
+              <motion.div 
+                className="absolute inset-y-0 right-0 w-1"
+                style={{
+                  background: t.value === 'light' ? '#f59e0b' : 
+                             t.value === 'dark' ? '#6366f1' : 
+                             '#9ca3af'
+                }}
+                layoutId="activeThemeIndicator"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+            
+            {/* Hover effect */}
+            <motion.div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100"
+              style={{ 
+                background: t.value === 'light' 
+                  ? 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05))' : 
+                  t.value === 'dark'
+                  ? 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.05))'
+                  : 'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.05))'
+              }}
+              transition={{ duration: 0.3 }}
+            />
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
