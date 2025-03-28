@@ -76,9 +76,6 @@ const Index = () => {
       // Log Supabase connection
       console.log("%c📊 Connecting to Supabase database...", "font-weight: bold; color: #10B981;");
       
-      // Force dark mode for the design in the image
-      document.documentElement.classList.add('dark');
-      
       return () => {
         const endTime = performance.now();
         console.log(`%c📊 Portfolio rendered in ${(endTime - startTime).toFixed(2)}ms`, "font-weight: bold; color: #10B981;");
@@ -96,9 +93,9 @@ const Index = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <div className="min-h-screen flex flex-col bg-[#080f16] text-white">
+        <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]">
           <Navbar />
-          <main className="flex-grow">
+          <main className="mt-16 sm:mt-20">
             <Hero />
             <About />
             <Experience />

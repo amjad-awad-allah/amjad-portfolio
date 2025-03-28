@@ -31,11 +31,6 @@ const Hobbies = () => {
     },
   ];
 
-  // Fixed translation for the hobbies description
-  const hobbiesDescription = language === 'de' 
-    ? "Wenn ich nicht programmiere, genieße ich diese Aktivitäten, die mir helfen, eine gesunde Work-Life-Balance zu halten."
-    : "When I'm not coding, I enjoy these activities that help me maintain a healthy work-life balance.";
-
   return (
     <section id="hobbies" className="py-16">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -43,7 +38,9 @@ const Hobbies = () => {
           <h2 className="heading-lg mb-4">{t("hobbies.title")}</h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
           <p className="paragraph max-w-2xl mx-auto">
-            {hobbiesDescription}
+            {language === 'de' ? 
+              "Wenn ich nicht programmiere, genieße ich diese Aktivitäten, die mir helfen, eine gesunde Work-Life-Balance zu halten." : 
+              "When I'm not coding, I enjoy these activities that help me maintain a healthy work-life balance."}
           </p>
         </div>
 
