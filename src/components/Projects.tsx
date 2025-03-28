@@ -1,4 +1,3 @@
-
 import { useState, useMemo } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
@@ -9,14 +8,13 @@ import ProjectFilters from "./projects/ProjectFilters";
 import NoProjectsFound from "./projects/NoProjectsFound";
 
 const Projects = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const { data: allProjects, isLoading: isProjectsLoading } = useProjects();
   const { data: experiences, isLoading: isExperienceLoading } = useProfessionalExperience();
   
   const [companyFilter, setCompanyFilter] = useState<string>("all");
   const [techFilter, setTechFilter] = useState<string>("all");
   
-  // Extract all unique technologies from projects
   const allTechnologies = useMemo(() => {
     if (!allProjects) return [];
     
@@ -30,17 +28,14 @@ const Projects = () => {
     return Array.from(technologies).sort();
   }, [allProjects]);
   
-  // Filter projects based on selected criteria
   const filteredProjects = useMemo(() => {
     if (!allProjects) return [];
     
     return allProjects.filter(project => {
-      // Filter by company
       if (companyFilter !== "all" && project.experience_id.toString() !== companyFilter) {
         return false;
       }
       
-      // Filter by technology
       if (techFilter !== "all" && !project.technologies_used?.includes(techFilter)) {
         return false;
       }
@@ -49,20 +44,17 @@ const Projects = () => {
     });
   }, [allProjects, companyFilter, techFilter]);
   
-  // Reset all filters
   const resetFilters = () => {
     setCompanyFilter("all");
     setTechFilter("all");
   };
 
-  // Find company name by experience id
   const getCompanyName = (experienceId: number) => {
     if (!experiences) return '';
     const experience = experiences.find(exp => exp.id === experienceId);
     return experience ? experience.company_name : '';
   };
 
-  // Determine if reset button should be shown
   const showResetButton = companyFilter !== "all" || techFilter !== "all";
 
   return (
@@ -110,7 +102,6 @@ const Projects = () => {
           </div>
         ) : (
           <>
-            {/* Filters */}
             <ProjectFilters 
               companyFilter={companyFilter}
               setCompanyFilter={setCompanyFilter}
@@ -122,7 +113,6 @@ const Projects = () => {
               showResetButton={showResetButton}
             />
             
-            {/* Projects Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProjects.length > 0 ? (
                 filteredProjects.map((project) => (
