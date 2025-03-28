@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -72,10 +71,10 @@ export default {
           DEFAULT: "#1E293B",
           light: "#F8FAFC",
           comment: "#34495E",
-          keyword: "#0284c7", // Changed to a more visible blue
-          function: "#0369a1", // Changed to a more visible blue
-          string: "#059669", // Changed from #2C6E49 to a more visible green
-          number: "#0369a1", // Changed to a more visible blue
+          keyword: "#0284c7",
+          function: "#0369a1",
+          string: "#059669",
+          number: "#0369a1",
         },
       },
       borderRadius: {

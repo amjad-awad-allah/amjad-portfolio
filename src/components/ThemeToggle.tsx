@@ -98,8 +98,8 @@ const ThemeToggle = () => {
   }
 
   const themes = [
-    { value: "light", label: "Light", icon: Sun, color: "bg-amber-200" },
-    { value: "dark", label: "Dark", icon: Moon, color: "bg-indigo-900" },
+    { value: "light", label: "Light", icon: Sun, color: "bg-[#F3F6F9]" },
+    { value: "dark", label: "Dark", icon: Moon, color: "bg-[#1A2B36]" },
     { value: "system", label: "System", icon: Laptop, color: "bg-gray-400" },
   ];
 
@@ -122,10 +122,10 @@ const ThemeToggle = () => {
               className="relative z-10"
             >
               {theme === "light" && (
-                <Sun className="h-4 w-4 text-amber-500" />
+                <Sun className="h-4 w-4 text-[#007B8F]" />
               )}
               {theme === "dark" && (
-                <Moon className="h-4 w-4 text-indigo-400" />
+                <Moon className="h-4 w-4 text-[#00A5B5]" />
               )}
               {theme === "system" && (
                 <Laptop className="h-4 w-4 text-gray-500" />
@@ -136,10 +136,10 @@ const ThemeToggle = () => {
           {/* Button background glow effect */}
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             {theme === "light" && (
-              <div className="absolute inset-0 bg-amber-500/10 rounded-full" />
+              <div className="absolute inset-0 bg-[#007B8F]/10 rounded-full" />
             )}
             {theme === "dark" && (
-              <div className="absolute inset-0 bg-indigo-500/10 rounded-full" />
+              <div className="absolute inset-0 bg-[#00A5B5]/10 rounded-full" />
             )}
             {theme === "system" && (
               <div className="absolute inset-0 bg-gray-500/10 rounded-full" />
@@ -156,8 +156,8 @@ const ThemeToggle = () => {
               ${theme === t.value ? "bg-secondary/30" : ""}`}
           >
             <div className={`p-1 rounded-full ${
-              t.value === 'light' ? 'bg-amber-100 text-amber-500' : 
-              t.value === 'dark' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-500 dark:text-indigo-300' : 
+              t.value === 'light' ? 'bg-[#F3F6F9] text-[#007B8F]' : 
+              t.value === 'dark' ? 'bg-[#1A2B36] text-[#00A5B5]' : 
               'bg-gray-100 dark:bg-gray-800 text-gray-500'
             }`}>
               <t.icon className="h-3.5 w-3.5" />
@@ -169,8 +169,8 @@ const ThemeToggle = () => {
               <motion.div 
                 className="absolute inset-y-0 right-0 w-1"
                 style={{
-                  background: t.value === 'light' ? '#f59e0b' : 
-                             t.value === 'dark' ? '#6366f1' : 
+                  background: t.value === 'light' ? '#007B8F' : 
+                             t.value === 'dark' ? '#00A5B5' : 
                              '#9ca3af'
                 }}
                 layoutId="activeThemeIndicator"
@@ -185,9 +185,9 @@ const ThemeToggle = () => {
               className="absolute inset-0 opacity-0 group-hover:opacity-100"
               style={{ 
                 background: t.value === 'light' 
-                  ? 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05))' : 
+                  ? 'linear-gradient(90deg, transparent, rgba(0, 123, 143, 0.05))' : 
                   t.value === 'dark'
-                  ? 'linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.05))'
+                  ? 'linear-gradient(90deg, transparent, rgba(0, 165, 181, 0.05))'
                   : 'linear-gradient(90deg, transparent, rgba(156, 163, 175, 0.05))'
               }}
               transition={{ duration: 0.3 }}

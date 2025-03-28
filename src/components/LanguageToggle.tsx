@@ -71,11 +71,14 @@ const LanguageToggle = () => {
               </AnimatePresence>
               <motion.span 
                 className={`w-6 h-6 flex items-center justify-center rounded-full text-xs shadow-sm border border-white/20`}
-                style={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
+                style={{ 
+                  backgroundColor: language === 'en' ? '#007B8F' : '#00A5B5',
+                  color: '#FFFFFF'
+                }}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                initial={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
-                animate={{ backgroundColor: language === 'en' ? '#2563eb' : '#f59e0b' }}
+                initial={{ backgroundColor: language === 'en' ? '#007B8F' : '#00A5B5' }}
+                animate={{ backgroundColor: language === 'en' ? '#007B8F' : '#00A5B5' }}
                 transition={{ duration: 0.2 }}
               >
                 {currentLang.flag}
@@ -92,7 +95,10 @@ const LanguageToggle = () => {
             className={`flex items-center gap-3 cursor-pointer transition-colors hover:bg-secondary/20 group relative overflow-hidden
               ${language === lang.code ? "bg-secondary/30" : ""}`}
           >
-            <span className={`text-base flex items-center justify-center w-6 h-6 rounded-full ${lang.code === 'en' ? 'bg-blue-500' : 'bg-amber-500'} shadow-sm`}>
+            <span className={`text-base flex items-center justify-center w-6 h-6 rounded-full shadow-sm text-white`}
+                  style={{ 
+                    backgroundColor: lang.code === 'en' ? '#007B8F' : '#00A5B5'
+                  }}>
               {lang.flag}
             </span>
             <span>{lang.label}</span>
@@ -113,8 +119,8 @@ const LanguageToggle = () => {
               className="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100"
               style={{ 
                 background: lang.code === 'en' 
-                  ? 'linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05))' 
-                  : 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05))' 
+                  ? 'linear-gradient(90deg, transparent, rgba(0, 123, 143, 0.05))' 
+                  : 'linear-gradient(90deg, transparent, rgba(0, 165, 181, 0.05))' 
               }}
               transition={{ duration: 0.3 }}
             />
