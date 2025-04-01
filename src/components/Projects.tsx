@@ -10,6 +10,16 @@ import NoProjectsFound from "./projects/NoProjectsFound";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from "@/components/ui/pagination";
+
+const PROJECTS_PER_PAGE = 6;
 
 const Projects = () => {
   const { t, language } = useLanguage();
@@ -19,6 +29,7 @@ const Projects = () => {
   const [companyFilter, setCompanyFilter] = useState<string>("all");
   const [techFilter, setTechFilter] = useState<string>("all");
   const [isOpen, setIsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   
   const allTechnologies = useMemo(() => {
     if (!allProjects) return [];
@@ -49,15 +60,29 @@ const Projects = () => {
     });
   }, [allProjects, companyFilter, techFilter]);
   
+  // Calculate pagination
+  const totalPages = Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+  const paginatedProjects = useMemo(() => {
+    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    return filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+  }, [filteredProjects, currentPage]);
+  
   const resetFilters = () => {
     setCompanyFilter("all");
     setTechFilter("all");
+    setCurrentPage(1);
   };
 
   const getCompanyName = (experienceId: number) => {
     if (!experiences) return '';
     const experience = experiences.find(exp => exp.id === experienceId);
     return experience ? experience.company_name : '';
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to the top of the projects section
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const showResetButton = companyFilter !== "all" || techFilter !== "all";
@@ -171,8 +196,8 @@ const Projects = () => {
                   />
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {filteredProjects.length > 0 ? (
-                      filteredProjects.map((project, index) => (
+                    {paginatedProjects.length > 0 ? (
+                      paginatedProjects.map((project, index) => (
                         <motion.div
                           key={project.id}
                           initial={{ opacity: 0, y: 20 }}
@@ -193,6 +218,42 @@ const Projects = () => {
                       <NoProjectsFound resetFilters={resetFilters} />
                     )}
                   </div>
+                  
+                  {/* Pagination */}
+                  {filteredProjects.length > PROJECTS_PER_PAGE && (
+                    <div className="mt-8">
+                      <Pagination>
+                        <PaginationContent>
+                          {currentPage > 1 && (
+                            <PaginationItem>
+                              <PaginationPrevious 
+                                onClick={() => handlePageChange(currentPage - 1)} 
+                              />
+                            </PaginationItem>
+                          )}
+                          
+                          {[...Array(totalPages)].map((_, i) => (
+                            <PaginationItem key={i}>
+                              <PaginationLink
+                                isActive={currentPage === i + 1}
+                                onClick={() => handlePageChange(i + 1)}
+                              >
+                                {i + 1}
+                              </PaginationLink>
+                            </PaginationItem>
+                          ))}
+                          
+                          {currentPage < totalPages && (
+                            <PaginationItem>
+                              <PaginationNext 
+                                onClick={() => handlePageChange(currentPage + 1)} 
+                              />
+                            </PaginationItem>
+                          )}
+                        </PaginationContent>
+                      </Pagination>
+                    </div>
+                  )}
                 </>
               )}
             </CollapsibleContent>

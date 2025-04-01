@@ -55,7 +55,7 @@ const Hero = () => {
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]"></div>
       
       {/* Enhanced animated background elements with code/AI patterns */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0 -z-9 overflow-hidden">
         {/* Unified technical elements rendering */}
         {technicalTerms.map((item, index) => {
           // Code symbols
@@ -71,7 +71,7 @@ const Hero = () => {
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ 
-                  opacity: [0.2, 0.5, 0.2], 
+                  opacity: [1, 1, 1], 
                   y: [0, -10, 0]
                 }}
                 transition={{ 
