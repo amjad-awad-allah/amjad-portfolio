@@ -7,6 +7,9 @@ import { useProjects, useProfessionalExperience } from "@/hooks/use-supabase-dat
 import ProjectCard from "./projects/ProjectCard";
 import ProjectFilters from "./projects/ProjectFilters";
 import NoProjectsFound from "./projects/NoProjectsFound";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const Projects = () => {
   const { t, language } = useLanguage();
@@ -15,6 +18,7 @@ const Projects = () => {
   
   const [companyFilter, setCompanyFilter] = useState<string>("all");
   const [techFilter, setTechFilter] = useState<string>("all");
+  const [isOpen, setIsOpen] = useState(false);
   
   const allTechnologies = useMemo(() => {
     if (!allProjects) return [];
@@ -88,7 +92,7 @@ const Projects = () => {
       </div>
       
       <div className="section-container">
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <motion.h2 
             className="heading-lg mb-3"
             initial={{ opacity: 0, y: 20 }}
@@ -112,58 +116,88 @@ const Projects = () => {
             )}
           </motion.p>
         </div>
-        
-        {isProjectsLoading || isExperienceLoading ? (
-          <div className="space-y-8">
-            <div className="flex flex-wrap gap-4 justify-center mb-8">
-              <Skeleton className="h-10 w-40" />
-              <Skeleton className="h-10 w-40" />
-            </div>
+
+        {/* Toggle Button for Projects */}
+        <div className="flex justify-center mb-8">
+          <Collapsible
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            className="w-full"
+          >
+            <CollapsibleTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="flex items-center gap-2 mx-auto"
+              >
+                {isOpen ? (
+                  <>
+                    <ChevronUp className="h-4 w-4" />
+                    <span>{language === 'en' ? 'Hide Projects' : 'Projekte ausblenden'}</span>
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4" />
+                    <span>{language === 'en' ? 'Show Projects' : 'Projekte anzeigen'}</span>
+                  </>
+                )}
+              </Button>
+            </CollapsibleTrigger>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <Skeleton key={i} className="h-[360px] rounded-xl" />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <>
-            <ProjectFilters 
-              companyFilter={companyFilter}
-              setCompanyFilter={setCompanyFilter}
-              techFilter={techFilter}
-              setTechFilter={setTechFilter}
-              resetFilters={resetFilters}
-              experiences={experiences}
-              allTechnologies={allTechnologies}
-              showResetButton={showResetButton}
-            />
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProjects.length > 0 ? (
-                filteredProjects.map((project, index) => (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: 0.1 * (index % 3) // Stagger effect by column
-                    }}
-                  >
-                    <ProjectCard 
-                      project={project} 
-                      companyName={getCompanyName(project.experience_id)}
-                    />
-                  </motion.div>
-                ))
+            <CollapsibleContent className="mt-8">
+              {isProjectsLoading || isExperienceLoading ? (
+                <div className="space-y-8">
+                  <div className="flex flex-wrap gap-4 justify-center mb-8">
+                    <Skeleton className="h-10 w-40" />
+                    <Skeleton className="h-10 w-40" />
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                      <Skeleton key={i} className="h-[360px] rounded-xl" />
+                    ))}
+                  </div>
+                </div>
               ) : (
-                <NoProjectsFound resetFilters={resetFilters} />
+                <>
+                  <ProjectFilters 
+                    companyFilter={companyFilter}
+                    setCompanyFilter={setCompanyFilter}
+                    techFilter={techFilter}
+                    setTechFilter={setTechFilter}
+                    resetFilters={resetFilters}
+                    experiences={experiences}
+                    allTechnologies={allTechnologies}
+                    showResetButton={showResetButton}
+                  />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredProjects.length > 0 ? (
+                      filteredProjects.map((project, index) => (
+                        <motion.div
+                          key={project.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ 
+                            duration: 0.5, 
+                            delay: 0.1 * (index % 3) // Stagger effect by column
+                          }}
+                        >
+                          <ProjectCard 
+                            project={project} 
+                            companyName={getCompanyName(project.experience_id)}
+                          />
+                        </motion.div>
+                      ))
+                    ) : (
+                      <NoProjectsFound resetFilters={resetFilters} />
+                    )}
+                  </div>
+                </>
               )}
-            </div>
-          </>
-        )}
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
       </div>
     </section>
   );

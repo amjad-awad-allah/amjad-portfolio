@@ -154,7 +154,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu - Improved design and transitions */}
+        {/* Mobile Navigation Menu - Improved design with solid background */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -162,7 +162,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-background/95 dark:bg-gray-900/95 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-white dark:bg-gray-900 md:hidden"
               style={{ top: "61px" }}
             >
               <motion.div 

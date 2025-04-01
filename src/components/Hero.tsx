@@ -18,133 +18,150 @@ const Hero = () => {
     { icon: <Globe className="h-3.5 w-3.5 mr-1" />, text: "Software Architect", rotate: 90, delay: 0.4 },
   ];
 
-  // Background code elements for animation - Enhanced with more programming elements
-  const codeElements = [
-    { symbol: "{}", delay: 0.5, size: 24, top: "10%", left: "5%" },
-    { symbol: "</>", delay: 1.0, size: 20, top: "70%", left: "15%" },
-    { symbol: "01", delay: 1.5, size: 18, top: "30%", left: "85%" },
-    { symbol: "[]", delay: 2.0, size: 22, top: "80%", left: "80%" },
-    { symbol: "=>", delay: 2.5, size: 26, top: "15%", left: "70%" },
-    { symbol: "if()", delay: 3.0, size: 16, top: "60%", left: "10%" },
-    { symbol: "for(i)", delay: 3.5, size: 18, top: "40%", left: "75%" },
-    { symbol: "async", delay: 4.0, size: 20, top: "85%", left: "35%" },
-    { symbol: "import", delay: 4.5, size: 19, top: "20%", left: "30%" },
-    { symbol: "class", delay: 5.0, size: 21, top: "65%", left: "65%" },
-    { symbol: "const", delay: 5.5, size: 17, top: "25%", left: "55%" },
-  ];
-
-  // Tech icons with pulse animation
-  const techIcons = [
-    { icon: "cpu", top: "15%", right: "10%", size: 16, animationDelay: "0s" },
-    { icon: "cpu", top: "75%", left: "8%", size: 14, animationDelay: "1.5s" },
-    { icon: "cpu", bottom: "20%", right: "15%", size: 12, animationDelay: "3s" },
+  // Combined technical elements for the animated background
+  const technicalTerms = [
+    // Code elements
+    { symbol: "{}", delay: 0.5, size: 24, top: "10%", left: "5%", type: "code" },
+    { symbol: "</>", delay: 1.0, size: 20, top: "70%", left: "15%", type: "code" },
+    { symbol: "01", delay: 1.5, size: 18, top: "30%", left: "85%", type: "code" },
+    { symbol: "[]", delay: 2.0, size: 22, top: "80%", left: "80%", type: "code" },
+    { symbol: "=>", delay: 2.5, size: 26, top: "15%", left: "70%", type: "code" },
+    { symbol: "if()", delay: 3.0, size: 16, top: "60%", left: "10%", type: "code" },
+    { symbol: "for(i)", delay: 3.5, size: 18, top: "40%", left: "75%", type: "code" },
+    { symbol: "async", delay: 4.0, size: 20, top: "85%", left: "35%", type: "code" },
+    { symbol: "import", delay: 4.5, size: 19, top: "20%", left: "30%", type: "code" },
+    { symbol: "class", delay: 5.0, size: 21, top: "65%", left: "65%", type: "code" },
+    { symbol: "const", delay: 5.5, size: 17, top: "25%", left: "55%", type: "code" },
+    
+    // Tech icons with pulse animation
+    { type: "icon", top: "15%", right: "10%", size: 16, animationDelay: "0s" },
+    { type: "icon", top: "75%", left: "8%", size: 14, animationDelay: "1.5s" },
+    { type: "icon", bottom: "20%", right: "15%", size: 12, animationDelay: "3s" },
+    
+    // Binary patterns
+    { type: "binary", position: 1 },
+    { type: "binary", position: 2 },
+    { type: "binary", position: 3 },
+    { type: "binary", position: 4 },
+    { type: "binary", position: 5 },
+    { type: "binary", position: 6 },
+    { type: "binary", position: 7 },
+    { type: "binary", position: 8 },
   ];
 
   return (
     <section id="home" className="py-24 md:py-32 relative overflow-hidden">
       {/* Smooth gradient background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:to-[#223A47]"></div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]"></div>
       
       {/* Enhanced animated background elements with code/AI patterns */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Animated code symbols with improved animation */}
-        {codeElements.map((item, index) => (
-          <motion.div 
-            key={index}
-            className="absolute font-mono text-primary/10 dark:text-primary/15 pointer-events-none"
-            style={{ 
-              top: item.top, 
-              left: item.left, 
-              fontSize: item.size 
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ 
-              opacity: [0.2, 0.5, 0.2], 
-              y: [0, -10, 0]
-            }}
-            transition={{ 
-              delay: item.delay,
-              duration: 5,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          >
-            {item.symbol}
-          </motion.div>
-        ))}
-
-        {/* Tech icons with pulse animation */}
-        {techIcons.map((icon, index) => (
-          <div
-            key={`tech-icon-${index}`}
-            className="absolute pointer-events-none"
-            style={{
-              top: icon.top || "auto",
-              right: icon.right || "auto",
-              bottom: icon.bottom || "auto",
-              left: icon.left || "auto",
-              animationDelay: icon.animationDelay,
-            }}
-          >
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width={icon.size * 2} 
-              height={icon.size * 2} 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
-              strokeWidth="2" 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              className={`text-primary/20 dark:text-primary/30 animate-pulse-slow`}
-              style={{ animationDelay: icon.animationDelay }}
-            >
-              <rect width="16" height="16" x="4" y="4" rx="2"></rect>
-              <rect width="6" height="6" x="9" y="9" rx="1"></rect>
-              <path d="M15 2v2"></path>
-              <path d="M15 20v2"></path>
-              <path d="M2 15h2"></path>
-              <path d="M2 9h2"></path>
-              <path d="M20 15h2"></path>
-              <path d="M20 9h2"></path>
-              <path d="M9 2v2"></path>
-              <path d="M9 20v2"></path>
-            </svg>
-          </div>
-        ))}
-
-        {/* Additional binary patterns */}
-        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={`binary-${i}`}
-              className="absolute font-mono text-primary/10 dark:text-primary/15 text-xs"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ 
-                opacity: [0.01, 0.08, 0.01], 
-              }}
-              transition={{
-                duration: 3 + Math.random() * 5,
-                repeat: Infinity,
-                repeatType: "reverse",
-                delay: Math.random() * 2,
-              }}
-            >
-              {[...Array(10)].map((_, j) => (
-                <div key={j}>{Math.random() > 0.5 ? '1' : '0'}</div>
-              ))}
-            </motion.div>
-          ))}
-        </div>
+        {/* Unified technical elements rendering */}
+        {technicalTerms.map((item, index) => {
+          // Code symbols
+          if (item.type === "code") {
+            return (
+              <motion.div 
+                key={`code-${index}`}
+                className="absolute font-mono text-primary/10 dark:text-primary/15 pointer-events-none"
+                style={{ 
+                  top: item.top, 
+                  left: item.left, 
+                  fontSize: item.size 
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ 
+                  opacity: [0.2, 0.5, 0.2], 
+                  y: [0, -10, 0]
+                }}
+                transition={{ 
+                  delay: item.delay,
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              >
+                {item.symbol}
+              </motion.div>
+            );
+          }
+          
+          // Tech icons with pulse animation
+          if (item.type === "icon") {
+            return (
+              <div
+                key={`tech-icon-${index}`}
+                className="absolute pointer-events-none"
+                style={{
+                  top: item.top || "auto",
+                  right: item.right || "auto",
+                  bottom: item.bottom || "auto",
+                  left: item.left || "auto",
+                }}
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width={item.size * 2} 
+                  height={item.size * 2} 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  className="text-primary/20 dark:text-primary/30 animate-pulse-slow"
+                  style={{ animationDelay: item.animationDelay }}
+                >
+                  <rect width="16" height="16" x="4" y="4" rx="2"></rect>
+                  <rect width="6" height="6" x="9" y="9" rx="1"></rect>
+                  <path d="M15 2v2"></path>
+                  <path d="M15 20v2"></path>
+                  <path d="M2 15h2"></path>
+                  <path d="M2 9h2"></path>
+                  <path d="M20 15h2"></path>
+                  <path d="M20 9h2"></path>
+                  <path d="M9 2v2"></path>
+                  <path d="M9 20v2"></path>
+                </svg>
+              </div>
+            );
+          }
+          
+          // Binary patterns
+          if (item.type === "binary") {
+            return (
+              <motion.div
+                key={`binary-${index}`}
+                className="absolute font-mono text-primary/10 dark:text-primary/15 text-xs"
+                style={{
+                  top: `${(item.position * 12) % 100}%`,
+                  left: `${(item.position * 13 + 7) % 100}%`,
+                }}
+                initial={{ opacity: 0 }}
+                animate={{ 
+                  opacity: [0.01, 0.08, 0.01], 
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 5,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  delay: Math.random() * 2,
+                }}
+              >
+                {[...Array(10)].map((_, j) => (
+                  <div key={j}>{Math.random() > 0.5 ? '1' : '0'}</div>
+                ))}
+              </motion.div>
+            );
+          }
+          
+          return null;
+        })}
       </div>
 
       <div className="section-container">
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
-          {/* Enhanced Profile Image with surrounding labels */}
+          {/* Profile Image with surrounding labels */}
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -235,7 +252,7 @@ const Hero = () => {
                   <span>{personalInfo?.current_location || "Location"}</span>
                 </motion.div>
 
-                {/* Enhanced Social Media Links with animations */}
+                {/* Social Media Links with animations */}
                 <motion.div
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
