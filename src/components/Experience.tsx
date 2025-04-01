@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -35,7 +34,6 @@ const Experience = () => {
     }
   };
 
-  // Format date helper function
   const formatDate = (dateString: string | null) => {
     if (!dateString) return language === 'en' ? 'Present' : 'Aktuell';
     
@@ -47,7 +45,6 @@ const Experience = () => {
     }
   };
 
-  // Get projects for a specific experience
   const getProjectsForExperience = (experienceId: number) => {
     return allProjects.filter(project => project.experience_id === experienceId);
   };
@@ -81,7 +78,6 @@ const Experience = () => {
           </div>
         ) : (
           <div className="relative">
-            {/* Fixed mobile timeline issue - Use a relative container and adjust the line positioning */}
             <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 transform -translate-x-1/2 z-0"></div>
             
             <div className="space-y-12">
@@ -94,10 +90,8 @@ const Experience = () => {
                     className="relative mb-12 md:grid md:grid-cols-5 md:gap-8"
                   >
                     <div className="md:col-span-2 mb-4 md:mb-0 md:text-right px-4 relative">
-                      {/* For mobile, we'll use a different timeline approach */}
                       <div className="hidden md:block absolute right-[-9px] top-3 w-4 h-4 rounded-full bg-primary z-10"></div>
                       
-                      {/* Visible on mobile only */}
                       <div className="md:hidden absolute left-0 top-3 w-3 h-3 rounded-full bg-primary z-10"></div>
                       <div className="md:hidden absolute left-1.5 top-6 bottom-0 w-0.5 bg-gray-200 dark:bg-gray-800 z-0"></div>
                       
@@ -117,7 +111,6 @@ const Experience = () => {
                         <Accordion
                           type="single"
                           collapsible
-                          defaultValue="overview"
                           className="w-full"
                         >
                           <AccordionItem value="overview" className="border-0">

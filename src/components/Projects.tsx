@@ -28,7 +28,7 @@ const Projects = () => {
   
   const [companyFilter, setCompanyFilter] = useState<string>("all");
   const [techFilter, setTechFilter] = useState<string>("all");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); // Changed to true to be uncollapsed by default
   const [currentPage, setCurrentPage] = useState(1);
   
   const allTechnologies = useMemo(() => {

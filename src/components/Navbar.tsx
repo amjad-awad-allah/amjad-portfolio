@@ -154,7 +154,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu - Improved design with solid background */}
+        {/* Mobile Navigation Menu - Updated with solid background */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
