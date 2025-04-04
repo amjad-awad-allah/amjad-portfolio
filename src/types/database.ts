@@ -17,6 +17,9 @@ export interface PersonalInfo {
   phone_number: string;
   linkedin_url: string;
   github_url: string;
+  xing_url: string | null;
+  indeed_url: string | null;
+  description_url: string | null;
 }
 
 export interface ProfessionalExperience {

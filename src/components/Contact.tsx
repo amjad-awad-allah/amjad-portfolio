@@ -8,6 +8,19 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { motion } from "framer-motion";
+import { sendEmail } from "@/lib/db";
+
+const XingIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18.188 2.675c-.23 0-.43.16-.525.4l-3.175 5.55c0 .005 0 .005 0 .01l5 8.875c.1.235.295.4.525.4h3.8c.305 0 .535-.28.425-.575L19.02 8.455l3.23-5.375c.105-.28-.13-.56-.435-.56h-3.62l-.005.005zM8 5.675c-.3 0-.53.275-.425.57l2.475 4.27-3.905 6.85c-.11.29.12.57.425.57h3.8c.235 0 .44-.165.525-.4l3.95-6.935c0-.01 0-.01 0-.016l-2.475-4.27c-.09-.24-.3-.4-.525-.4H8z" />
+  </svg>
+);
+
+const IndeedIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M10 3v18M15 11.495l3 3.005-3 3" />
+  </svg>
+);
 
 type Inputs = {
   name: string;
@@ -33,52 +46,32 @@ const Contact = () => {
     setSubmissionError(null);
 
     try {
-      // For development/demo purposes - simulate success
-      // In production, uncomment the actual API call
-      /*
-      const response = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        setIsEmailSent(true);
-        toast({
-          title: "Success!",
-          description: "Your message has been sent successfully.",
-        })
-        reset();
-      } else {
-        const errorData = await response.json();
-        setSubmissionError(errorData.message || 'Failed to send email.');
-        toast({
-          title: "Error!",
-          description: errorData.message || "Failed to send email.",
-        })
-      }
-      */
+      const result = await sendEmail(data, personalInfo?.email);
       
-      // Simulate a successful submission for demo purposes
-      setTimeout(() => {
+      if (result.success) {
         setIsEmailSent(true);
         toast({
           title: language === 'en' ? "Success!" : "Erfolg!",
           description: language === 'en' ? "Your message has been sent successfully." : "Ihre Nachricht wurde erfolgreich gesendet.",
         });
         reset();
-        setIsSubmitting(false);
-      }, 1000);
-      
+      } else {
+        setSubmissionError(result.error || (language === 'en' ? 'Failed to send email.' : 'E-Mail konnte nicht gesendet werden.'));
+        toast({
+          title: language === 'en' ? "Error!" : "Fehler!",
+          description: result.error || (language === 'en' ? "Failed to send email." : "E-Mail konnte nicht gesendet werden."),
+          variant: "destructive"
+        });
+      }
     } catch (error: any) {
       console.error("Form submission error:", error);
-      setSubmissionError(error.message || 'An unexpected error occurred.');
+      setSubmissionError(error.message || (language === 'en' ? 'An unexpected error occurred.' : 'Ein unerwarteter Fehler ist aufgetreten.'));
       toast({
         title: language === 'en' ? "Error!" : "Fehler!",
         description: error.message || (language === 'en' ? "An unexpected error occurred." : "Ein unerwarteter Fehler ist aufgetreten."),
+        variant: "destructive"
       });
+    } finally {
       setIsSubmitting(false);
     }
   };
@@ -282,6 +275,30 @@ const Contact = () => {
                       aria-label="GitHub Profile"
                     >
                       <Github className="h-5 w-5" />
+                    </a>
+                  )}
+                  
+                  {personalInfo?.xing_url && (
+                    <a 
+                      href={personalInfo.xing_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      aria-label="Xing Profile"
+                    >
+                      <XingIcon className="h-5 w-5" />
+                    </a>
+                  )}
+                  
+                  {personalInfo?.indeed_url && (
+                    <a 
+                      href={personalInfo.indeed_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                      aria-label="Indeed Profile"
+                    >
+                      <IndeedIcon className="h-5 w-5" />
                     </a>
                   )}
                 </div>

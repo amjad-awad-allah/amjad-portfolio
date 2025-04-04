@@ -1,9 +1,23 @@
+
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight } from "lucide-react";
+import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight, ExternalLink } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
+
+// Custom icon components for services that aren't in lucide-react
+const XingIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18.188 2.675c-.23 0-.43.16-.525.4l-3.175 5.55c0 .005 0 .005 0 .01l5 8.875c.1.235.295.4.525.4h3.8c.305 0 .535-.28.425-.575L19.02 8.455l3.23-5.375c.105-.28-.13-.56-.435-.56h-3.62l-.005.005zM8 5.675c-.3 0-.53.275-.425.57l2.475 4.27-3.905 6.85c-.11.29.12.57.425.57h3.8c.235 0 .44-.165.525-.4l3.95-6.935c0-.01 0-.01 0-.016l-2.475-4.27c-.09-.24-.3-.4-.525-.4H8z" />
+  </svg>
+);
+
+const IndeedIcon = (props: any) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M10 3v18M15 11.495l3 3.005-3 3" />
+  </svg>
+);
 
 const Hero = () => {
   const { t, language } = useLanguage();
@@ -264,6 +278,34 @@ const Hero = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Github className="h-5 w-5" />
+                  </motion.a>
+                )}
+
+                {personalInfo?.xing_url && (
+                  <motion.a 
+                    href={personalInfo.xing_url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
+                    aria-label="Xing Profile"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <XingIcon className="h-5 w-5" />
+                  </motion.a>
+                )}
+                
+                {personalInfo?.indeed_url && (
+                  <motion.a 
+                    href={personalInfo.indeed_url} 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
+                    aria-label="Indeed Profile"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <IndeedIcon className="h-5 w-5" />
                   </motion.a>
                 )}
               </motion.div>
