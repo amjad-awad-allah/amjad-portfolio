@@ -60,10 +60,10 @@ const ProjectCard = ({ project, companyName }: ProjectCardProps) => {
       
       <div className="px-6 py-4 border-t border-border/40">
         <div className="flex justify-end gap-3">
-          {project.image_url && (
+          {project.description_url && (
             <Button size="sm" variant="ghost" asChild>
               <a
-                href={project.image_url}
+                href={project.description_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center"

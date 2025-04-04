@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -160,9 +161,9 @@ const Experience = () => {
                                           </div>
                                         )}
                                         
-                                        {project.image_url && (
+                                        {project.description_url && (
                                           <a
-                                            href={project.image_url}
+                                            href={project.description_url}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="inline-flex items-center text-sm font-medium text-primary hover:underline mr-4"

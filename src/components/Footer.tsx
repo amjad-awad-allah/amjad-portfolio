@@ -1,9 +1,11 @@
 
 import { useLanguage } from "@/context/LanguageContext";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
+import { usePersonalInfo } from "@/hooks/use-supabase-data";
 
 const Footer = () => {
   const { t } = useLanguage();
+  const { data: personalInfo } = usePersonalInfo();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -19,38 +21,46 @@ const Footer = () => {
           </a>
           
           <div className="flex items-center gap-6 mb-8">
-            <a
-              href="mailto:amjad.awadallah93@gmail.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-primary/10 transition-colors"
-              aria-label="Email"
-            >
-              <Mail className="h-5 w-5" />
-            </a>
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-primary/10 transition-colors"
-              aria-label="GitHub"
-            >
-              <Github className="h-5 w-5" />
-            </a>
-            <a
-              href="https://linkedin.com/in/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 rounded-full hover:bg-primary/10 transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-5 w-5" />
-            </a>
+            {personalInfo?.email && (
+              <a
+                href={`mailto:${personalInfo.email}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+                aria-label="Email"
+              >
+                <Mail className="h-5 w-5" />
+              </a>
+            )}
+            
+            {personalInfo?.github_url && (
+              <a
+                href={personalInfo.github_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+            )}
+            
+            {personalInfo?.linkedin_url && (
+              <a
+                href={personalInfo.linkedin_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-full hover:bg-primary/10 transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+            )}
           </div>
           
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              &copy; {currentYear} Amjad Awad-Allah. All rights reserved.
+              &copy; {currentYear} {personalInfo?.name || "Amjad Awad-Allah"}. All rights reserved.
             </p>
           </div>
         </div>
