@@ -1,4 +1,3 @@
-
 // Type definitions for database tables
 
 export interface PersonalInfo {
@@ -42,7 +41,6 @@ export interface Project {
   technologies_used: string[]; // JSONB array
   achievements: string[]; // JSONB array
   image_url: string;
-  description_url: string | null; // Added this field
 }
 
 export interface TechnicalSkill {

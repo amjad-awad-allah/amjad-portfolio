@@ -1,4 +1,3 @@
-
 import { useLanguage } from "@/context/LanguageContext";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { motion } from "framer-motion";
-import { sendEmail } from "@/lib/db"; // Fixed import without file extension
+import { sendEmail } from "@/lib/db";
 
 const XingIcon = (props: any) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
