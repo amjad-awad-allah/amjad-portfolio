@@ -1,7 +1,8 @@
+
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight, ExternalLink } from "lucide-react";
+import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -160,60 +161,15 @@ const Hero = () => {
         })}
       </div>
 
-      <div className="section-container">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="relative w-64 h-64 flex-shrink-0"
-        >
-          {isLoading ? (
-            <Skeleton className="rounded-full w-64 h-64" />
-          ) : (
-            <>
-              <img
-                src={personalInfo?.profile_image_url || "https://placehold.co/400"}
-                alt={personalInfo?.name || "Profile"}
-                className="w-full h-full object-cover rounded-full border-4 border-primary/20 shadow-xl"
-              />
-              
-              <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-pulse-slow"></div>
-              
-              {skillLabels.map((label, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: label.delay, duration: 0.5 }}
-                  className="absolute bg-white/90 dark:bg-secondary/90 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/30"
-                  style={{
-                    transform: `rotate(${label.rotate}deg) translateX(${label.rotate === 0 ? '-50%' : '0'})`,
-                    ...(label.rotate === -45 && { top: '5%', left: '-15%' }),
-                    ...(label.rotate === 0 && { bottom: '-8%', left: '50%' }),
-                    ...(label.rotate === 45 && { top: '5%', right: '-15%' }),
-                    ...(label.rotate === 90 && { top: '50%', right: '-20%' }),
-                  }}
-                >
-                  {label.icon}
-                  <span className="text-foreground">{label.text}</span>
-                </motion.div>
-              ))}
-              
-              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                <div className="w-full h-full bg-circuit-pattern opacity-10"></div>
-              </div>
-            </>
-          )}
-        </motion.div>
-
-        <div className="text-center lg:text-left">
+      <div className="section-container flex flex-col-reverse md:flex-row items-center gap-12">
+        <div className="text-center md:text-left flex-1">
           {isLoading ? (
             <div className="space-y-4">
-              <Skeleton className="h-10 w-64 mx-auto lg:mx-0" />
-              <Skeleton className="h-5 w-48 mx-auto lg:mx-0" />
-              <Skeleton className="h-4 w-56 mx-auto lg:mx-0" />
+              <Skeleton className="h-10 w-64 mx-auto md:mx-0" />
+              <Skeleton className="h-5 w-48 mx-auto md:mx-0" />
+              <Skeleton className="h-4 w-56 mx-auto md:mx-0" />
               <div className="mt-4">
-                <Skeleton className="h-10 w-32 mx-auto lg:mx-0" />
+                <Skeleton className="h-10 w-32 mx-auto md:mx-0" />
               </div>
             </div>
           ) : (
@@ -240,7 +196,7 @@ const Hero = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex items-center justify-center lg:justify-start gap-2 text-muted-foreground mb-4"
+                className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground mb-4"
               >
                 <MapPin className="h-4 w-4" />
                 <span>{personalInfo?.current_location || "Location"}</span>
@@ -250,7 +206,7 @@ const Hero = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.35 }}
-                className="flex items-center justify-center lg:justify-start gap-4 mb-8"
+                className="flex items-center justify-center md:justify-start gap-4 mb-8"
               >
                 {personalInfo?.linkedin_url && (
                   <motion.a 
@@ -313,7 +269,7 @@ const Hero = () => {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="flex flex-wrap justify-center lg:justify-start gap-4"
+                className="flex flex-wrap justify-center md:justify-start gap-4"
               >
                 <Button asChild size="lg" className="group relative overflow-hidden">
                   <a href="#contact">
@@ -338,6 +294,51 @@ const Hero = () => {
             </>
           )}
         </div>
+
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="relative w-64 h-64 flex-shrink-0"
+        >
+          {isLoading ? (
+            <Skeleton className="rounded-full w-64 h-64" />
+          ) : (
+            <>
+              <img
+                src={personalInfo?.profile_image_url || "https://placehold.co/400"}
+                alt={personalInfo?.name || "Profile"}
+                className="w-full h-full object-cover rounded-full border-4 border-primary/20 shadow-xl"
+              />
+              
+              <div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-pulse-slow"></div>
+              
+              {skillLabels.map((label, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: label.delay, duration: 0.5 }}
+                  className="absolute bg-white/90 dark:bg-secondary/90 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/30"
+                  style={{
+                    transform: `rotate(${label.rotate}deg) translateX(${label.rotate === 0 ? '-50%' : '0'})`,
+                    ...(label.rotate === -45 && { top: '5%', left: '-15%' }),
+                    ...(label.rotate === 0 && { bottom: '-8%', left: '50%' }),
+                    ...(label.rotate === 45 && { top: '5%', right: '-15%' }),
+                    ...(label.rotate === 90 && { top: '50%', right: '-20%' }),
+                  }}
+                >
+                  {label.icon}
+                  <span className="text-foreground">{label.text}</span>
+                </motion.div>
+              ))}
+              
+              <div className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
+                <div className="w-full h-full bg-circuit-pattern opacity-10"></div>
+              </div>
+            </>
+          )}
+        </motion.div>
       </div>
     </section>
   );

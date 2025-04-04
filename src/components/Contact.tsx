@@ -9,8 +9,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "@/components/ui/use-toast";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { motion } from "framer-motion";
-import { sendEmail } from "@/lib/db"; // Fixed import without file extension
+import { sendEmail } from "@/lib/db";
 
+// Custom icon components for services that aren't in lucide-react
 const XingIcon = (props: any) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M18.188 2.675c-.23 0-.43.16-.525.4l-3.175 5.55c0 .005 0 .005 0 .01l5 8.875c.1.235.295.4.525.4h3.8c.305 0 .535-.28.425-.575L19.02 8.455l3.23-5.375c.105-.28-.13-.56-.435-.56h-3.62l-.005.005zM8 5.675c-.3 0-.53.275-.425.57l2.475 4.27-3.905 6.85c-.11.29.12.57.425.57h3.8c.235 0 .44-.165.525-.4l3.95-6.935c0-.01 0-.01 0-.016l-2.475-4.27c-.09-.24-.3-.4-.525-.4H8z" />
@@ -47,6 +48,9 @@ const Contact = () => {
     setSubmissionError(null);
 
     try {
+      console.log("Sending email with data:", data);
+      console.log("To recipient:", personalInfo?.email);
+      
       const result = await sendEmail(data, personalInfo?.email);
       
       if (result.success) {
@@ -229,7 +233,7 @@ const Contact = () => {
                       <div className="text-xs text-muted-foreground uppercase font-medium mb-1">
                         {t("contact.phone")}
                       </div>
-                      <span className="text-muted-foreground">{t("contact.phoneNotProvided")}</span>
+                      <span className="text-muted-foreground">{language === 'en' ? "Phone number not provided" : "Telefonnummer nicht angegeben"}</span>
                     </div>
                   </div>
                 )}

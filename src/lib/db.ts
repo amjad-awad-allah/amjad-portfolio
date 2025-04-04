@@ -25,6 +25,7 @@ export const sendEmail = async (data: { name: string; email: string; message: st
     });
 
     if (error) {
+      console.error("Supabase function error:", error);
       throw error;
     }
 

@@ -1,6 +1,6 @@
 
 import { useLanguage } from "@/context/LanguageContext";
-import { Github, Linkedin, Mail, ArrowUp, ExternalLink } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 
 // Custom icon components for services that aren't in lucide-react
