@@ -234,7 +234,7 @@ const Hero = () => {
       <div className="section-container flex flex-col-reverse md:flex-row items-center gap-12">
         <div className="text-center md:text-left flex-1">
           {isLoading ? <div className="space-y-4">
-              <Skeleton className="h-10 w-64 mx-auto md:mx-0" />
+              <Skeleton className="h-10 w-64 mx-auto md:mx-0 px-0" />
               <Skeleton className="h-5 w-48 mx-auto md:mx-0" />
               <Skeleton className="h-4 w-56 mx-auto md:mx-0" />
               <div className="mt-4">
