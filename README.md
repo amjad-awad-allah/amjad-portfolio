@@ -1,4 +1,4 @@
-# amjad-portfolio-hub
+# amjad-portfolio
 
 ## Project Info
 
