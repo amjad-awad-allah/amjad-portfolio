@@ -154,7 +154,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu - Updated with solid background */}
+        {/* Mobile Navigation Menu - Fixed positioning and dimensions */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -162,11 +162,10 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-white dark:bg-gray-900 md:hidden"
-              style={{ top: "61px" }}
+              className="fixed inset-x-0 top-[61px] bottom-0 z-40 bg-white dark:bg-gray-900 md:hidden overflow-y-auto"
             >
               <motion.div 
-                className="flex flex-col items-center py-4 h-[calc(100vh-61px)] overflow-auto"
+                className="flex flex-col items-center py-4"
                 initial="closed"
                 animate="open"
                 variants={{

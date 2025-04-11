@@ -161,7 +161,7 @@ const Hero = () => {
         })}
       </div>
 
-      <div className="section-container flex flex-col-reverse md:flex-row items-center gap-12">
+      <div className="section-container flex flex-row-reverse md:flex-row items-center gap-12">
         <div className="text-center md:text-left flex-1">
           {isLoading ? (
             <div className="space-y-4">
