@@ -6,8 +6,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useStaticContent } from "@/hooks/use-static-content";
 
 export const ActionButtons = () => {
-  const { t } = useLanguage();
-  const { getText, language } = useStaticContent('hero');
+  const { t, language } = useLanguage();
+  const { getText } = useStaticContent('hero');
   
   return (
     <motion.div
@@ -30,7 +30,7 @@ export const ActionButtons = () => {
         <a href="#downloads">
           <span className="relative z-10 flex items-center">
             <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-            {getText('downloads_button', language === 'en' ? 'View Downloads' : 'Downloads anzeigen')}
+            {getText('downloads_button', t("hero.downloads"))}
           </span>
           <span className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-secondary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
         </a>
