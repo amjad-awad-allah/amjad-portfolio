@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Download, MapPin, Linkedin, Github, Cpu, Code, BrainCircuit, Globe, ChevronRight } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStaticContent } from "@/hooks/use-static-content";
 
 // Custom icon components for services that aren't in lucide-react
 const XingIcon = (props: any) => (
@@ -21,6 +22,7 @@ const IndeedIcon = (props: any) => (
 const Hero = () => {
   const { t, language } = useLanguage();
   const { data: personalInfo, isLoading } = usePersonalInfo();
+  const { getText } = useStaticContent('hero');
 
   const handleExternalLink = (url: string | undefined) => {
     if (url) {
@@ -29,10 +31,10 @@ const Hero = () => {
   };
 
   const skillLabels = [
-    { icon: <Cpu className="h-3.5 w-3.5 mr-1" />, text: "AI Engineer", rotate: -45, delay: 0.1 },
-    { icon: <BrainCircuit className="h-3.5 w-3.5 mr-1" />, text: "Machine Learning", rotate: 0, delay: 0.2 },
-    { icon: <Code className="h-3.5 w-3.5 mr-1" />, text: "Full Stack Developer", rotate: 45, delay: 0.3 },
-    { icon: <Globe className="h-3.5 w-3.5 mr-1" />, text: "Software Architect", rotate: 90, delay: 0.4 },
+    { icon: <Cpu className="h-3.5 w-3.5 mr-1" />, text: getText('engineer_label', 'AI Engineer'), rotate: -45, delay: 0.1 },
+    { icon: <BrainCircuit className="h-3.5 w-3.5 mr-1" />, text: getText('machine_learning_label', 'Machine Learning'), rotate: 0, delay: 0.2 },
+    { icon: <Code className="h-3.5 w-3.5 mr-1" />, text: getText('developer_label', 'Full Stack Developer'), rotate: 45, delay: 0.3 },
+    { icon: <Globe className="h-3.5 w-3.5 mr-1" />, text: getText('architect_label', 'Software Architect'), rotate: 90, delay: 0.4 },
   ];
 
   const technicalTerms = [
@@ -185,7 +187,7 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="heading-xl mb-3"
               >
-                {personalInfo?.name || t("hero.title")}
+                {personalInfo?.name || getText('title', 'Amjad Awad-Allah')}
               </motion.h1>
               
               <motion.div
@@ -194,7 +196,7 @@ const Hero = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-xl sm:text-2xl md:text-3xl font-normal text-muted-foreground mb-6 leading-relaxed"
               >
-                {t("hero.subtitle")}
+                {getText('description', t("hero.subtitle"))}
               </motion.div>
               
               <motion.div
@@ -282,7 +284,7 @@ const Hero = () => {
                   <a href="#downloads">
                     <span className="relative z-10 flex items-center">
                       <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                      {language === 'en' ? 'View Downloads' : 'Downloads anzeigen'}
+                      {getText('downloads_button', language === 'en' ? 'View Downloads' : 'Downloads anzeigen')}
                     </span>
                     <span className="absolute inset-0 bg-gradient-to-r from-secondary/10 to-secondary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                   </a>

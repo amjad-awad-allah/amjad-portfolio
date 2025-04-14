@@ -2,6 +2,7 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { Github, Linkedin, Mail, ArrowUp } from "lucide-react";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
+import { useStaticContent } from "@/hooks/use-static-content";
 
 // Custom icon components for services that aren't in lucide-react
 const XingIcon = (props: any) => (
@@ -17,8 +18,9 @@ const IndeedIcon = (props: any) => (
 );
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { language } = useLanguage();
   const { data: personalInfo } = usePersonalInfo();
+  const { getText } = useStaticContent('footer');
   const currentYear = new Date().getFullYear();
 
   // Helper function to handle external links with proper security
@@ -109,7 +111,7 @@ const Footer = () => {
           
           <div className="text-center">
             <p className="text-sm text-muted-foreground">
-              &copy; {currentYear} {personalInfo?.name || "Amjad Awad-Allah"}. All rights reserved.
+              &copy; {currentYear} {personalInfo?.name || "Amjad Awad-Allah"}. {getText('rights', 'All rights reserved.')}
             </p>
           </div>
         </div>

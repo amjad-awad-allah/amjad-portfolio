@@ -36,6 +36,7 @@ const Index = () => {
     if (DEBUG_MODE) {
       console.log("%c🚀 Portfolio Debug Mode Enabled", "font-weight: bold; font-size: 14px; color: #005F73;");
       console.log("%c📱 Mobile view:", isMobile ? "Yes" : "No");
+      console.log("%c📊 Static Content: Initialized from database", "font-weight: bold; color: #10B981;");
       
       // Enhanced performance monitoring
       const startTime = performance.now();

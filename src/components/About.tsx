@@ -5,11 +5,13 @@ import { Code, Database, Terminal, Layers, Award, GraduationCap } from "lucide-r
 import { useEducation, useCertifications } from "@/hooks/use-supabase-data";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStaticContent } from "@/hooks/use-static-content";
 
 const About = () => {
   const { t, language } = useLanguage();
   const { data: educationData, isLoading: isEducationLoading } = useEducation();
   const { data: certificationsData, isLoading: isCertificationsLoading } = useCertifications();
+  const { getText } = useStaticContent('about');
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -36,10 +38,10 @@ const About = () => {
 
   // Tech skills with icons
   const techSkills = [
-    { name: "Software Development", icon: Code },
-    { name: "AI & Machine Learning", icon: Terminal },
-    { name: "Database Management", icon: Database },
-    { name: "Full Stack Engineering", icon: Layers },
+    { name: getText('software_dev', 'Software Development'), icon: Code },
+    { name: getText('ai_ml', 'AI & Machine Learning'), icon: Terminal },
+    { name: getText('db_management', 'Database Management'), icon: Database },
+    { name: getText('full_stack', 'Full Stack Engineering'), icon: Layers },
   ];
 
   // Format date function
@@ -173,7 +175,7 @@ const About = () => {
           variants={containerVariants}
         >
           <motion.h3 variants={itemVariants} className="heading-sm text-center mb-8">
-            Technical Expertise
+            {getText('technical_expertise', 'Technical Expertise')}
           </motion.h3>
           
           <motion.div 

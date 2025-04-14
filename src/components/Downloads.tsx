@@ -5,10 +5,12 @@ import { FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useStaticContent } from "@/hooks/use-static-content";
 
 const Downloads = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const { data: personalInfo, isLoading } = usePersonalInfo();
+  const { getText } = useStaticContent('downloads');
 
   return (
     <section id="downloads" className="py-16 relative overflow-hidden">
@@ -16,11 +18,9 @@ const Downloads = () => {
       
       <div className="section-container">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-3">{language === 'en' ? 'Downloads' : 'Downloads'}</h2>
+          <h2 className="heading-lg mb-3">{getText('title', 'Downloads')}</h2>
           <p className="paragraph max-w-2xl mx-auto">
-            {language === 'en' 
-              ? 'Download my CV and work experience documents in your preferred language.'
-              : 'Laden Sie meinen Lebenslauf und meine Berufserfahrungsdokumente in Ihrer bevorzugten Sprache herunter.'}
+            {getText('description', 'Download my CV and work experience documents in your preferred language.')}
           </p>
         </div>
 
@@ -36,14 +36,12 @@ const Downloads = () => {
             <div className="flex items-center gap-3 mb-4">
               <FileText className="h-6 w-6 text-primary" />
               <h3 className="text-lg font-semibold">
-                {language === 'en' ? 'Curriculum Vitae (CV)' : 'Lebenslauf'}
+                {getText('cv_title', language === 'en' ? 'Curriculum Vitae (CV)' : 'Lebenslauf')}
               </h3>
             </div>
             
             <p className="text-sm text-muted-foreground mb-6">
-              {language === 'en' 
-                ? 'Download my CV containing my education, skills, and professional background.'
-                : 'Laden Sie meinen Lebenslauf mit meiner Ausbildung, meinen Fähigkeiten und meinem beruflichen Hintergrund herunter.'}
+              {getText('cv_description', 'Download my CV containing my education, skills, and professional background.')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3">

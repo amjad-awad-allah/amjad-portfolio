@@ -10,6 +10,7 @@ import { toast } from "@/components/ui/use-toast";
 import { usePersonalInfo } from "@/hooks/use-supabase-data";
 import { motion } from "framer-motion";
 import { sendEmail } from "@/lib/db";
+import { useStaticContent } from "@/hooks/use-static-content";
 
 // Custom icon components for services that aren't in lucide-react
 const XingIcon = (props: any) => (
@@ -36,6 +37,8 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEmailSent, setIsEmailSent] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const { getText } = useStaticContent('contact');
+  
   const {
     register,
     handleSubmit,
@@ -121,7 +124,7 @@ const Contact = () => {
                     type="text"
                     placeholder={t("contact.name") || (language === 'en' ? "Your Name" : "Ihr Name")}
                     className="pl-10"
-                    {...register("name", { required: t("contact.nameRequired") || (language === 'en' ? "Name is required" : "Name ist erforderlich") })}
+                    {...register("name", { required: getText('name_required', language === 'en' ? "Name is required" : "Name ist erforderlich") })}
                   />
                 </div>
                 {errors.name && (
@@ -136,7 +139,7 @@ const Contact = () => {
                     placeholder={t("contact.email") || (language === 'en' ? "Your Email" : "Ihre E-Mail")}
                     className="pl-10"
                     {...register("email", {
-                      required: t("contact.emailRequired") || (language === 'en' ? "Email is required" : "E-Mail ist erforderlich"),
+                      required: getText('email_required', language === 'en' ? "Email is required" : "E-Mail ist erforderlich"),
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                         message: t("contact.emailInvalid") || (language === 'en' ? "Invalid email address" : "Ungültige E-Mail-Adresse"),
@@ -256,7 +259,7 @@ const Contact = () => {
               {/* Social Media Links */}
               <div className="mt-8">
                 <div className="text-xs text-muted-foreground uppercase font-medium mb-3">
-                  {language === 'en' ? 'Connect on social media' : 'In sozialen Medien verbinden'}
+                  {getText('social_media', language === 'en' ? 'Connect on social media' : 'In sozialen Medien verbinden')}
                 </div>
                 <div className="flex gap-3">
                   {personalInfo?.linkedin_url && (
