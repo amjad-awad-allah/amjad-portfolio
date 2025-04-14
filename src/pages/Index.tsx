@@ -56,6 +56,14 @@ const Index = () => {
         document.head.appendChild(viewportMeta);
       }
 
+      // Additional mobile optimizations
+      if (isMobile) {
+        // Optimize touch events for mobile
+        document.documentElement.style.setProperty('touch-action', 'manipulation');
+        // Disable long press for better mobile experience
+        document.documentElement.style.setProperty('-webkit-touch-callout', 'none');
+      }
+
       // Open Graph data for better sharing
       const ogTitle = document.createElement('meta');
       ogTitle.setAttribute('property', 'og:title');

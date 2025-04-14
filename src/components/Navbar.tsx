@@ -63,10 +63,18 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    
+    // When opening menu, prevent body scrolling
+    if (!isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+    document.body.style.overflow = 'auto';
   };
 
   const scrollToTop = () => {
@@ -75,6 +83,13 @@ const Navbar = () => {
       behavior: "smooth",
     });
   };
+
+  // Clean up overflow style when component unmounts
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
 
   // Don't render navigation until language is ready
   if (!isReady) {
@@ -154,18 +169,19 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu - Improved positioning and scrolling */}
+        {/* Mobile Navigation Menu - Fixed positioning for better mobile behavior */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
+              animate={{ opacity: 1, height: "100vh" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
               className="fixed inset-x-0 top-[61px] bottom-0 z-50 bg-white dark:bg-gray-900 md:hidden overflow-y-auto"
+              style={{ touchAction: "pan-y" }}
             >
               <motion.div 
-                className="flex flex-col items-center py-4 min-h-full"
+                className="flex flex-col items-center py-4 h-full"
                 initial="closed"
                 animate="open"
                 variants={{
@@ -177,7 +193,7 @@ const Navbar = () => {
                   closed: {},
                 }}
               >
-                {navItems.map((item, index) => (
+                {navItems.map((item) => (
                   <motion.a
                     key={item.name}
                     href={item.href}

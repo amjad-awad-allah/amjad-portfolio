@@ -21,6 +21,14 @@ const Footer = () => {
   const { data: personalInfo } = usePersonalInfo();
   const currentYear = new Date().getFullYear();
 
+  // Helper function to handle external links with proper security
+  const handleExternalLink = (url: string | undefined, e: React.MouseEvent) => {
+    e.preventDefault();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <footer className="py-12 bg-secondary/50 dark:bg-secondary/10">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6">
@@ -41,10 +49,6 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Email"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.location.href = `mailto:${personalInfo.email}`;
-                }}
               >
                 <Mail className="h-5 w-5" />
               </a>
@@ -57,10 +61,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="GitHub"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(personalInfo.github_url, '_blank', 'noopener,noreferrer');
-                }}
+                onClick={(e) => handleExternalLink(personalInfo.github_url, e)}
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -73,10 +74,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="LinkedIn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(personalInfo.linkedin_url, '_blank', 'noopener,noreferrer');
-                }}
+                onClick={(e) => handleExternalLink(personalInfo.linkedin_url, e)}
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -89,10 +87,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Xing"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(personalInfo.xing_url, '_blank', 'noopener,noreferrer');
-                }}
+                onClick={(e) => handleExternalLink(personalInfo.xing_url, e)}
               >
                 <XingIcon className="h-5 w-5" />
               </a>
@@ -105,10 +100,7 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Indeed"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(personalInfo.indeed_url, '_blank', 'noopener,noreferrer');
-                }}
+                onClick={(e) => handleExternalLink(personalInfo.indeed_url, e)}
               >
                 <IndeedIcon className="h-5 w-5" />
               </a>

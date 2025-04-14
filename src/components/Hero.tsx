@@ -1,4 +1,3 @@
-
 import { useLanguage } from "@/context/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -22,6 +21,12 @@ const IndeedIcon = (props: any) => (
 const Hero = () => {
   const { t, language } = useLanguage();
   const { data: personalInfo, isLoading } = usePersonalInfo();
+
+  const handleExternalLink = (url: string | undefined) => {
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   const skillLabels = [
     { icon: <Cpu className="h-3.5 w-3.5 mr-1" />, text: "AI Engineer", rotate: -45, delay: 0.1 },
@@ -161,8 +166,8 @@ const Hero = () => {
         })}
       </div>
 
-      <div className="section-container flex flex-row-reverse md:flex-row items-center gap-12">
-        <div className="text-center md:text-left flex-1">
+      <div className="section-container md:flex flex-row items-center gap-12">
+        <div className="order-2 md:order-1 text-center md:text-left flex-1 mt-8 md:mt-0">
           {isLoading ? (
             <div className="space-y-4">
               <Skeleton className="h-10 w-64 mx-auto md:mx-0" />
@@ -209,75 +214,51 @@ const Hero = () => {
                 className="flex items-center justify-center md:justify-start gap-4 mb-8"
               >
                 {personalInfo?.linkedin_url && (
-                  <motion.a 
-                    href={personalInfo.linkedin_url} 
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.button 
+                    onClick={() => handleExternalLink(personalInfo.linkedin_url)}
                     className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                     aria-label="LinkedIn Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(personalInfo.linkedin_url, '_blank', 'noopener,noreferrer');
-                    }}
                   >
                     <Linkedin className="h-5 w-5" />
-                  </motion.a>
+                  </motion.button>
                 )}
                 
                 {personalInfo?.github_url && (
-                  <motion.a 
-                    href={personalInfo.github_url} 
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.button 
+                    onClick={() => handleExternalLink(personalInfo.github_url)}
                     className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                     aria-label="GitHub Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(personalInfo.github_url, '_blank', 'noopener,noreferrer');
-                    }}
                   >
                     <Github className="h-5 w-5" />
-                  </motion.a>
+                  </motion.button>
                 )}
 
                 {personalInfo?.xing_url && (
-                  <motion.a 
-                    href={personalInfo.xing_url} 
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.button 
+                    onClick={() => handleExternalLink(personalInfo.xing_url)}
                     className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                     aria-label="Xing Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(personalInfo.xing_url, '_blank', 'noopener,noreferrer');
-                    }}
                   >
                     <XingIcon className="h-5 w-5" />
-                  </motion.a>
+                  </motion.button>
                 )}
                 
                 {personalInfo?.indeed_url && (
-                  <motion.a 
-                    href={personalInfo.indeed_url} 
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <motion.button 
+                    onClick={() => handleExternalLink(personalInfo.indeed_url)}
                     className="flex items-center justify-center text-muted-foreground hover:text-primary transition-colors p-3 rounded-full hover:bg-primary/10 border border-primary/20"
                     aria-label="Indeed Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(personalInfo.indeed_url, '_blank', 'noopener,noreferrer');
-                    }}
                   >
                     <IndeedIcon className="h-5 w-5" />
-                  </motion.a>
+                  </motion.button>
                 )}
               </motion.div>
               
@@ -315,7 +296,7 @@ const Hero = () => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="relative w-64 h-64 flex-shrink-0"
+          className="relative w-64 h-64 flex-shrink-0 order-1 md:order-2 mx-auto md:mx-0 mb-8 md:mb-0"
         >
           {isLoading ? (
             <Skeleton className="rounded-full w-64 h-64" />
@@ -335,7 +316,7 @@ const Hero = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: label.delay, duration: 0.5 }}
-                  className="absolute bg-white/90 dark:bg-secondary/90 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/30"
+                  className="absolute bg-white/90 dark:bg-secondary/90 py-1.5 px-3 text-xs font-medium flex items-center shadow-lg rounded-md border border-primary/30 md:block hidden"
                   style={{
                     transform: `rotate(${label.rotate}deg) translateX(${label.rotate === 0 ? '-50%' : '0'})`,
                     ...(label.rotate === -45 && { top: '5%', left: '-15%' }),
