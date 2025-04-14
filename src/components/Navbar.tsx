@@ -135,7 +135,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Navigation Toggle - Improved for better mobile usability */}
+          {/* Mobile Navigation Toggle */}
           <div className="flex items-center gap-2 md:hidden">
             <ThemeToggle />
             <LanguageToggle />
@@ -154,7 +154,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu - Fixed positioning and dimensions */}
+        {/* Mobile Navigation Menu - Improved positioning and scrolling */}
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
@@ -162,10 +162,10 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-x-0 top-[61px] bottom-0 z-40 bg-white dark:bg-gray-900 md:hidden overflow-y-auto"
+              className="fixed inset-x-0 top-[61px] bottom-0 z-50 bg-white dark:bg-gray-900 md:hidden overflow-y-auto"
             >
               <motion.div 
-                className="flex flex-col items-center py-4"
+                className="flex flex-col items-center py-4 min-h-full"
                 initial="closed"
                 animate="open"
                 variants={{

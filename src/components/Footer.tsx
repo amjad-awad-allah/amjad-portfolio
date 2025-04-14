@@ -41,6 +41,10 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Email"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = `mailto:${personalInfo.email}`;
+                }}
               >
                 <Mail className="h-5 w-5" />
               </a>
@@ -53,6 +57,10 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="GitHub"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(personalInfo.github_url, '_blank', 'noopener,noreferrer');
+                }}
               >
                 <Github className="h-5 w-5" />
               </a>
@@ -65,6 +73,10 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="LinkedIn"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(personalInfo.linkedin_url, '_blank', 'noopener,noreferrer');
+                }}
               >
                 <Linkedin className="h-5 w-5" />
               </a>
@@ -77,6 +89,10 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Xing"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(personalInfo.xing_url, '_blank', 'noopener,noreferrer');
+                }}
               >
                 <XingIcon className="h-5 w-5" />
               </a>
@@ -89,6 +105,10 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="p-2 rounded-full hover:bg-primary/10 transition-colors"
                 aria-label="Indeed"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(personalInfo.indeed_url, '_blank', 'noopener,noreferrer');
+                }}
               >
                 <IndeedIcon className="h-5 w-5" />
               </a>

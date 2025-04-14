@@ -217,6 +217,10 @@ const Hero = () => {
                     aria-label="LinkedIn Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(personalInfo.linkedin_url, '_blank', 'noopener,noreferrer');
+                    }}
                   >
                     <Linkedin className="h-5 w-5" />
                   </motion.a>
@@ -231,6 +235,10 @@ const Hero = () => {
                     aria-label="GitHub Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(personalInfo.github_url, '_blank', 'noopener,noreferrer');
+                    }}
                   >
                     <Github className="h-5 w-5" />
                   </motion.a>
@@ -245,6 +253,10 @@ const Hero = () => {
                     aria-label="Xing Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(personalInfo.xing_url, '_blank', 'noopener,noreferrer');
+                    }}
                   >
                     <XingIcon className="h-5 w-5" />
                   </motion.a>
@@ -259,6 +271,10 @@ const Hero = () => {
                     aria-label="Indeed Profile"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(personalInfo.indeed_url, '_blank', 'noopener,noreferrer');
+                    }}
                   >
                     <IndeedIcon className="h-5 w-5" />
                   </motion.a>
