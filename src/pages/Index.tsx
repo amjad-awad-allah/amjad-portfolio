@@ -15,6 +15,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { debugStaticContent } from "@/lib/db";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -37,6 +38,17 @@ const Index = () => {
       console.log("%c🚀 Portfolio Debug Mode Enabled", "font-weight: bold; font-size: 14px; color: #005F73;");
       console.log("%c📱 Mobile view:", isMobile ? "Yes" : "No");
       console.log("%c📊 Static Content: Initialized from database", "font-weight: bold; color: #10B981;");
+      
+      // Debug static content for main sections
+      const debugContent = async () => {
+        await debugStaticContent('hero');
+        await debugStaticContent('about');
+        await debugStaticContent('downloads');
+        await debugStaticContent('contact');
+        await debugStaticContent('footer');
+      };
+      
+      debugContent();
       
       // Enhanced performance monitoring
       const startTime = performance.now();

@@ -6,7 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useStaticContent } from "@/hooks/use-static-content";
 
 export const ActionButtons = () => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { getText } = useStaticContent('hero');
   
   return (
@@ -19,7 +19,7 @@ export const ActionButtons = () => {
       <Button asChild size="lg" className="group relative overflow-hidden">
         <a href="#contact">
           <span className="relative z-10 flex items-center">
-            {t("hero.cta")}
+            {getText('cta', t("hero.cta"))}
             <ChevronRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </span>
           <span className="absolute inset-0 bg-gradient-to-r from-primary to-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>

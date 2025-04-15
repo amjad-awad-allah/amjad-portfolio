@@ -35,3 +35,34 @@ export const sendEmail = async (data: { name: string; email: string; message: st
     return { success: false, error: error.message || "Failed to send email" };
   }
 };
+
+// Helper function to clear static content cache (for development/testing)
+export const clearStaticContentCache = async () => {
+  try {
+    // This will force a refetch of static content
+    (window as any).__STATIC_CONTENT_CACHE = {};
+    console.log("Static content cache cleared");
+    return { success: true };
+  } catch (error: any) {
+    console.error("Error clearing cache:", error);
+    return { success: false, error: error.message };
+  }
+};
+
+// Function to help debug static content
+export const debugStaticContent = async (section: string) => {
+  try {
+    const { data, error } = await supabase
+      .from('static_content')
+      .select('*')
+      .eq('section', section);
+      
+    if (error) throw error;
+    
+    console.log(`Static content for section "${section}":`, data);
+    return { success: true, data };
+  } catch (error: any) {
+    console.error(`Error fetching static content for section ${section}:`, error);
+    return { success: false, error: error.message };
+  }
+};

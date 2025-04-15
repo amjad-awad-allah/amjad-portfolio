@@ -56,7 +56,7 @@ const Downloads = () => {
                     <Button asChild variant="default" className="w-full sm:w-auto group">
                       <a href={personalInfo.cv_en} download>
                         <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        English CV
+                        {getText('english_cv', 'English CV')}
                       </a>
                     </Button>
                   )}
@@ -65,7 +65,7 @@ const Downloads = () => {
                     <Button asChild variant="outline" className="w-full sm:w-auto group">
                       <a href={personalInfo.cv_de} download>
                         <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        German CV
+                        {getText('german_cv', 'German CV')}
                       </a>
                     </Button>
                   )}
@@ -85,14 +85,14 @@ const Downloads = () => {
             <div className="flex items-center gap-3 mb-4">
               <FileText className="h-6 w-6 text-primary" />
               <h3 className="text-lg font-semibold">
-                {language === 'en' ? 'Work Experience' : 'Berufserfahrung'}
+                {getText('experience_title', language === 'en' ? 'Work Experience' : 'Berufserfahrung')}
               </h3>
             </div>
             
             <p className="text-sm text-muted-foreground mb-6">
-              {language === 'en' 
+              {getText('experience_description', language === 'en' 
                 ? 'Download my detailed work experience document with project descriptions.'
-                : 'Laden Sie mein detailliertes Berufserfahrungsdokument mit Projektbeschreibungen herunter.'}
+                : 'Laden Sie mein detailliertes Berufserfahrungsdokument mit Projektbeschreibungen herunter.')}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3">
@@ -107,7 +107,7 @@ const Downloads = () => {
                     <Button asChild variant="default" className="w-full sm:w-auto group">
                       <a href={personalInfo.work_experience_en} download>
                         <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        English
+                        {getText('english_doc', 'English')}
                       </a>
                     </Button>
                   )}
@@ -116,7 +116,7 @@ const Downloads = () => {
                     <Button asChild variant="outline" className="w-full sm:w-auto group">
                       <a href={personalInfo.work_experience_de} download>
                         <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        German
+                        {getText('german_doc', 'German')}
                       </a>
                     </Button>
                   )}

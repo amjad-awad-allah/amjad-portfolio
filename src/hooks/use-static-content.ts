@@ -11,13 +11,12 @@ export type StaticContent = {
   de_text: string;
 };
 
-type ContentCache = {
-  [key: string]: string;
-};
+// Create a cache to prevent redundant fetches
+const contentCache: Record<string, StaticContent[]> = {};
 
 export function useStaticContent(section: string) {
   const [content, setContent] = useState<StaticContent[]>([]);
-  const [contentMap, setContentMap] = useState<ContentCache>({});
+  const [contentMap, setContentMap] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const { language } = useLanguage();
@@ -26,6 +25,23 @@ export function useStaticContent(section: string) {
     async function fetchContent() {
       try {
         setIsLoading(true);
+        
+        // Check if we already have this section cached
+        if (contentCache[section]) {
+          setContent(contentCache[section]);
+          
+          // Create a map of content_key to the appropriate language text
+          const newContentMap: Record<string, string> = {};
+          contentCache[section].forEach(item => {
+            newContentMap[item.content_key] = language === 'en' ? item.en_text : item.de_text;
+          });
+          
+          setContentMap(newContentMap);
+          setIsLoading(false);
+          return;
+        }
+        
+        // If not cached, fetch from database
         const { data, error } = await supabase
           .from('static_content')
           .select('*')
@@ -33,10 +49,12 @@ export function useStaticContent(section: string) {
 
         if (error) throw error;
         
+        // Cache the results
+        contentCache[section] = data || [];
         setContent(data || []);
         
         // Create a map of content_key to the appropriate language text
-        const newContentMap: ContentCache = {};
+        const newContentMap: Record<string, string> = {};
         data?.forEach(item => {
           newContentMap[item.content_key] = language === 'en' ? item.en_text : item.de_text;
         });
@@ -55,9 +73,13 @@ export function useStaticContent(section: string) {
 
   // Helper function to get content by key with fallback
   const getText = (key: string, fallback: string = ''): string => {
-    const fullKey = `${section}-${key}`;
-    return contentMap[fullKey] || fallback;
+    return contentMap[key] || fallback;
   };
 
-  return { content, isLoading, error, getText };
+  // Function to clear cache (useful for development/testing)
+  const clearCache = () => {
+    delete contentCache[section];
+  };
+
+  return { content, isLoading, error, getText, clearCache };
 }

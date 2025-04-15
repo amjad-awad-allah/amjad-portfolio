@@ -44,7 +44,7 @@ export const HeroContent = ({ isLoading, personalInfo }: HeroContentProps) => {
         transition={{ duration: 0.5, delay: 0.1 }}
         className="heading-xl mb-3"
       >
-        {personalInfo?.name || getText('title', 'Amjad Awad-Allah')}
+        {personalInfo?.name || getText('title')}
       </motion.h1>
       
       <motion.div
@@ -63,7 +63,7 @@ export const HeroContent = ({ isLoading, personalInfo }: HeroContentProps) => {
         className="flex items-center justify-center md:justify-start gap-2 text-muted-foreground mb-4"
       >
         <MapPin className="h-4 w-4" />
-        <span>{personalInfo?.current_location || "Location"}</span>
+        <span>{personalInfo?.current_location || getText('location', 'Location')}</span>
       </motion.div>
       
       <SocialLinks
