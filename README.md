@@ -1,11 +1,10 @@
-إليك النسخة الكاملة الجاهزة للنسخ:
 
-markdown
 # amjad-portfolio
 
 # My Project
 
 ## Project Info
+"This is a personal portfolio built to showcase my work, skills, and contact information. It's developed using React and Tailwind CSS with responsive design."
 
 **Live Demo**: [https://amjadawadallah.com](https://amjadawadallah.com)
 
