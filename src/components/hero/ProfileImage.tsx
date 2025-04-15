@@ -29,7 +29,7 @@ export const ProfileImage = ({ isLoading, profileImageUrl, name }: ProfileImageP
       {skillLabels.map((label, index) => (
         <SkillLabel 
           key={index}
-          icon={label.icon}
+          color={label.color}
           text={label.text}
           rotate={label.rotate}
           delay={label.delay}

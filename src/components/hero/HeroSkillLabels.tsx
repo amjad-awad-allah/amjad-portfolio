@@ -1,16 +1,15 @@
 
 import { motion } from "framer-motion";
-import { Cpu, BrainCircuit, Code, Globe } from "lucide-react";
 import { useStaticContent } from "@/hooks/use-static-content";
 
 type SkillLabelProps = {
-  icon: React.ReactNode;
+  color: string;
   text: string;
   rotate: number;
   delay: number;
 };
 
-export const SkillLabel = ({ icon, text, rotate, delay }: SkillLabelProps) => {
+export const SkillLabel = ({ color, text, rotate, delay }: SkillLabelProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -25,7 +24,10 @@ export const SkillLabel = ({ icon, text, rotate, delay }: SkillLabelProps) => {
         ...(rotate === 90 && { top: '50%', right: '-20%' }),
       }}
     >
-      {icon}
+      <span 
+        className="h-2.5 w-2.5 rounded-full mr-2 animate-pulse-slow"
+        style={{ backgroundColor: color }}
+      ></span>
       <span className="text-foreground">{text}</span>
     </motion.div>
   );
@@ -35,9 +37,9 @@ export const useSkillLabels = () => {
   const { getText } = useStaticContent('hero');
   
   return [
-    { icon: <Cpu className="h-3.5 w-3.5 mr-1" />, text: getText('engineer_label', 'AI Engineer'), rotate: -45, delay: 0.1 },
-    { icon: <BrainCircuit className="h-3.5 w-3.5 mr-1" />, text: getText('machine_learning_label', 'Machine Learning'), rotate: 0, delay: 0.2 },
-    { icon: <Code className="h-3.5 w-3.5 mr-1" />, text: getText('developer_label', 'Full Stack Developer'), rotate: 45, delay: 0.3 },
-    { icon: <Globe className="h-3.5 w-3.5 mr-1" />, text: getText('architect_label', 'Software Architect'), rotate: 90, delay: 0.4 },
+    { color: "#8B5CF6", text: getText('engineer_label', 'AI Engineer'), rotate: -45, delay: 0.1 }, // Purple
+    { color: "#06B6D4", text: getText('machine_learning_label', 'Machine Learning'), rotate: 0, delay: 0.2 }, // Cyan
+    { color: "#F97316", text: getText('developer_label', 'Full Stack Developer'), rotate: 45, delay: 0.3 }, // Orange
+    { color: "#10B981", text: getText('architect_label', 'Software Architect'), rotate: 90, delay: 0.4 }, // Green
   ];
 };
