@@ -184,17 +184,6 @@ const Projects = () => {
                 </div>
               ) : (
                 <>
-                  <ProjectFilters 
-                    companyFilter={companyFilter}
-                    setCompanyFilter={setCompanyFilter}
-                    techFilter={techFilter}
-                    setTechFilter={setTechFilter}
-                    resetFilters={resetFilters}
-                    experiences={experiences}
-                    allTechnologies={allTechnologies}
-                    showResetButton={showResetButton}
-                  />
-                  
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {paginatedProjects.length > 0 ? (
                       paginatedProjects.map((project, index) => (
