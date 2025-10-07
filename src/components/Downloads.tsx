@@ -24,53 +24,82 @@ const Downloads = () => {
           </p>
         </div>
 
-        <div className="max-w-xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           {/* CV Downloads */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="glass-card p-6 rounded-xl shadow-sm"
+            className="relative overflow-hidden"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <FileText className="h-6 w-6 text-primary" />
-              <h3 className="text-lg font-semibold">
-                {getText('cv_title', language === 'en' ? 'Curriculum Vitae (CV)' : 'Lebenslauf')}
-              </h3>
-            </div>
-            
-            <p className="text-sm text-muted-foreground mb-6">
-              {getText('cv_description', 'Download my CV containing my education, skills, and professional background.')}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              {isLoading ? (
-                <>
-                  <Skeleton className="h-10 w-full sm:w-1/2" />
-                  <Skeleton className="h-10 w-full sm:w-1/2" />
-                </>
-              ) : (
-                <>
-                  {personalInfo?.cv_en && (
-                    <Button asChild variant="default" className="w-full sm:w-auto group">
-                      <a href={personalInfo.cv_en} download>
-                        <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        {getText('english_cv', 'English CV')}
-                      </a>
-                    </Button>
-                  )}
-                  
-                  {personalInfo?.cv_de && (
-                    <Button asChild variant="outline" className="w-full sm:w-auto group">
-                      <a href={personalInfo.cv_de} download>
-                        <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        {getText('german_cv', 'German CV')}
-                      </a>
-                    </Button>
-                  )}
-                </>
-              )}
+            {/* Tech-inspired card with gradient border */}
+            <div className="glass-card p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-primary/20 hover:border-primary/40">
+              {/* Decorative gradient accent */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary"></div>
+              
+              {/* Icon with animated background */}
+              <div className="flex items-center justify-center mb-6">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl"></div>
+                  <div className="relative bg-gradient-to-br from-primary to-accent p-4 rounded-2xl shadow-lg">
+                    <FileText className="h-8 w-8 text-primary-foreground" />
+                  </div>
+                </div>
+              </div>
+              
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  {getText('cv_title', language === 'en' ? 'Curriculum Vitae (CV)' : 'Lebenslauf')}
+                </h3>
+                <p className="text-muted-foreground">
+                  {getText('cv_description', 'Download my CV containing my education, skills, and professional background.')}
+                </p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {isLoading ? (
+                  <>
+                    <Skeleton className="h-12 w-full sm:w-40" />
+                    <Skeleton className="h-12 w-full sm:w-40" />
+                  </>
+                ) : (
+                  <>
+                    {personalInfo?.cv_en && (
+                      <Button 
+                        asChild 
+                        variant="default" 
+                        size="lg"
+                        className="w-full sm:w-auto group relative overflow-hidden"
+                      >
+                        <a href={personalInfo.cv_en} download>
+                          <span className="relative z-10 flex items-center">
+                            <Download className="mr-2 h-5 w-5 group-hover:-translate-y-1 transition-transform" />
+                            {getText('english_cv', 'English CV')}
+                          </span>
+                        </a>
+                      </Button>
+                    )}
+                    
+                    {personalInfo?.cv_de && (
+                      <Button 
+                        asChild 
+                        variant="outline" 
+                        size="lg"
+                        className="w-full sm:w-auto group border-2 border-primary/40 hover:bg-primary/10"
+                      >
+                        <a href={personalInfo.cv_de} download>
+                          <Download className="mr-2 h-5 w-5 group-hover:-translate-y-1 transition-transform" />
+                          {getText('german_cv', 'German CV')}
+                        </a>
+                      </Button>
+                    )}
+                  </>
+                )}
+              </div>
+              
+              {/* Decorative bottom element */}
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-primary/10 to-transparent"></div>
             </div>
           </motion.div>
         </div>
