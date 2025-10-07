@@ -24,7 +24,7 @@ const Downloads = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="max-w-xl mx-auto">
           {/* CV Downloads */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,57 +66,6 @@ const Downloads = () => {
                       <a href={personalInfo.cv_de} download>
                         <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
                         {getText('german_cv', 'German CV')}
-                      </a>
-                    </Button>
-                  )}
-                </>
-              )}
-            </div>
-          </motion.div>
-          
-          {/* Work Experience Downloads */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="glass-card p-6 rounded-xl shadow-sm"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <FileText className="h-6 w-6 text-primary" />
-              <h3 className="text-lg font-semibold">
-                {getText('experience_title', language === 'en' ? 'Work Experience' : 'Berufserfahrung')}
-              </h3>
-            </div>
-            
-            <p className="text-sm text-muted-foreground mb-6">
-              {getText('experience_description', language === 'en' 
-                ? 'Download my detailed work experience document with project descriptions.'
-                : 'Laden Sie mein detailliertes Berufserfahrungsdokument mit Projektbeschreibungen herunter.')}
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-3">
-              {isLoading ? (
-                <>
-                  <Skeleton className="h-10 w-full sm:w-1/2" />
-                  <Skeleton className="h-10 w-full sm:w-1/2" />
-                </>
-              ) : (
-                <>
-                  {personalInfo?.work_experience_en && (
-                    <Button asChild variant="default" className="w-full sm:w-auto group">
-                      <a href={personalInfo.work_experience_en} download>
-                        <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        {getText('english_doc', 'English')}
-                      </a>
-                    </Button>
-                  )}
-                  
-                  {personalInfo?.work_experience_de && (
-                    <Button asChild variant="outline" className="w-full sm:w-auto group">
-                      <a href={personalInfo.work_experience_de} download>
-                        <Download className="mr-2 h-4 w-4 group-hover:-translate-y-1 transition-transform" />
-                        {getText('german_doc', 'German')}
                       </a>
                     </Button>
                   )}
