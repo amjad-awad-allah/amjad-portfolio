@@ -137,6 +137,10 @@ export const translations: Translations = {
     en: "Projects",
     de: "Projekte",
   },
+  "projects.description": {
+    en: "A collection of projects I have worked on throughout my career.",
+    de: "Eine Sammlung von Projekten, an denen ich im Laufe meiner Karriere gearbeitet habe.",
+  },
   "projects.technologies": {
     en: "Technologies",
     de: "Technologien",
