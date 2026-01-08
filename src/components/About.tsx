@@ -1,8 +1,7 @@
-
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Code, Database, Terminal, Layers, Award, GraduationCap } from "lucide-react";
-import { useEducation, useCertifications } from "@/hooks/use-supabase-data";
+import { Code, Database, Terminal, Layers, GraduationCap } from "lucide-react";
+import { useEducation } from "@/hooks/use-supabase-data";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStaticContent } from "@/hooks/use-static-content";
@@ -10,7 +9,6 @@ import { useStaticContent } from "@/hooks/use-static-content";
 const About = () => {
   const { t, language } = useLanguage();
   const { data: educationData, isLoading: isEducationLoading } = useEducation();
-  const { data: certificationsData, isLoading: isCertificationsLoading } = useCertifications();
   const { getText } = useStaticContent('about');
 
   const containerVariants = {
@@ -78,7 +76,7 @@ const About = () => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 gap-12"
+          className="max-w-4xl mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -124,44 +122,6 @@ const About = () => {
                   </div>
                 ))}
               </div>
-            )}
-          </motion.div>
-
-          {/* Certifications */}
-          <motion.div 
-            variants={itemVariants}
-            className="glass-card p-8 hover-scale relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-transparent rounded-bl-full"></div>
-            <h3 className="heading-sm mb-6 flex items-center">
-              <span className="mr-2 text-primary/80"><Award className="h-5 w-5" /></span>
-              Certifications
-            </h3>
-            
-            {isCertificationsLoading ? (
-              <div className="space-y-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="space-y-2">
-                    <Skeleton className="h-5 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
-                  </div>
-                ))}
-              </div>
-            ) : certificationsData.length > 0 ? (
-              <div className="space-y-4">
-                {certificationsData.map((cert) => (
-                  <div key={cert.id} className="transition-all duration-300 group-hover:translate-x-1">
-                    <h4 className="font-medium">
-                      {language === 'en' ? cert.certification_name_en : cert.certification_name_de}
-                    </h4>
-                    <p className="text-sm text-muted-foreground">
-                      {cert.issuing_organization} · {formatDate(cert.date_obtained)}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-muted-foreground">No certifications available yet.</p>
             )}
           </motion.div>
         </motion.div>
