@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -6,6 +5,7 @@ import Hero from "@/components/hero/Hero";
 import About from "@/components/About";
 import Experience from "@/components/Experience";
 import Projects from "@/components/Projects";
+import Certifications from "@/components/Certifications";
 import LanguageSkills from "@/components/LanguageSkills";
 import Hobbies from "@/components/Hobbies";
 import Contact from "@/components/Contact";
@@ -121,6 +121,7 @@ const Index = () => {
             <About />
             <Experience />
             <Projects />
+            <Certifications />
             <LanguageSkills />
             <Hobbies />
             <Downloads />

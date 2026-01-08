@@ -16,24 +16,36 @@ export type Database = {
     Tables: {
       Certifications: {
         Row: {
+          badge_image_url: string | null
+          certificate_url: string | null
           certification_name_de: string
           certification_name_en: string
+          credly_url: string | null
           date_obtained: string
           id: number
+          is_featured: boolean
           issuing_organization: string
         }
         Insert: {
+          badge_image_url?: string | null
+          certificate_url?: string | null
           certification_name_de: string
           certification_name_en: string
+          credly_url?: string | null
           date_obtained: string
           id?: number
+          is_featured?: boolean
           issuing_organization: string
         }
         Update: {
+          badge_image_url?: string | null
+          certificate_url?: string | null
           certification_name_de?: string
           certification_name_en?: string
+          credly_url?: string | null
           date_obtained?: string
           id?: number
+          is_featured?: boolean
           issuing_organization?: string
         }
         Relationships: []

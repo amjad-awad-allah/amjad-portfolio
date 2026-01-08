@@ -70,4 +70,8 @@ export interface Certification {
   certification_name_de: string;
   issuing_organization: string;
   date_obtained: string;
+  is_featured: boolean;
+  badge_image_url: string | null;
+  certificate_url: string | null;
+  credly_url: string | null;
 }
