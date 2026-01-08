@@ -41,6 +41,10 @@ export const translations: Translations = {
     en: "Downloads",
     de: "Downloads",
   },
+  "nav.certifications": {
+    en: "Certifications",
+    de: "Zertifizierungen",
+  },
   
   // Hero
   "hero.title": {
