@@ -50,7 +50,7 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="py-24">
+    <section id="experience" className="bg-secondary/30 dark:bg-secondary/5">
       <div className="section-container">
         <div className="max-w-3xl mx-auto mb-16 text-center">
           <h2 className="heading-lg mb-4">{t("experience.title")}</h2>

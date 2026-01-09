@@ -30,7 +30,7 @@ const LanguageSkills = () => {
   };
 
   return (
-    <section id="languages" className="py-24 relative">
+    <section id="languages" className="relative">
       <div className="section-container">
         <div className="text-center mb-16">
           <h2 className="heading-lg mb-3">{t("languages.title")}</h2>

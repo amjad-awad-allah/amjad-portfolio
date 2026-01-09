@@ -13,7 +13,7 @@ const Downloads = () => {
   const { getText } = useStaticContent('downloads');
 
   return (
-    <section id="downloads" className="py-16 relative overflow-hidden">
+    <section id="downloads" className="bg-secondary/20 dark:bg-secondary/10 relative overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02]"></div>
       
       <div className="section-container">
