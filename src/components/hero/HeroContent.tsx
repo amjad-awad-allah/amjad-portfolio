@@ -4,6 +4,7 @@ import { MapPin } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { SocialLinks } from "./SocialLinks";
 import { ActionButtons } from "./ActionButtons";
+import { HeroStats } from "./HeroStats";
 import { useStaticContent } from "@/hooks/use-static-content";
 import { useLanguage } from "@/context/LanguageContext";
 
@@ -74,6 +75,8 @@ export const HeroContent = ({ isLoading, personalInfo }: HeroContentProps) => {
       />
       
       <ActionButtons />
+      
+      <HeroStats />
     </>
   );
 };

@@ -347,6 +347,24 @@ export const translations: Translations = {
     en: "German",
     de: "Deutsch",
   },
+  
+  // Stats
+  "stats.experience": {
+    en: "Years Experience",
+    de: "Jahre Erfahrung",
+  },
+  "stats.projects": {
+    en: "Projects Delivered",
+    de: "Projekte geliefert",
+  },
+  "stats.certifications": {
+    en: "Certifications",
+    de: "Zertifizierungen",
+  },
+  "stats.countries": {
+    en: "Countries Worked In",
+    de: "Länder gearbeitet",
+  },
 };
 
 // Define context type
