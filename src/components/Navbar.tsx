@@ -20,10 +20,9 @@ const Navbar = () => {
 
   const navItems = [
     { name: t("nav.home"), href: "#home" },
-    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.certifications"), href: "#certifications" },
     { name: t("nav.experience"), href: "#experience" },
     { name: t("nav.projects"), href: "#projects" },
-    { name: t("nav.certifications"), href: "#certifications" },
     { name: t("nav.languages"), href: "#languages" },
     { name: t("nav.downloads"), href: "#downloads" },
     { name: t("hobbies.title"), href: "#hobbies" },
