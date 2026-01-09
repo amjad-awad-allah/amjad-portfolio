@@ -119,9 +119,9 @@ const Index = () => {
           <main className="mt-16 sm:mt-20">
             <Hero />
             <About />
+            <Certifications />
             <Experience />
             <Projects />
-            <Certifications />
             <LanguageSkills />
             <Hobbies />
             <Downloads />
