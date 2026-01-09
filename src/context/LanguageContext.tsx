@@ -365,6 +365,32 @@ export const translations: Translations = {
     en: "Countries Worked In",
     de: "Länder gearbeitet",
   },
+  
+  // CTAs
+  "cta.about": {
+    en: "Let's build something amazing together",
+    de: "Lass uns gemeinsam etwas Großartiges aufbauen",
+  },
+  "cta.about.button": {
+    en: "Contact Me",
+    de: "Kontaktiere mich",
+  },
+  "cta.certifications": {
+    en: "Verify my credentials",
+    de: "Meine Qualifikationen prüfen",
+  },
+  "cta.certifications.button": {
+    en: "View Certificates",
+    de: "Zertifikate ansehen",
+  },
+  "cta.projects": {
+    en: "See more of my work",
+    de: "Mehr meiner Arbeit sehen",
+  },
+  "cta.projects.button": {
+    en: "Explore Portfolio",
+    de: "Portfolio erkunden",
+  },
 };
 
 // Define context type

@@ -1,10 +1,11 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Code, Database, Terminal, Layers, GraduationCap } from "lucide-react";
+import { Code, Database, Terminal, Layers, ChevronRight } from "lucide-react";
 import { useEducation } from "@/hooks/use-supabase-data";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useStaticContent } from "@/hooks/use-static-content";
+import { Button } from "@/components/ui/button";
 
 const About = () => {
   const { t, language } = useLanguage();
@@ -152,6 +153,22 @@ const About = () => {
                 <span className="font-medium">{skill.name}</span>
               </motion.div>
             ))}
+          </motion.div>
+          
+          {/* CTA */}
+          <motion.div 
+            variants={itemVariants}
+            className="mt-12 text-center"
+          >
+            <p className="text-lg text-muted-foreground mb-4">
+              {t("cta.about")}
+            </p>
+            <Button asChild size="lg" className="group">
+              <a href="#contact">
+                {t("cta.about.button")}
+                <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

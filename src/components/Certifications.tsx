@@ -1,9 +1,10 @@
 import { useLanguage } from "@/context/LanguageContext";
 import { motion } from "framer-motion";
-import { Award, ExternalLink, BadgeCheck, Calendar, Building2 } from "lucide-react";
+import { Award, ExternalLink, BadgeCheck, Calendar, Building2, ChevronRight } from "lucide-react";
 import { useCertifications } from "@/hooks/use-supabase-data";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 
 const Certifications = () => {
   const { t, language } = useLanguage();
@@ -262,6 +263,27 @@ const Certifications = () => {
                 <p className="text-muted-foreground">
                   {language === 'en' ? 'No certifications available yet.' : 'Noch keine Zertifizierungen verfügbar.'}
                 </p>
+              </motion.div>
+            )}
+            
+            {/* CTA */}
+            {certificationsData.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="mt-12 text-center"
+              >
+                <p className="text-lg text-muted-foreground mb-4">
+                  {language === 'en' ? 'Verify my credentials' : 'Meine Qualifikationen prüfen'}
+                </p>
+                <Button asChild size="lg" variant="outline" className="group">
+                  <a href={featuredCerts[0]?.credly_url || featuredCerts[0]?.certificate_url || '#'} target="_blank" rel="noopener noreferrer">
+                    {language === 'en' ? 'View Certificates' : 'Zertifikate ansehen'}
+                    <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </Button>
               </motion.div>
             )}
           </>
