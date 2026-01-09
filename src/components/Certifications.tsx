@@ -5,26 +5,34 @@ import { useCertifications } from "@/hooks/use-supabase-data";
 import { format } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-
 const Certifications = () => {
-  const { t, language } = useLanguage();
-  const { data: certificationsData, isLoading } = useCertifications();
-
+  const {
+    t,
+    language
+  } = useLanguage();
+  const {
+    data: certificationsData,
+    isLoading
+  } = useCertifications();
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {
+      opacity: 0
+    },
     visible: {
       opacity: 1,
-      transition: { 
+      transition: {
         staggerChildren: 0.1,
         delayChildren: 0.2
       }
     }
   };
-
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { 
-      y: 0, 
+    hidden: {
+      y: 20,
+      opacity: 0
+    },
+    visible: {
+      y: 0,
       opacity: 1,
       transition: {
         type: "spring",
@@ -32,7 +40,6 @@ const Certifications = () => {
       }
     }
   };
-
   const formatDate = (dateString: string | null) => {
     if (!dateString) return '';
     try {
@@ -41,80 +48,54 @@ const Certifications = () => {
       return dateString;
     }
   };
-
   const getCertUrl = (cert: typeof certificationsData[0]) => {
     return cert.credly_url || cert.certificate_url || null;
   };
-
   const featuredCerts = certificationsData.filter(cert => cert.is_featured);
   const otherCerts = certificationsData.filter(cert => !cert.is_featured);
-
-  return (
-    <section id="certifications" className="relative overflow-hidden">
+  return <section id="certifications" className="relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
       
       <div className="section-container">
-        <motion.div 
-          className="max-w-3xl mx-auto mb-16 text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
-        >
+        <motion.div className="max-w-3xl mx-auto mb-16 text-center" initial="hidden" whileInView="visible" viewport={{
+        once: true,
+        margin: "-100px"
+      }} variants={containerVariants}>
           <motion.h2 variants={itemVariants} className="heading-lg mb-4 relative inline-block">
             <Award className="inline-block h-8 w-8 mr-3 text-primary" />
             {language === 'en' ? 'Certifications' : 'Zertifizierungen'}
             <span className="absolute -bottom-2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-primary/40 to-primary/10 transform -translate-x-1/2 rounded-full" />
           </motion.h2>
           <motion.p variants={itemVariants} className="paragraph">
-            {language === 'en' 
-              ? 'Professional certifications demonstrating expertise and continuous learning'
-              : 'Professionelle Zertifizierungen, die Fachwissen und kontinuierliches Lernen belegen'}
+            {language === 'en' ? 'Professional certifications demonstrating expertise and continuous learning' : 'Professionelle Zertifizierungen, die Fachwissen und kontinuierliches Lernen belegen'}
           </motion.p>
         </motion.div>
 
         {/* Loading State */}
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="glass-card p-6">
+        {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map(i => <div key={i} className="glass-card p-6">
                 <Skeleton className="h-16 w-16 rounded-lg mb-4" />
                 <Skeleton className="h-6 w-3/4 mb-2" />
                 <Skeleton className="h-4 w-1/2 mb-2" />
                 <Skeleton className="h-4 w-1/3" />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <>
+              </div>)}
+          </div> : <>
             {/* Featured Certifications */}
-            {featuredCerts.length > 0 && (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={containerVariants}
-                className="mb-16"
-              >
-                <motion.h3 
-                  variants={itemVariants}
-                  className="heading-sm mb-8 flex items-center justify-center gap-2 text-primary"
-                >
+            {featuredCerts.length > 0 && <motion.div initial="hidden" whileInView="visible" viewport={{
+          once: true,
+          margin: "-50px"
+        }} variants={containerVariants} className="mb-16">
+                <motion.h3 variants={itemVariants} className="heading-sm mb-8 flex items-center justify-center gap-2 text-primary">
                   <BadgeCheck className="h-5 w-5" />
                   {language === 'en' ? 'Featured Certifications' : 'Hervorgehobene Zertifizierungen'}
                 </motion.h3>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {featuredCerts.map((cert) => {
-                    const certUrl = getCertUrl(cert);
-                    return (
-                      <motion.div
-                        key={cert.id}
-                        variants={itemVariants}
-                        className="group relative"
-                      >
+                  {featuredCerts.map(cert => {
+              const certUrl = getCertUrl(cert);
+              return <motion.div key={cert.id} variants={itemVariants} className="group relative">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-accent/5 to-transparent rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         
                         <div className="relative glass-card p-6 h-full border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10">
@@ -125,19 +106,11 @@ const Certifications = () => {
                           
                           {/* Badge Image */}
                           <div className="mb-4 flex items-start gap-4">
-                            {cert.badge_image_url ? (
-                              <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-white dark:bg-gray-800 p-2 shadow-md group-hover:scale-105 transition-transform duration-300">
-                                <img 
-                                  src={cert.badge_image_url} 
-                                  alt={language === 'en' ? cert.certification_name_en : cert.certification_name_de}
-                                  className="w-full h-full object-contain"
-                                />
-                              </div>
-                            ) : (
-                              <div className="w-20 h-20 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                            {cert.badge_image_url ? <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden bg-white dark:bg-gray-800 p-2 shadow-md group-hover:scale-105 transition-transform duration-300">
+                                <img src={cert.badge_image_url} alt={language === 'en' ? cert.certification_name_en : cert.certification_name_de} className="w-full h-full object-contain" />
+                              </div> : <div className="w-20 h-20 flex-shrink-0 rounded-lg bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                                 <Award className="h-10 w-10 text-primary" />
-                              </div>
-                            )}
+                              </div>}
                             
                             <div className="flex-1 min-w-0">
                               <h4 className="font-semibold text-lg leading-tight mb-1 group-hover:text-primary transition-colors duration-300">
@@ -157,65 +130,37 @@ const Certifications = () => {
                           </div>
                           
                           {/* Verify Link */}
-                          {certUrl && (
-                            <a
-                              href={certUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors duration-300 group/link"
-                            >
+                          {certUrl && <a href={certUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors duration-300 group/link">
                               <ExternalLink className="h-4 w-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform duration-300" />
                               {language === 'en' ? 'Verify Certificate' : 'Zertifikat verifizieren'}
-                            </a>
-                          )}
+                            </a>}
                         </div>
-                      </motion.div>
-                    );
-                  })}
+                      </motion.div>;
+            })}
                 </div>
-              </motion.div>
-            )}
+              </motion.div>}
 
             {/* Other Certifications */}
-            {otherCerts.length > 0 && (
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={containerVariants}
-              >
-                <motion.h3 
-                  variants={itemVariants}
-                  className="heading-sm mb-6 text-center text-muted-foreground"
-                >
+            {otherCerts.length > 0 && <motion.div initial="hidden" whileInView="visible" viewport={{
+          once: true,
+          margin: "-50px"
+        }} variants={containerVariants}>
+                <motion.h3 variants={itemVariants} className="heading-sm mb-6 text-center text-muted-foreground">
                   {language === 'en' ? 'Additional Certifications' : 'Weitere Zertifizierungen'}
                 </motion.h3>
                 
                 <div className="max-w-4xl mx-auto">
                   <div className="glass-card divide-y divide-border/50">
-                    {otherCerts.map((cert) => {
-                      const certUrl = getCertUrl(cert);
-                      return (
-                        <motion.div
-                          key={cert.id}
-                          variants={itemVariants}
-                          className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 hover:bg-primary/5 transition-colors duration-300 group"
-                        >
+                    {otherCerts.map(cert => {
+                const certUrl = getCertUrl(cert);
+                return <motion.div key={cert.id} variants={itemVariants} className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 hover:bg-primary/5 transition-colors duration-300 group">
                           {/* Badge */}
                           <div className="flex-shrink-0">
-                            {cert.badge_image_url ? (
-                              <div className="w-12 h-12 rounded-lg overflow-hidden bg-white dark:bg-gray-800 p-1.5 shadow-sm">
-                                <img 
-                                  src={cert.badge_image_url} 
-                                  alt={language === 'en' ? cert.certification_name_en : cert.certification_name_de}
-                                  className="w-full h-full object-contain"
-                                />
-                              </div>
-                            ) : (
-                              <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center">
+                            {cert.badge_image_url ? <div className="w-12 h-12 rounded-lg overflow-hidden bg-white dark:bg-gray-800 p-1.5 shadow-sm">
+                                <img src={cert.badge_image_url} alt={language === 'en' ? cert.certification_name_en : cert.certification_name_de} className="w-full h-full object-contain" />
+                              </div> : <div className="w-12 h-12 rounded-lg bg-secondary flex items-center justify-center">
                                 <Award className="h-6 w-6 text-muted-foreground" />
-                              </div>
-                            )}
+                              </div>}
                           </div>
                           
                           {/* Content */}
@@ -231,66 +176,36 @@ const Certifications = () => {
                           </div>
                           
                           {/* Verify Link */}
-                          {certUrl && (
-                            <a
-                              href={certUrl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-accent transition-colors duration-300 flex-shrink-0"
-                            >
+                          {certUrl && <a href={certUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm text-primary hover:text-accent transition-colors duration-300 flex-shrink-0">
                               <ExternalLink className="h-4 w-4" />
                               <span className="hidden sm:inline">
                                 {language === 'en' ? 'Verify' : 'Verifizieren'}
                               </span>
-                            </a>
-                          )}
-                        </motion.div>
-                      );
-                    })}
+                            </a>}
+                        </motion.div>;
+              })}
                   </div>
                 </div>
-              </motion.div>
-            )}
+              </motion.div>}
 
             {/* Empty State */}
-            {certificationsData.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center py-12"
-              >
+            {certificationsData.length === 0 && <motion.div initial={{
+          opacity: 0,
+          y: 20
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} className="text-center py-12">
                 <Award className="h-16 w-16 mx-auto text-muted-foreground/30 mb-4" />
                 <p className="text-muted-foreground">
                   {language === 'en' ? 'No certifications available yet.' : 'Noch keine Zertifizierungen verfügbar.'}
                 </p>
-              </motion.div>
-            )}
+              </motion.div>}
             
             {/* CTA */}
-            {certificationsData.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-12 text-center"
-              >
-                <p className="text-lg text-muted-foreground mb-4">
-                  {language === 'en' ? 'Verify my credentials' : 'Meine Qualifikationen prüfen'}
-                </p>
-                <Button asChild size="lg" variant="outline" className="group">
-                  <a href={featuredCerts[0]?.credly_url || featuredCerts[0]?.certificate_url || '#'} target="_blank" rel="noopener noreferrer">
-                    {language === 'en' ? 'View Certificates' : 'Zertifikate ansehen'}
-                    <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                </Button>
-              </motion.div>
-            )}
-          </>
-        )}
+            {certificationsData.length > 0}
+          </>}
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Certifications;
