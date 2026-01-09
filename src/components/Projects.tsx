@@ -7,7 +7,7 @@ import { useProjects, useProfessionalExperience } from "@/hooks/use-supabase-dat
 import ProjectCard from "./projects/ProjectCard";
 import ProjectFilters from "./projects/ProjectFilters";
 import NoProjectsFound from "./projects/NoProjectsFound";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { 
@@ -242,6 +242,27 @@ const Projects = () => {
                         </PaginationContent>
                       </Pagination>
                     </div>
+                  )}
+                  
+                  {/* CTA */}
+                  {filteredProjects.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: 0.3 }}
+                      className="mt-12 text-center"
+                    >
+                      <p className="text-lg text-muted-foreground mb-4">
+                        {t("cta.projects")}
+                      </p>
+                      <Button asChild size="lg" className="group">
+                        <a href="#contact">
+                          {t("cta.projects.button")}
+                          <ChevronRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </a>
+                      </Button>
+                    </motion.div>
                   )}
                 </>
               )}
