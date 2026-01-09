@@ -43,8 +43,8 @@ const Hobbies = () => {
     : language === 'de' ? fallbackDescription.de : fallbackDescription.en;
 
   return (
-    <section id="hobbies" className="py-16">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+    <section id="hobbies" className="bg-secondary/30 dark:bg-secondary/5">
+      <div className="section-container">
         <div className="text-center mb-12">
           <h2 className="heading-lg mb-4">{t("hobbies.title")}</h2>
           <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>

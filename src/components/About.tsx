@@ -54,7 +54,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="py-24 bg-secondary/50 dark:bg-secondary/10 relative overflow-hidden">
+    <section id="about" className="bg-secondary/50 dark:bg-secondary/10 relative overflow-hidden">
       {/* Tech pattern background */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>

@@ -88,7 +88,7 @@ const Projects = () => {
   const showResetButton = companyFilter !== "all" || techFilter !== "all";
 
   return (
-    <section id="projects" className="py-24 bg-secondary/20 dark:bg-secondary/5 relative">
+    <section id="projects" className="relative">
       {/* Enhanced background with code/AI patterns */}
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02]"></div>
       <div className="absolute inset-0 -z-10 circuit-pattern opacity-[0.03]"></div>

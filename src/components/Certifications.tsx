@@ -50,7 +50,7 @@ const Certifications = () => {
   const otherCerts = certificationsData.filter(cert => !cert.is_featured);
 
   return (
-    <section id="certifications" className="py-24 relative overflow-hidden">
+    <section id="certifications" className="relative overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-[0.02] pointer-events-none" />
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />

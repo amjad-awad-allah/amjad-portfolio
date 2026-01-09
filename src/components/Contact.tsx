@@ -85,7 +85,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/10 dark:bg-secondary/20 relative">
+    <section id="contact" className="bg-secondary/10 dark:bg-secondary/20 relative">
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-[0.02]"></div>
       <div className="absolute inset-0 -z-10 ai-pattern opacity-20"></div>
 
