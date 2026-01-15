@@ -1,7 +1,6 @@
 
 import { motion } from "framer-motion";
-import { ExternalLink, Layers } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types/database";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,20 +13,27 @@ interface ProjectCardProps {
 const ProjectCard = ({ project, companyName }: ProjectCardProps) => {
   const { language, t } = useLanguage();
   
+  const handleCardClick = () => {
+    if (project.description_url) {
+      window.open(project.description_url, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}
-      className="glass-card overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full"
+      onClick={handleCardClick}
+      className={`glass-card overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full ${project.description_url ? 'cursor-pointer' : ''}`}
     >
       {project.image_url && (
-        <div className="w-full h-48 overflow-hidden">
+        <div className="w-full aspect-video overflow-hidden bg-muted">
           <img
             src={project.image_url}
             alt={project.project_name}
-            className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
           />
         </div>
       )}
@@ -58,23 +64,11 @@ const ProjectCard = ({ project, companyName }: ProjectCardProps) => {
         )}
       </div>
       
-      <div className="px-6 py-4 border-t border-border/40">
-        <div className="flex justify-end gap-3">
-          {project.description_url && (
-            <Button size="sm" variant="ghost" asChild>
-              <a
-                href={project.description_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center"
-              >
-                <ExternalLink className="mr-1 h-3 w-3" />
-                {t("projects.viewDetails")}
-              </a>
-            </Button>
-          )}
+      {project.description_url && (
+        <div className="px-6 py-3 border-t border-border/40 flex items-center justify-end">
+          <ExternalLink className="h-4 w-4 text-muted-foreground" />
         </div>
-      </div>
+      )}
     </motion.div>
   );
 };
