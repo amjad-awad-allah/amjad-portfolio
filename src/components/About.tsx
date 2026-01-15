@@ -69,9 +69,11 @@ const About = () => {
           viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
-          <motion.h2 variants={itemVariants} className="heading-lg mb-4 relative inline-block">
-            {t("about.title")}
-            <span className="absolute -bottom-2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-primary/40 to-primary/10 transform -translate-x-1/2 rounded-full"></span>
+          <motion.h2 variants={itemVariants} className="heading-lg mb-4 relative inline-block section-heading">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
+              {t("about.title")}
+            </span>
+            <span className="absolute -bottom-2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-primary via-accent to-primary transform -translate-x-1/2 rounded-full"></span>
           </motion.h2>
           <motion.p variants={itemVariants} className="paragraph">{t("about.bio")}</motion.p>
         </motion.div>
