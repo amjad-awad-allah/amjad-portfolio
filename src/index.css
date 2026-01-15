@@ -98,15 +98,20 @@
 /* Keep existing components and styles but update a few for the tech theme */
 @layer components {
   .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-sm;
+    @apply bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg;
   }
   
   .glass-card {
-    @apply bg-white/70 dark:bg-black/20 backdrop-blur-lg border border-gray-200 dark:border-gray-800 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md;
+    @apply bg-white/80 dark:bg-gray-900/60 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-2xl transition-all duration-500 shadow-lg hover:shadow-2xl hover:shadow-primary/10 hover:-translate-y-1;
   }
   
   .section-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-32;
+  }
+  
+  /* Gradient text for headings */
+  .heading-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] animate-gradient;
   }
   
   .heading-xl {
@@ -114,7 +119,7 @@
   }
   
   .heading-lg {
-    @apply text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight text-foreground;
+    @apply text-3xl sm:text-4xl md:text-5xl font-display font-bold tracking-tight;
   }
   
   .heading-md {
@@ -130,39 +135,39 @@
   }
   
   .tag {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground;
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20;
   }
   
   .hover-scale {
-    @apply transition-transform duration-300 hover:scale-[1.03];
+    @apply transition-all duration-500 hover:scale-[1.02] hover:shadow-xl;
   }
   
   /* Tech inspired components */
   .tech-border {
-    @apply border border-dashed border-primary/40 rounded-lg p-4;
+    @apply border border-dashed border-primary/40 rounded-xl p-4;
   }
   
   .code-block {
-    @apply font-mono bg-secondary/70 dark:bg-secondary/30 p-4 rounded-lg text-sm overflow-x-auto shadow-md border border-secondary/20 dark:border-secondary/10;
+    @apply font-mono bg-secondary/70 dark:bg-secondary/30 p-4 rounded-xl text-sm overflow-x-auto shadow-lg border border-secondary/20 dark:border-secondary/10;
   }
   
   /* Matrix-inspired grid pattern background */
   .bg-grid-pattern {
     background-image: 
-      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
+      linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
   
   .dark .bg-grid-pattern {
     background-image: 
-      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   }
   
   /* Terminal-like components */
   .terminal {
-    @apply font-mono bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto shadow-lg border border-gray-700;
+    @apply font-mono bg-gray-900 text-green-400 p-4 rounded-xl overflow-x-auto shadow-2xl border border-gray-700;
   }
   
   .terminal-line {
@@ -175,7 +180,7 @@
   
   /* IDE-like components */
   .ide-window {
-    @apply bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-lg;
+    @apply bg-gray-800 rounded-xl overflow-hidden border border-gray-700 shadow-2xl;
   }
   
   .ide-header {
@@ -192,17 +197,17 @@
   
   /* New AI and coding themed components */
   .ai-card {
-    @apply relative bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-lg p-6 shadow-lg border border-primary/10 overflow-hidden;
+    @apply relative bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-primary/10 overflow-hidden;
   }
   
   .ai-card::before {
     content: '';
-    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-secondary;
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary;
   }
   
   .ai-card::after {
     content: '';
-    @apply absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-secondary/20 to-transparent;
+    @apply absolute -bottom-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br from-primary/10 to-transparent blur-2xl;
   }
   
   .code-title {
@@ -222,6 +227,20 @@
   .neural-network-bg::before {
     content: '';
     @apply absolute inset-0 bg-grid-pattern opacity-5;
+  }
+  
+  /* Section heading with animated underline */
+  .section-heading {
+    @apply relative inline-block;
+  }
+  
+  .section-heading::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full transform scale-x-0 transition-transform duration-500 origin-left;
+  }
+  
+  .section-heading:hover::after {
+    @apply scale-x-100;
   }
 }
 
@@ -288,6 +307,31 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Gradient animation for text */
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+/* Typing cursor animation */
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typing-cursor::after {
+  content: '|';
+  @apply text-primary animate-pulse ml-1;
 }
 
 /* Tech-inspired typing animation */

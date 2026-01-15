@@ -98,7 +98,7 @@ const Projects = () => {
       
       <div className="section-container">
         <div className="text-center mb-8">
-          <motion.h2 className="heading-lg mb-3" initial={{
+          <motion.h2 className="heading-lg mb-3 section-heading" initial={{
           opacity: 0,
           y: 20
         }} whileInView={{
@@ -109,7 +109,9 @@ const Projects = () => {
         }} transition={{
           duration: 0.5
         }}>
-            {t("projects.title")}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
+              {t("projects.title")}
+            </span>
           </motion.h2>
           <motion.p className="paragraph max-w-2xl mx-auto" initial={{
           opacity: 0,

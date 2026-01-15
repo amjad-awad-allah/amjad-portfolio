@@ -46,8 +46,12 @@ const Hobbies = () => {
     <section id="hobbies" className="bg-secondary/30 dark:bg-secondary/5">
       <div className="section-container">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-4">{t("hobbies.title")}</h2>
-          <div className="w-16 h-1 bg-primary mx-auto rounded-full mb-6"></div>
+          <h2 className="heading-lg mb-4 section-heading">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
+              {t("hobbies.title")}
+            </span>
+          </h2>
+          <div className="w-16 h-1 bg-gradient-to-r from-primary via-accent to-primary mx-auto rounded-full mb-6"></div>
           <p className="paragraph max-w-2xl mx-auto">
             {description}
           </p>

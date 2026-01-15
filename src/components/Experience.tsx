@@ -53,7 +53,11 @@ const Experience = () => {
     <section id="experience" className="bg-secondary/30 dark:bg-secondary/5">
       <div className="section-container">
         <div className="max-w-3xl mx-auto mb-16 text-center">
-          <h2 className="heading-lg mb-4">{t("experience.title")}</h2>
+          <h2 className="heading-lg mb-4 section-heading">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
+              {t("experience.title")}
+            </span>
+          </h2>
           <p className="paragraph">
             {language === 'en' 
               ? 'My professional journey in software development.' 
