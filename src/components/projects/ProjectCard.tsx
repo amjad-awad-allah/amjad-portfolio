@@ -1,42 +1,40 @@
-
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types/database";
 import { useLanguage } from "@/context/LanguageContext";
-
 interface ProjectCardProps {
   project: Project;
   companyName: string;
 }
-
-const ProjectCard = ({ project, companyName }: ProjectCardProps) => {
-  const { language, t } = useLanguage();
-  
+const ProjectCard = ({
+  project,
+  companyName
+}: ProjectCardProps) => {
+  const {
+    language,
+    t
+  } = useLanguage();
   const handleCardClick = () => {
     if (project.description_url) {
       window.open(project.description_url, '_blank', 'noopener,noreferrer');
     }
   };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.5 }}
-      onClick={handleCardClick}
-      className={`glass-card overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full ${project.description_url ? 'cursor-pointer' : ''}`}
-    >
-      {project.image_url && (
-        <div className="w-full aspect-video overflow-hidden bg-muted">
-          <img
-            src={project.image_url}
-            alt={project.project_name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110"
-          />
-        </div>
-      )}
+  return <motion.div initial={{
+    opacity: 0,
+    y: 20
+  }} whileInView={{
+    opacity: 1,
+    y: 0
+  }} viewport={{
+    once: true,
+    margin: "-100px"
+  }} transition={{
+    duration: 0.5
+  }} onClick={handleCardClick} className={`glass-card overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col h-full ${project.description_url ? 'cursor-pointer' : ''}`}>
+      {project.image_url && <div className="w-full aspect-video overflow-hidden bg-muted">
+          <img src={project.image_url} alt={project.project_name} className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-110" />
+        </div>}
       
       <div className="p-6 flex-grow">
         <div className="flex items-start justify-between mb-2">
@@ -48,29 +46,19 @@ const ProjectCard = ({ project, companyName }: ProjectCardProps) => {
           {language === 'en' ? project.description_en : project.description_de}
         </p>
         
-        {project.technologies_used && project.technologies_used.length > 0 && (
-          <div className="mt-4">
+        {project.technologies_used && project.technologies_used.length > 0 && <div className="mt-4">
             <h4 className="text-xs font-semibold uppercase text-muted-foreground mb-2">
               {t("projects.technologies")}
             </h4>
             <div className="flex flex-wrap gap-1">
-              {project.technologies_used.map((tech, index) => (
-                <Badge key={index} variant="secondary" className="text-xs">
+              {project.technologies_used.map((tech, index) => <Badge key={index} variant="secondary" className="text-xs">
                   {tech}
-                </Badge>
-              ))}
+                </Badge>)}
             </div>
-          </div>
-        )}
+          </div>}
       </div>
       
-      {project.description_url && (
-        <div className="px-6 py-3 border-t border-border/40 flex items-center justify-end">
-          <ExternalLink className="h-4 w-4 text-muted-foreground" />
-        </div>
-      )}
-    </motion.div>
-  );
+      {project.description_url}
+    </motion.div>;
 };
-
 export default ProjectCard;
