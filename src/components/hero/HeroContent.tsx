@@ -76,11 +76,9 @@ export const HeroContent = ({ isLoading, personalInfo }: HeroContentProps) => {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="heading-xl mb-3"
+        className="heading-xl mb-3 text-foreground"
       >
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground bg-[length:200%_auto] animate-[gradient_4s_ease_infinite]">
-          {personalInfo?.name || getText('title')}
-        </span>
+        {personalInfo?.name || getText('title')}
       </motion.h1>
       
       <motion.div

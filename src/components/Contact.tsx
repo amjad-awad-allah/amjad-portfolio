@@ -97,10 +97,8 @@ const Contact = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="heading-lg mb-3 section-heading">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
-              {t("contact.title")}
-            </span>
+          <h2 className="heading-lg mb-3 text-foreground">
+            {t("contact.title")}
           </h2>
           <p className="paragraph max-w-2xl mx-auto">
             {t("contact.subtitle")}

@@ -18,10 +18,8 @@ const Downloads = () => {
       
       <div className="section-container">
         <div className="text-center mb-12">
-          <h2 className="heading-lg mb-3 section-heading">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
-              {getText('title', 'Downloads')}
-            </span>
+          <h2 className="heading-lg mb-3 text-foreground">
+            {getText('title', 'Downloads')}
           </h2>
           <p className="paragraph max-w-2xl mx-auto">
             {getText('description', 'Download my CV and work experience documents in your preferred language.')}

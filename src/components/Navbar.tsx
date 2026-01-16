@@ -103,9 +103,9 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-500",
+          "fixed top-0 left-0 w-full z-50 transition-all duration-300",
           isScrolled
-            ? "py-3 bg-white/70 dark:bg-gray-900/70 backdrop-blur-2xl shadow-lg shadow-black/5 border-b border-gray-200/30 dark:border-gray-800/30"
+            ? "py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
             : "py-5 bg-transparent"
         )}
       >
@@ -118,31 +118,37 @@ const Navbar = () => {
             >
               <Code className="h-5 w-5" />
             </motion.span>
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-primary font-bold">
+            <span className="font-bold text-foreground">
               Amjad Awad-Allah
             </span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
-            <div className="flex items-center gap-1 bg-secondary/30 dark:bg-secondary/10 rounded-full p-1.5 backdrop-blur-sm">
+            <div className="flex items-center gap-1">
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "text-sm font-medium transition-all duration-300 px-4 py-2 rounded-full relative",
+                    "text-sm font-medium transition-all duration-300 px-3 py-2 rounded-md relative",
                     activeSection === item.href.substring(1)
-                      ? "text-primary-foreground bg-primary shadow-lg shadow-primary/30"
-                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                   )}
                 >
                   {item.name}
+                  {activeSection === item.href.substring(1) && (
+                    <motion.span
+                      layoutId="activeSection"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
+                    />
+                  )}
                 </a>
               ))}
             </div>
 
-            <div className="flex items-center gap-2 bg-secondary/30 dark:bg-secondary/10 rounded-full p-1.5 backdrop-blur-sm">
+            <div className="flex items-center gap-2">
               <LanguageToggle />
               <ThemeToggle />
             </div>
