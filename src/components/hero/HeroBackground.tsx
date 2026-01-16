@@ -1,5 +1,5 @@
-
 import { motion } from "framer-motion";
+import { FloatingParticles } from "./FloatingParticles";
 
 type TechnicalTerm = {
   symbol?: string;
@@ -137,6 +137,9 @@ export const HeroBackground = () => {
   return (
     <>
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]"></div>
+      
+      {/* Floating particles effect */}
+      <FloatingParticles />
       
       <div className="absolute inset-0 -z-9 overflow-hidden">
         {technicalTerms.map((item, index) => {
