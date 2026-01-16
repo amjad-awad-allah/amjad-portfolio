@@ -16,6 +16,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { debugStaticContent } from "@/lib/db";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -55,44 +56,61 @@ const Index = () => {
       
       // Add meta tags for SEO and improved sharing
       document.title = "Amjad Awad-Allah | Software Developer & AI Specialist";
-      const metaDescription = document.createElement('meta');
-      metaDescription.name = 'description';
-      metaDescription.content = 'Professional portfolio of Amjad Awad-Allah, specializing in software development, AI, and mobile app development with expertise in Java, Kotlin, and Python.';
-      document.head.appendChild(metaDescription);
+      
+      // Meta description
+      let metaDescription = document.querySelector('meta[name="description"]');
+      if (!metaDescription) {
+        metaDescription = document.createElement('meta');
+        metaDescription.setAttribute('name', 'description');
+        document.head.appendChild(metaDescription);
+      }
+      metaDescription.setAttribute('content', 'Professional portfolio of Amjad Awad-Allah, specializing in software development, AI, and mobile app development with expertise in Java, Kotlin, and Python.');
 
       // Add viewport meta tag for responsive design
       const viewport = document.querySelector('meta[name="viewport"]');
       if (!viewport) {
         const viewportMeta = document.createElement('meta');
         viewportMeta.name = 'viewport';
-        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0';
         document.head.appendChild(viewportMeta);
       }
 
       // Additional mobile optimizations
       if (isMobile) {
-        // Optimize touch events for mobile
         document.documentElement.style.setProperty('touch-action', 'manipulation');
-        // Disable long press for better mobile experience
-        document.documentElement.style.setProperty('-webkit-touch-callout', 'none');
       }
 
       // Open Graph data for better sharing
-      const ogTitle = document.createElement('meta');
-      ogTitle.setAttribute('property', 'og:title');
-      ogTitle.content = 'Amjad Awad-Allah | Software Developer & AI Specialist';
-      document.head.appendChild(ogTitle);
+      const ogTags = [
+        { property: 'og:title', content: 'Amjad Awad-Allah | Software Developer & AI Specialist' },
+        { property: 'og:description', content: 'Professional portfolio showcasing software development and AI projects.' },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: '/og-image.png' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: 'Amjad Awad-Allah | Software Developer & AI Specialist' },
+        { name: 'twitter:description', content: 'Professional portfolio showcasing software development and AI projects.' },
+      ];
 
-      const ogDesc = document.createElement('meta');
-      ogDesc.setAttribute('property', 'og:description');
-      ogDesc.content = 'Professional portfolio showcasing software development and AI projects.';
-      document.head.appendChild(ogDesc);
+      ogTags.forEach(tag => {
+        const selector = tag.property ? `meta[property="${tag.property}"]` : `meta[name="${tag.name}"]`;
+        let meta = document.querySelector(selector);
+        if (!meta) {
+          meta = document.createElement('meta');
+          if (tag.property) meta.setAttribute('property', tag.property);
+          if (tag.name) meta.setAttribute('name', tag.name);
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', tag.content);
+      });
       
       // Keywords for better SEO
-      const metaKeywords = document.createElement('meta');
-      metaKeywords.name = 'keywords';
-      metaKeywords.content = 'software developer, AI specialist, mobile app developer, Android development, Java, Kotlin, Python, React, machine learning';
-      document.head.appendChild(metaKeywords);
+      let metaKeywords = document.querySelector('meta[name="keywords"]');
+      if (!metaKeywords) {
+        metaKeywords = document.createElement('meta');
+        metaKeywords.setAttribute('name', 'keywords');
+        document.head.appendChild(metaKeywords);
+      }
+      metaKeywords.setAttribute('content', 'software developer, AI specialist, mobile app developer, Android development, Java, Kotlin, Python, React, machine learning');
       
       // Log Supabase connection
       console.log("%c📊 Connecting to Supabase database...", "font-weight: bold; color: #10B981;");
@@ -116,7 +134,7 @@ const Index = () => {
       <LanguageProvider>
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-[#F3F6F9] via-[#F3F6F9] to-[#E8ECF1] dark:from-[#1A2B36] dark:via-[#1A2B36] dark:to-[#223A47]">
           <Navbar />
-          <main className="mt-16 sm:mt-20">
+          <main className="mt-16 sm:mt-20 space-y-0">
             <Hero />
             <About />
             <Certifications />
@@ -128,6 +146,7 @@ const Index = () => {
             <Contact />
           </main>
           <Footer />
+          <ScrollToTop />
           <Toaster />
         </div>
       </LanguageProvider>

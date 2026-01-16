@@ -103,9 +103,9 @@ const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={cn(
-          "fixed top-0 left-0 w-full z-50 transition-all duration-300",
+          "fixed top-0 left-0 w-full z-50 transition-all duration-500",
           isScrolled
-            ? "py-3 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
+            ? "py-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-white/20 dark:border-gray-800/50"
             : "py-5 bg-transparent"
         )}
       >
