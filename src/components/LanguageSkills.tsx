@@ -33,10 +33,8 @@ const LanguageSkills = () => {
     <section id="languages" className="relative">
       <div className="section-container">
         <div className="text-center mb-16">
-          <h2 className="heading-lg mb-3 section-heading">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
-              {t("languages.title")}
-            </span>
+          <h2 className="heading-lg mb-3 text-foreground">
+            {t("languages.title")}
           </h2>
           <p className="paragraph max-w-2xl mx-auto">
             {t("languages.subtitle")}

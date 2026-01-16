@@ -63,12 +63,9 @@ const Certifications = () => {
         once: true,
         margin: "-100px"
       }} variants={containerVariants}>
-          <motion.h2 variants={itemVariants} className="heading-lg mb-4 relative inline-block section-heading">
+          <motion.h2 variants={itemVariants} className="heading-lg mb-4 text-foreground">
             <Award className="inline-block h-8 w-8 mr-3 text-primary" />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-foreground">
-              {language === 'en' ? 'Certifications' : 'Zertifizierungen'}
-            </span>
-            <span className="absolute -bottom-2 left-1/2 w-1/2 h-1 bg-gradient-to-r from-primary via-accent to-primary transform -translate-x-1/2 rounded-full" />
+            {language === 'en' ? 'Certifications' : 'Zertifizierungen'}
           </motion.h2>
           <motion.p variants={itemVariants} className="paragraph">
             {language === 'en' ? 'Professional certifications demonstrating expertise and continuous learning' : 'Professionelle Zertifizierungen, die Fachwissen und kontinuierliches Lernen belegen'}
