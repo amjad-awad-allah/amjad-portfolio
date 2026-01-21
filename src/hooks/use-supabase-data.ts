@@ -23,7 +23,7 @@ export function usePersonalInfo() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Personal_Info')
+          .from('personal_info')
           .select('*')
           .single();
 
@@ -56,7 +56,7 @@ export function useProfessionalExperience() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Professional_Experience')
+          .from('professional_experience')
           .select('*')
           .order('start_date', { ascending: false });
 
@@ -89,7 +89,7 @@ export function useProjects() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Projects')
+          .from('projects')
           .select('*');
 
         if (error) throw error;
@@ -121,7 +121,7 @@ export function useTechnicalSkills() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Technical_Skills')
+          .from('technical_skills')
           .select('*')
           .order('skill_category');
 
@@ -154,7 +154,7 @@ export function useEducation() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Education')
+          .from('education')
           .select('*')
           .order('start_date', { ascending: false });
 
@@ -187,7 +187,7 @@ export function useCertifications() {
       try {
         setIsLoading(true);
         const { data, error } = await supabase
-          .from('Certifications')
+          .from('certifications')
           .select('*')
           .order('date_obtained', { ascending: false });
 
