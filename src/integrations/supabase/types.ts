@@ -83,7 +83,7 @@ export type Database = {
         }
         Relationships: []
       }
-      personal_Info: {
+      personal_info: {
         Row: {
           current_location: string
           cv_de: string | null
