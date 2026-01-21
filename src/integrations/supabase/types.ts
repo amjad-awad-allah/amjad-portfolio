@@ -14,7 +14,7 @@ export type Database = {
   }
   public: {
     Tables: {
-      Certifications: {
+      certifications: {
         Row: {
           badge_image_url: string | null
           certificate_url: string | null
@@ -50,7 +50,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Education: {
+      education: {
         Row: {
           degree_de: string
           degree_en: string
@@ -83,7 +83,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Personal_Info: {
+      personal_Info: {
         Row: {
           current_location: string
           cv_de: string | null
@@ -146,7 +146,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Professional_Experience: {
+      professional_experience: {
         Row: {
           company_name: string
           description_de: string
@@ -176,7 +176,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Projects: {
+      projects: {
         Row: {
           achievements: Json
           description_de: string
@@ -215,12 +215,12 @@ export type Database = {
             foreignKeyName: "projects_experience_id_fkey"
             columns: ["experience_id"]
             isOneToOne: false
-            referencedRelation: "Professional_Experience"
+            referencedRelation: "professional_experience"
             referencedColumns: ["id"]
           },
         ]
       }
-      Static_Content: {
+      static_content: {
         Row: {
           content_key: string
           de_text: string | null
@@ -244,7 +244,7 @@ export type Database = {
         }
         Relationships: []
       }
-      Technical_Skills: {
+      technical_skills: {
         Row: {
           id: number
           proficiency_level_de: string
